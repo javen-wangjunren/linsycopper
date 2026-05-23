@@ -162,4 +162,3 @@ if ( empty( $post_ids ) ) {
     outline-offset:2px;
 }
 </style>
-``
