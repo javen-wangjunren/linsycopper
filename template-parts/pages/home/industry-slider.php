@@ -92,7 +92,7 @@ window.<?php echo esc_attr( $instance_var ); ?> = <?php echo $slides_json; ?>;
 			<div class="lc-home-industry-bg absolute inset-0" :style="slide.bg ? { backgroundImage: 'url(' + slide.bg + ')' } : {}" x-show="idx === currentIndex" x-transition.opacity.duration.700ms></div>
 		</template>
 	</div>
-	<div class="absolute inset-0 bg-gradient-to-r from-[#0B3570] via-[#0B3570]/60 to-transparent"></div>
+	<div class="absolute inset-0 bg-gradient-to-r from-[#0B3570] via-[#0B3570]/60 to-transparent pointer-events-none"></div>
 
 	<div class="relative z-10 mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-8">
 		<div class="max-w-2xl text-white" x-show="slides && slides.length">

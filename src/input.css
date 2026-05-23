@@ -657,6 +657,7 @@
     position: absolute !important;
     top: 50% !important;
     transform: translateY(-50%) !important;
+    z-index: 20 !important;
     width: 44px !important;
     height: 44px !important;
     display: flex !important;
@@ -719,6 +720,7 @@
     left: 0 !important;
     right: 0 !important;
     bottom: 40px !important;
+    z-index: 20 !important;
     max-width: 1280px !important;
     margin-left: auto !important;
     margin-right: auto !important;
