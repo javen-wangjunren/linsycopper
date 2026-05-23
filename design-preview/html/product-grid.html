@@ -1,0 +1,108 @@
+<!-- Copper UI: Product Grid with Tabs -->
+<div x-data="{ activeTab: 'material' }" class="flex-1 mt-8 lg:mt-0 font-sans">
+    
+    <!-- Tabs Header -->
+    <div class="flex items-center gap-8 border-b border-gray-200 mb-8">
+        <!-- Tab: By Material -->
+        <button 
+            @click="activeTab = 'material'"
+            :class="activeTab === 'material' ? 'border-[#F97C30] text-[#0B3570] font-bold' : 'border-transparent text-gray-500 hover:text-[#0B3570]'"
+            class="pb-4 text-sm transition-colors border-b-2 outline-none"
+        >
+            By Material
+        </button>
+        
+        <!-- Tab: By Feature & Application -->
+        <button 
+            @click="activeTab = 'feature'"
+            :class="activeTab === 'feature' ? 'border-[#F97C30] text-[#0B3570] font-bold' : 'border-transparent text-gray-500 hover:text-[#0B3570]'"
+            class="pb-4 text-sm transition-colors border-b-2 outline-none"
+        >
+            By Feature & Application
+        </button>
+    </div>
+
+    <!-- Tab Content: By Material -->
+    <div x-show="activeTab === 'material'" x-transition.opacity class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Product Card 1 -->
+        <!-- Copper UI: Micro-Radius (rounded-sm) -->
+        <a href="/product/pure-copper-sheet" class="group block bg-white border border-gray-100 shadow-sm hover:shadow-md transition-shadow rounded-sm overflow-hidden">
+            <div class="aspect-[4/3] bg-gray-100 relative overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1622325303720-336712395568?auto=format&fit=crop&q=80&w=600" alt="Pure Copper Sheet" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+            </div>
+            <div class="p-4">
+                <!-- Copper UI: Theme Bridge (.text-heading) -->
+                <h3 class="text-lg font-bold text-heading text-[#0B3570] group-hover:text-[#F97C30] transition-colors mb-1">
+                    Pure Copper Sheet
+                </h3>
+                <p class="text-xs text-gray-500 font-mono">C11000 / C10100 / C10200</p>
+            </div>
+        </a>
+
+        <!-- Product Card 2 -->
+        <a href="/product/brass-sheet" class="group block bg-white border border-gray-100 shadow-sm hover:shadow-md transition-shadow rounded-sm overflow-hidden">
+            <div class="aspect-[4/3] bg-gray-100 relative overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1616606103915-dea7be788566?auto=format&fit=crop&q=80&w=600" alt="Brass Sheet" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+            </div>
+            <div class="p-4">
+                <h3 class="text-lg font-bold text-heading text-[#0B3570] group-hover:text-[#F97C30] transition-colors mb-1">
+                    Brass Sheet
+                </h3>
+                <p class="text-xs text-gray-500 font-mono">C26000 / C28000 / C36000</p>
+            </div>
+        </a>
+        
+        <!-- Product Card 3 -->
+        <a href="/product/bronze-sheet" class="group block bg-white border border-gray-100 shadow-sm hover:shadow-md transition-shadow rounded-sm overflow-hidden">
+            <div class="aspect-[4/3] bg-gray-100 relative overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1611689225722-17557d19a489?auto=format&fit=crop&q=80&w=600" alt="Bronze Sheet" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+            </div>
+            <div class="p-4">
+                <h3 class="text-lg font-bold text-heading text-[#0B3570] group-hover:text-[#F97C30] transition-colors mb-1">
+                    Bronze Sheet
+                </h3>
+                <p class="text-xs text-gray-500 font-mono">C51000 / C54400 / C61400</p>
+            </div>
+        </a>
+    </div>
+
+    <!-- Tab Content: By Feature -->
+    <div x-show="activeTab === 'feature'" x-cloak class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Feature Product 1 -->
+        <a href="#" class="group block bg-white border border-gray-100 shadow-sm hover:shadow-md transition-shadow rounded-sm overflow-hidden">
+            <div class="aspect-[4/3] bg-gray-100 relative overflow-hidden">
+                <img src="https://plus.unsplash.com/premium_photo-1664303847960-586318f59035?auto=format&fit=crop&q=80&w=600" alt="Lead Brass Plate" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+            </div>
+            <div class="p-4">
+                <h3 class="text-lg font-bold text-heading text-[#0B3570] group-hover:text-[#F97C30] transition-colors mb-1">
+                    Lead Brass Plate
+                </h3>
+                <p class="text-xs text-gray-500 font-mono">Machining / Engraving</p>
+            </div>
+        </a>
+
+        <!-- Feature Product 2 -->
+        <a href="#" class="group block bg-white border border-gray-100 shadow-sm hover:shadow-md transition-shadow rounded-sm overflow-hidden">
+            <div class="aspect-[4/3] bg-gray-100 relative overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1542831371-29b0f74f9713?auto=format&fit=crop&q=80&w=600" alt="Pre-Patinated Copper" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+            </div>
+            <div class="p-4">
+                <h3 class="text-lg font-bold text-heading text-[#0B3570] group-hover:text-[#F97C30] transition-colors mb-1">
+                    Pre-Patinated Copper
+                </h3>
+                <p class="text-xs text-gray-500 font-mono">Architectural / Roofing</p>
+            </div>
+        </a>
+    </div>
+
+    <!-- Pagination -->
+    <div class="mt-12 flex justify-center">
+        <nav class="flex gap-2">
+            <span class="px-4 py-2 border border-[#0B3570] bg-[#0B3570] text-white text-sm font-bold rounded-sm">1</span>
+            <a href="#" class="px-4 py-2 border border-gray-200 text-gray-600 hover:border-[#F97C30] hover:text-[#F97C30] text-sm font-bold transition rounded-sm">2</a>
+            <a href="#" class="px-4 py-2 border border-gray-200 text-gray-600 hover:border-[#F97C30] hover:text-[#F97C30] text-sm font-bold transition rounded-sm">3</a>
+            <span class="px-4 py-2 text-gray-400 text-sm">...</span>
+            <a href="#" class="px-4 py-2 border border-gray-200 text-gray-600 hover:border-[#F97C30] hover:text-[#F97C30] text-sm font-bold transition rounded-sm">Next &rarr;</a>
+        </nav>
+    </div>
+</div>

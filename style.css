@@ -1,0 +1,28 @@
+/*
+ Theme Name:   Now3DP Custom Theme
+ Theme URI:    https://now3dp.com
+ Description:  全定制 GeneratePress 子主题，集成 Tailwind CSS + ACF Pro。专为 Now3DP 站点开发。
+ Author:       Javen
+ Template:     generatepress
+ Version:      1.0.0
+*/
+
+
+/* 
+ * ==========================================================================
+ * 🚨 主题元数据与占位文件
+ * ==========================================================================
+ * 
+ * 作用：
+ * Test-3
+ * 1. WordPress 主题识别：上方的注释块是 WordPress 识别子主题及其父主题 (Template: generatepress) 的唯一依据。
+ * 2. 占位符：本文件仅作为“身份证”存在，不包含实际样式。
+ *
+ * ⚠️ 警告：
+ * - 不要修改 Template 字段：这会破坏子主题与父主题的关联。
+ * - 不要在此编写 CSS：所有样式请写在 src/input.css 中，通过 Tailwind 编译生成 assets/css/style.css。
+ * - 这里写的样式可能会被覆盖，或者无法享受 Tailwind 的原子化优势。
+ * 
+ * ==========================================================================
+ */
+

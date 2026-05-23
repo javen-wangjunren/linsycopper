@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linsy Metal | Copper, Brass & Bronze Materials</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: '#0B3570',      // 品牌主色 [cite: 54]
+                        action: '#F97C30',    // 行动色 [cite: 20]
+                        gold: '#F4BD5D',      // 点缀色
+                        industrial: '#F2F4F7' // 工业背景色 [cite: 55]
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'], // 现代感正文 [cite: 58]
+                        mono: ['JetBrains Mono', 'monospace'] // 物理参数读数感 
+                    },
+                    borderRadius: {
+                        'DEFAULT': '4px',     // 硬朗的工业圆角 [cite: 61]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-white font-sans text-slate-900 antialiased">
+
+    <main class="max-w-[1280px] mx-auto px-6 py-12">
+        
+        <nav class="flex items-center space-x-2 text-[10px] font-mono font-bold text-gray-400 uppercase tracking-widest mb-8">
+            <a href="#" class="hover:text-action transition flex items-center">
+                <svg class="w-3 h-3 mr-1.5" fill="currentColor" viewBox="0 0 20 20"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path></svg>
+                Home
+            </a>
+            <span>/</span>
+            <a href="#" class="hover:text-action transition">Catalog</a>
+            <span>/</span>
+            <span class="text-navy">By Material</span>
+        </nav>
+
+        <div class="flex flex-col md:flex-row justify-between items-start gap-8 mb-16">
+            <div class="max-w-3xl">
+                <h1 class="text-4xl md:text-5xl font-bold text-navy leading-tight uppercase tracking-tight mb-6">
+                    Linsy Copper <span class="text-action">Alloy Materials</span>
+                </h1>
+                <p class="text-lg text-slate-600 leading-relaxed">
+                    提供纯铜、黄铜、青铜及特殊合金的全系列解决方案。我们不仅提供现货，更致力于通过严格的成分控制与物理性能测试，为您的精密制造提供最可靠的原材料保障 [cite: 9, 11]。
+                </p>
+            </div>
+            <div class="shrink-0">
+                <a href="#" class="bg-navy hover:bg-navy/90 text-white font-bold px-10 py-4 rounded shadow-lg transition-all active:scale-95 uppercase tracking-widest text-xs flex items-center">
+                    Request MTR Report
+                    <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                </a>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            
+            <div class="border border-gray-200 group hover:border-action transition-all duration-300 flex flex-col bg-white">
+                <div class="aspect-[4/3] bg-industrial relative overflow-hidden p-8 border-b border-gray-100">
+                    <img src="https://via.placeholder.com/400x300/f2f4f7/0B3570?text=Pure+Copper+Texture" alt="Pure Copper" class="object-contain w-full h-full group-hover:scale-105 transition-transform duration-500">
+                    <div class="absolute top-0 right-0 bg-navy text-white font-mono text-[9px] px-3 py-1.5 font-bold uppercase tracking-widest">Purity > 99.9%</div>
+                </div>
+                <div class="p-8 flex-1 flex flex-col">
+                    <h3 class="text-xl font-bold text-navy mb-2 uppercase tracking-tight">Pure Copper Alloys</h3>
+                    <p class="text-[11px] text-slate-500 mb-6 leading-tight">卓越的导电与导热性能，专为电力设备与热交换系统设计 。</p>
+                    
+                    <div class="mb-8">
+                        <span class="block text-[10px] text-gray-400 uppercase font-bold tracking-widest mb-3 font-mono">Best Selling Grade</span>
+                        <div class="grid grid-cols-2 gap-2">
+                            <div class="bg-industrial py-2 text-center text-[11px] font-mono font-bold text-navy">C11000</div>
+                            <div class="bg-industrial py-2 text-center text-[11px] font-mono font-bold text-navy">C10100</div>
+                            <div class="bg-industrial py-2 text-center text-[11px] font-mono font-bold text-navy">C10200</div>
+                            <div class="bg-industrial py-2 text-center text-[11px] font-mono font-bold text-navy">C12200</div>
+                        </div>
+                    </div>
+
+                    <button class="mt-auto w-full bg-navy text-white text-[10px] font-bold py-3.5 uppercase tracking-widest hover:bg-action transition-colors">Explore Copper</button>
+                </div>
+            </div>
+
+            <div class="border border-gray-200 group hover:border-action transition-all duration-300 flex flex-col bg-white">
+                <div class="aspect-[4/3] bg-industrial relative overflow-hidden p-8 border-b border-gray-100">
+                    <img src="https://via.placeholder.com/400x300/f2f4f7/0B3570?text=Brass+Texture" alt="Brass" class="object-contain w-full h-full group-hover:scale-105 transition-transform duration-500">
+                </div>
+                <div class="p-8 flex-1 flex flex-col">
+                    <h3 class="text-xl font-bold text-navy mb-2 uppercase tracking-tight">Brass Alloys</h3>
+                    <p class="text-[11px] text-slate-500 mb-6 leading-tight">极佳的切削加工性与抗腐蚀性，适用于精密机械零件及装饰工程 [cite: 35]。</p>
+                    
+                    <div class="mb-8">
+                        <span class="block text-[10px] text-gray-400 uppercase font-bold tracking-widest mb-3 font-mono">Best Selling Grade</span>
+                        <div class="grid grid-cols-2 gap-2">
+                            <div class="bg-industrial py-2 text-center text-[11px] font-mono font-bold text-navy">C26000</div>
+                            <div class="bg-industrial py-2 text-center text-[11px] font-mono font-bold text-navy">C36000</div>
+                            <div class="bg-industrial py-2 text-center text-[11px] font-mono font-bold text-navy">C46400</div>
+                            <div class="bg-industrial py-2 text-center text-[11px] font-mono font-bold text-navy">C23000</div>
+                        </div>
+                    </div>
+
+                    <button class="mt-auto w-full bg-navy text-white text-[10px] font-bold py-3.5 uppercase tracking-widest hover:bg-action transition-colors">Explore Brass</button>
+                </div>
+            </div>
+
+            <div class="border border-gray-200 group hover:border-action transition-all duration-300 flex flex-col bg-white">
+                <div class="aspect-[4/3] bg-industrial relative overflow-hidden p-8 border-b border-gray-100">
+                    <img src="https://via.placeholder.com/400x300/f2f4f7/0B3570?text=Bronze+Texture" alt="Bronze" class="object-contain w-full h-full group-hover:scale-105 transition-transform duration-500">
+                </div>
+                <div class="p-8 flex-1 flex flex-col">
+                    <h3 class="text-xl font-bold text-navy mb-2 uppercase tracking-tight">Bronze Alloys</h3>
+                    <p class="text-[11px] text-slate-500 mb-6 leading-tight">高强度与卓越的耐磨性能，是重型工业轴承、衬套及齿轮的首选材质 [cite: 38]。</p>
+                    
+                    <div class="mb-8">
+                        <span class="block text-[10px] text-gray-400 uppercase font-bold tracking-widest mb-3 font-mono">Best Selling Grade</span>
+                        <div class="grid grid-cols-2 gap-2">
+                            <div class="bg-industrial py-2 text-center text-[11px] font-mono font-bold text-navy">C93200</div>
+                            <div class="bg-industrial py-2 text-center text-[11px] font-mono font-bold text-navy">C95400</div>
+                            <div class="bg-industrial py-2 text-center text-[11px] font-mono font-bold text-navy">C86300</div>
+                            <div class="bg-industrial py-2 text-center text-[11px] font-mono font-bold text-navy">C63000</div>
+                        </div>
+                    </div>
+
+                    <button class="mt-auto w-full bg-navy text-white text-[10px] font-bold py-3.5 uppercase tracking-widest hover:bg-action transition-colors">Explore Bronze</button>
+                </div>
+            </div>
+
+            </div>
+    </main>
+
+</body>
+</html>

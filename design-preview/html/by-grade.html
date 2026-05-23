@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linsy Metal | Alloy Grades Directory</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: '#0B3570',      // 品牌蓝
+                        action: '#F97C30',    // 红铜行动色
+                        gold: '#F4BD5D',      // 黄铜点缀色
+                        industrial: '#F2F4F7' // 工业背景色
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'] // 用于牌号和数值
+                    },
+                    borderRadius: {
+                        'DEFAULT': '4px',     // 工业硬朗微圆角
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-white font-sans text-slate-900 antialiased">
+
+    <main class="max-w-[1280px] mx-auto px-6 py-12">
+        
+        <nav class="flex items-center space-x-2 text-[10px] font-mono font-bold text-gray-400 uppercase tracking-widest mb-8">
+            <a href="#" class="hover:text-action transition">Home</a>
+            <span>/</span>
+            <span class="text-navy">Alloy Grades</span>
+        </nav>
+
+        <div class="flex flex-col md:flex-row justify-between items-start gap-8 mb-16">
+            <div class="max-w-3xl">
+                <h1 class="text-4xl md:text-5xl font-bold text-navy leading-tight uppercase tracking-tight mb-6">
+                    Copper <span class="text-action">Alloy Grades</span>
+                </h1>
+                <p class="text-lg text-slate-600 leading-relaxed">
+                    根据 UNS 编号系统精准划分的合金等级。从高导电纯铜到复杂的工程黄铜与青铜，我们提供符合 ASTM/ISO 标准的全系列牌号支持。
+                </p>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            
+            <div class="border border-gray-200 group hover:border-action transition-all duration-300 flex flex-col bg-white">
+                <div class="aspect-[4/3] bg-industrial relative overflow-hidden p-8 border-b border-gray-100">
+                    <img src="https://via.placeholder.com/400x300/f2f4f7/0B3570?text=C10000-C15000" alt="Pure Copper" class="object-contain w-full h-full group-hover:scale-105 transition-transform duration-500">
+                    <div class="absolute top-0 right-0 bg-navy text-white font-mono text-[9px] px-3 py-1.5 font-bold uppercase tracking-widest">Pure Copper</div>
+                </div>
+                <div class="p-8 flex-1 flex flex-col">
+                    <h3 class="text-xl font-bold text-navy mb-2 uppercase tracking-tight">C10000 - C15000</h3>
+                    <p class="text-[11px] text-slate-500 mb-6 font-semibold">包含 ETP、OFE 及银铜等高纯度合金系列。</p>
+                    
+                    <div class="mb-8">
+                        <span class="block text-[10px] text-gray-400 uppercase font-bold tracking-widest mb-3 font-mono">Popular Grades</span>
+                        <div class="grid grid-cols-2 gap-2">
+                            <div class="bg-industrial py-2 text-center text-[11px] font-mono font-bold text-navy">C11000</div>
+                            <div class="bg-industrial py-2 text-center text-[11px] font-mono font-bold text-navy">C10100</div>
+                            <div class="bg-industrial py-2 text-center text-[11px] font-mono font-bold text-navy">C10200</div>
+                            <div class="bg-industrial py-2 text-center text-[11px] font-mono font-bold text-navy">C14500</div>
+                        </div>
+                    </div>
+
+                    <button class="mt-auto w-full bg-navy text-white text-[10px] font-bold py-3.5 uppercase tracking-widest hover:bg-action transition-colors">View All Grades</button>
+                </div>
+            </div>
+
+            <div class="border border-gray-200 group hover:border-action transition-all duration-300 flex flex-col bg-white">
+                <div class="aspect-[4/3] bg-industrial relative overflow-hidden p-8 border-b border-gray-100">
+                    <img src="https://via.placeholder.com/400x300/f2f4f7/0B3570?text=C20000-C49900" alt="Brass Grades" class="object-contain w-full h-full group-hover:scale-105 transition-transform duration-500">
+                    <div class="absolute top-0 right-0 bg-navy text-white font-mono text-[9px] px-3 py-1.5 font-bold uppercase tracking-widest">Brass Alloys</div>
+                </div>
+                <div class="p-8 flex-1 flex flex-col">
+                    <h3 class="text-xl font-bold text-navy mb-2 uppercase tracking-tight">C20000 - C49900</h3>
+                    <p class="text-[11px] text-slate-500 mb-6 font-semibold">涵盖黄铜、铅黄铜、海军黄铜等工业级合金。</p>
+                    
+                    <div class="mb-8">
+                        <span class="block text-[10px] text-gray-400 uppercase font-bold tracking-widest mb-3 font-mono">Popular Grades</span>
+                        <div class="grid grid-cols-2 gap-2">
+                            <div class="bg-industrial py-2 text-center text-[11px] font-mono font-bold text-navy">C26000</div>
+                            <div class="bg-industrial py-2 text-center text-[11px] font-mono font-bold text-navy">C36000</div>
+                            <div class="bg-industrial py-2 text-center text-[11px] font-mono font-bold text-navy">C46400</div>
+                            <div class="bg-industrial py-2 text-center text-[11px] font-mono font-bold text-navy">C23000</div>
+                        </div>
+                    </div>
+
+                    <button class="mt-auto w-full bg-navy text-white text-[10px] font-bold py-3.5 uppercase tracking-widest hover:bg-action transition-colors">View All Grades</button>
+                </div>
+            </div>
+
+            <div class="border border-gray-200 group hover:border-action transition-all duration-300 flex flex-col bg-white">
+                <div class="aspect-[4/3] bg-industrial relative overflow-hidden p-8 border-b border-gray-100">
+                    <img src="https://via.placeholder.com/400x300/f2f4f7/0B3570?text=C50000-C79900" alt="Bronze Grades" class="object-contain w-full h-full group-hover:scale-105 transition-transform duration-500">
+                    <div class="absolute top-0 right-0 bg-navy text-white font-mono text-[9px] px-3 py-1.5 font-bold uppercase tracking-widest">Bronze Alloys</div>
+                </div>
+                <div class="p-8 flex-1 flex flex-col">
+                    <h3 class="text-xl font-bold text-navy mb-2 uppercase tracking-tight">C50000 - C79900</h3>
+                    <p class="text-[11px] text-slate-500 mb-6 font-semibold">包括磷青铜、铝青铜、硅青铜及特殊耐磨合金。</p>
+                    
+                    <div class="mb-8">
+                        <span class="block text-[10px] text-gray-400 uppercase font-bold tracking-widest mb-3 font-mono">Popular Grades</span>
+                        <div class="grid grid-cols-2 gap-2">
+                            <div class="bg-industrial py-2 text-center text-[11px] font-mono font-bold text-navy">C51000</div>
+                            <div class="bg-industrial py-2 text-center text-[11px] font-mono font-bold text-navy">C63000</div>
+                            <div class="bg-industrial py-2 text-center text-[11px] font-mono font-bold text-navy">C95400</div>
+                            <div class="bg-industrial py-2 text-center text-[11px] font-mono font-bold text-navy">C93200</div>
+                        </div>
+                    </div>
+
+                    <button class="mt-auto w-full bg-navy text-white text-[10px] font-bold py-3.5 uppercase tracking-widest hover:bg-action transition-colors">View All Grades</button>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+</body>
+</html>

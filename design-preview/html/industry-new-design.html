@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Industry Solutions Slider - Copper Specialist</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+    <style>
+        /* 自定义字体 */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* 自定义分页点样式 */
+        .swiper-pagination-bullet {
+            background: rgba(255, 255, 255, 0.4) !important;
+            opacity: 1;
+            width: 12px;
+            height: 12px;
+        }
+        .swiper-pagination-bullet-active {
+            background: #F97C30 !important; /* 品牌橙 */
+            width: 32px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+
+        /* 左右按钮自定义 */
+        .swiper-button-next, .swiper-button-prev {
+            color: #ffffff !important;
+            transition: all 0.3s ease;
+        }
+        .swiper-button-next:hover, .swiper-button-prev:hover {
+            color: #F97C30 !important;
+        }
+        
+        /* 响应式调整大图高度 */
+        .slider-height {
+            height: 750px;
+        }
+        @media (max-width: 768px) {
+            .slider-height {
+                height: 850px;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+
+    <section class="relative w-full slider-height bg-[#0B3570] overflow-hidden">
+        <div class="swiper industrySwiper h-full">
+            <div class="swiper-wrapper">
+                
+                <div class="swiper-slide relative h-full">
+                    <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&q=80&w=2000" 
+                         class="absolute inset-0 w-full h-full object-cover" alt="Automotive Copper Solutions">
+                    
+                    <div class="absolute inset-0 bg-gradient-to-r from-[#0B3570] via-[#0B3570]/60 to-transparent"></div>
+                    
+                    <div class="relative h-full max-w-7xl mx-auto px-6 lg:px-8 flex items-center">
+                        <div class="max-w-2xl text-white">
+                            <div class="flex items-center gap-2 mb-6">
+                                <span class="bg-[#F97C30] text-[10px] font-extrabold px-3 py-1 uppercase tracking-[0.2em]">
+                                    Automotive Industry
+                                </span>
+                                <div class="h-[1px] w-12 bg-white/30"></div>
+                            </div>
+                            
+                            <h2 class="text-4xl md:text-6xl font-extrabold leading-tight mb-6">
+                                High-Precision Copper for EV Battery Systems
+                            </h2>
+                            
+                            <p class="text-lg md:text-xl text-gray-200 mb-10 leading-relaxed font-light">
+                                <strong class="text-white font-semibold italic">Success Case:</strong> 
+                                We supplied high-conductivity C11000 busbars to a top European EV manufacturer, successfully reducing terminal heat by 12% under peak load conditions.
+                            </p>
+                            
+                            <div class="grid grid-cols-2 gap-8 mb-12 py-6 border-y border-white/10">
+                                <div class="flex flex-col">
+                                    <span class="text-gray-400 text-xs uppercase font-bold tracking-wider mb-1">Target Alloy</span>
+                                    <span class="text-2xl font-bold text-[#F97C30]">C11000 / ETP</span>
+                                </div>
+                                <div class="flex flex-col">
+                                    <span class="text-gray-400 text-xs uppercase font-bold tracking-wider mb-1">Key Performance</span>
+                                    <span class="text-2xl font-bold">101% IACS</span>
+                                </div>
+                            </div>
+
+                            <div class="flex flex-col sm:flex-row gap-4">
+                                <a href="#" class="inline-flex items-center justify-center bg-white text-[#0B3570] hover:bg-[#F97C30] hover:text-white font-bold px-10 py-4 transition-all duration-300 rounded-sm group">
+                                    Get a Specific Quote
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 group-hover:translate-x-2 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="swiper-slide relative h-full">
+                    <img src="https://images.unsplash.com/photo-1517976487492-5750f3195933?auto=format&fit=crop&q=80&w=2000" 
+                         class="absolute inset-0 w-full h-full object-cover" alt="Aerospace Application">
+                    <div class="absolute inset-0 bg-gradient-to-r from-[#0B3570] via-[#0B3570]/60 to-transparent"></div>
+                    <div class="relative h-full max-w-7xl mx-auto px-6 lg:px-8 flex items-center">
+                        <div class="max-w-2xl text-white">
+                            <div class="flex items-center gap-2 mb-6">
+                                <span class="bg-[#F97C30] text-[10px] font-extrabold px-3 py-1 uppercase tracking-[0.2em]">
+                                    Aerospace & Defense
+                                </span>
+                                <div class="h-[1px] w-12 bg-white/30"></div>
+                            </div>
+                            <h2 class="text-4xl md:text-6xl font-extrabold leading-tight mb-6">
+                                Beryllium Copper for Extreme Environments
+                            </h2>
+                            <p class="text-lg md:text-xl text-gray-200 mb-10 leading-relaxed font-light">
+                                <strong class="text-white font-semibold italic">Success Case:</strong> 
+                                Our C17200 Beryllium Copper components are now integrated into satellite telemetry systems, offering unmatched fatigue resistance and shielding.
+                            </p>
+                            <div class="grid grid-cols-2 gap-8 mb-12 py-6 border-y border-white/10">
+                                <div class="flex flex-col">
+                                    <span class="text-gray-400 text-xs uppercase font-bold tracking-wider mb-1">Target Alloy</span>
+                                    <span class="text-2xl font-bold text-[#F97C30]">C17200 / BeCu</span>
+                                </div>
+                                <div class="flex flex-col">
+                                    <span class="text-gray-400 text-xs uppercase font-bold tracking-wider mb-1">Key Performance</span>
+                                    <span class="text-2xl font-bold">Anti-fatigue</span>
+                                </div>
+                            </div>
+                            <a href="#" class="inline-flex items-center justify-center bg-white text-[#0B3570] hover:bg-[#F97C30] hover:text-white font-bold px-10 py-4 transition-all duration-300 rounded-sm group">
+                                Get a Specific Quote
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="swiper-button-next hidden md:flex"></div>
+            <div class="swiper-button-prev hidden md:flex"></div>
+            
+            <div class="swiper-pagination !bottom-10 !text-left max-w-7xl mx-auto px-6 lg:px-8"></div>
+        </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+        const swiper = new Swiper('.industrySwiper', {
+            loop: true,
+            speed: 1000,
+            effect: 'fade', // 沉浸式方案推荐用淡入淡出，比左右滑动更有质感
+            fadeEffect: {
+                crossFade: true
+            },
+            autoplay: {
+                delay: 6000,
+                disableOnInteraction: false,
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+        });
+    </script>
+</body>
+</html>

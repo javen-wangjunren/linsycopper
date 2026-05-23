@@ -1,0 +1,120 @@
+<!-- Copper UI: Category Sidebar -->
+<!-- Note: This is a prototype. In production, 'x-data' will be populated by PHP wp_localize_script or similar -->
+<aside
+    x-data="{
+        drawerOpen: false,
+        searchQuery: '',
+        grades: [
+            { name: 'C11000 ETP Copper', url: '/product/c11000' },
+            { name: 'C10100 Oxygen Free', url: '/product/c10100' },
+            { name: 'C26000 Cartridge Brass', url: '/product/c26000' },
+            { name: 'C36000 Free Cutting Brass', url: '/product/c36000' },
+            { name: 'C51000 Phosphor Bronze', url: '/product/c51000' }
+        ],
+        get filteredGrades() {
+            if (this.searchQuery === '') return this.grades;
+            return this.grades.filter(grade => 
+                grade.name.toLowerCase().includes(this.searchQuery.toLowerCase())
+            );
+        }
+    }"
+    class="relative font-sans"
+>
+    <!-- Mobile Toggle (Sticky) -->
+    <div class="lg:hidden sticky top-0 z-40 bg-white border-b border-gray-100 px-6 py-4 flex items-center justify-between">
+        <span class="text-xs font-bold text-heading text-[#0B3570]">Filter Catalog</span>
+        <!-- Copper UI: Micro-Radius (rounded-sm) -->
+        <button @click="drawerOpen = !drawerOpen" class="p-2 bg-[#0B3570] text-white rounded-sm">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
+        </button>
+    </div>
+
+    <!-- Sidebar Container -->
+    <div 
+        :class="drawerOpen ? 'translate-x-0' : '-translate-x-full'"
+        class="fixed inset-y-0 left-0 z-50 w-72 bg-white p-8 overflow-y-auto transition-transform lg:static lg:w-72 lg:translate-x-0 lg:p-0 lg:block shadow-xl lg:shadow-none border-r border-gray-100 lg:border-none"
+    >
+        <!-- Mobile Close -->
+        <div class="flex items-center justify-between mb-8 lg:hidden">
+            <span class="text-sm font-bold text-heading text-[#0B3570]">Filters</span>
+            <button @click="drawerOpen = false" class="text-gray-400">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+            </button>
+        </div>
+
+        <div class="space-y-10">
+            <!-- 1. Shapes Filter -->
+            <div>
+                <!-- Copper UI: Theme Bridge (.text-heading) -->
+                <h3 class="text-xs font-bold text-heading text-[#0B3570] border-b border-gray-100 pb-2 mb-4">
+                    Copper Shapes
+                </h3>
+                <nav class="flex flex-col border-l border-gray-100">
+                    <!-- Active Item Example -->
+                    <a href="#" class="px-4 py-2 text-sm font-bold text-[#0B3570] bg-slate-50 border-l-2 border-[#F97C30]">
+                        Sheet & Plate
+                    </a>
+                    <!-- Inactive Items -->
+                    <a href="#" class="px-4 py-2 text-sm text-gray-500 hover:bg-gray-50 transition">Round Bar</a>
+                    <a href="#" class="px-4 py-2 text-sm text-gray-500 hover:bg-gray-50 transition">Tube & Pipe</a>
+                </nav>
+            </div>
+
+            <!-- 2. Materials Filter -->
+            <div>
+                <h3 class="text-xs font-bold text-heading text-[#0B3570] border-b border-gray-100 pb-2 mb-4">
+                    Copper Material
+                </h3>
+                <nav class="flex flex-col border-l border-gray-100">
+                    <a href="#" class="px-4 py-2 text-sm text-gray-500 hover:bg-gray-50 transition">Pure Copper</a>
+                    <a href="#" class="px-4 py-2 text-sm text-gray-500 hover:bg-gray-50 transition">Brass</a>
+                    <a href="#" class="px-4 py-2 text-sm text-gray-500 hover:bg-gray-50 transition">Bronze</a>
+                </nav>
+            </div>
+
+            <!-- 3. Grade Search Filter -->
+            <div>
+                <div class="flex items-center justify-between border-b border-gray-100 pb-2 mb-4">
+                    <h3 class="text-xs font-bold text-heading text-[#0B3570]">
+                        Copper Grade
+                    </h3>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+                </div>
+                
+                <!-- Search Input -->
+                <div class="mb-4">
+                    <!-- Copper UI: Micro-Radius (rounded-sm) & Focus State -->
+                    <input 
+                        type="text" 
+                        x-model="searchQuery" 
+                        placeholder="Type C110 to search..." 
+                        class="w-full bg-[#F2F4F7] border border-gray-200 px-3 py-2 text-[11px] font-mono placeholder:text-gray-400 focus:border-[#F97C30] outline-none transition-colors rounded-sm"
+                    >
+                </div>
+
+                <!-- Search Results / Grade List -->
+                <nav class="flex flex-col border-l border-gray-100 max-h-60 overflow-y-auto font-mono text-[11px]">
+                    <template x-for="grade in filteredGrades" :key="grade.url">
+                        <a :href="grade.url" class="px-4 py-2 text-gray-500 hover:text-[#0B3570] hover:bg-gray-50 border-l border-transparent transition" x-text="grade.name"></a>
+                    </template>
+                    
+                    <!-- No Match State -->
+                    <div x-show="filteredGrades.length === 0" class="px-4 py-4 text-center text-gray-400">
+                        <p class="mb-2">No match found</p>
+                        <!-- Copper UI: Interaction (Action Color) -->
+                        <a href="/contact-us" class="text-[#F97C30] underline hover:text-[#0B3570] transition">
+                            Request Custom Quote &rarr;
+                        </a>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Backdrop for Mobile -->
+    <div 
+        x-show="drawerOpen" 
+        @click="drawerOpen = false"
+        class="fixed inset-0 bg-[#0B3570]/60 z-40 lg:hidden"
+    ></div>
+</aside>
