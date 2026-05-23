@@ -87,11 +87,11 @@
                 data.append(key, this.formData[key]);
             }
             if (this.attachment) data.append('attachment', this.attachment);
-            data.append('_wpnonce', '<?php echo wp_create_nonce( 'consult_nonce' ); ?>');
 
             try {
                 const response = await fetch('/wp-json/linsy/v1/consult', {
                     method: 'POST',
+                    credentials: 'omit',
                     body: data
                 });
                 const result = await response.json();

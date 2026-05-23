@@ -54,20 +54,14 @@ function handle_consult_form_submission( $request ) {
 
 	// --- Anti-Spam Logic Start ---
 	
-	// A. Nonce Check (CSRF Protection)
-	$nonce = $params['_wpnonce'] ?? '';
-	if ( ! wp_verify_nonce( $nonce, 'consult_nonce' ) ) {
-		return new WP_Error( 'invalid_nonce', 'Invalid request. Please refresh the page.', array( 'status' => 403 ) );
-	}
-
-	// B. Honeypot Check
+	// A. Honeypot Check
 	// If the hidden field 'website_url' is filled, it's a bot.
 	if ( ! empty( $params['website_url'] ) ) {
 		// Return success to fool the bot, but do nothing.
 		return new WP_REST_Response( array( 'success' => true, 'message' => 'Message sent.' ), 200 );
 	}
 
-	// C. Rate Limiting (10 minutes per IP)
+	// B. Rate Limiting (10 minutes per IP)
 	$ip = $_SERVER['REMOTE_ADDR'];
 	// Use a hashed IP for the transient key to be safe
 	$lock_key = 'consult_limit_' . md5( $ip );
@@ -76,7 +70,7 @@ function handle_consult_form_submission( $request ) {
 		return new WP_Error( 'rate_limit_exceeded', 'Too many requests. Please try again in 10 minutes.', array( 'status' => 429 ) );
 	}
 	
-	// D. Cloudflare Turnstile Check
+	// C. Cloudflare Turnstile Check
 	$turnstile_token = $params['cf-turnstile-response'] ?? '';
 	if ( empty( $turnstile_token ) ) {
 		return new WP_Error( 'turnstile_missing', 'Security check failed. Please refresh the page.', array( 'status' => 403 ) );
