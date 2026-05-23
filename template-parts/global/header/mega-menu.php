@@ -46,8 +46,7 @@ $hide_classes = "opacity-0 -translate-y-2 pointer-events-none";
 		x-transition:leave="transition ease-in duration-150"
 		x-transition:leave-start="opacity-100 translate-y-0"
 		x-transition:leave-end="opacity-0 -translate-y-2"
-		class="fixed left-0 right-0 z-40 top-[<?php echo isset($args['header_height']) ? $args['header_height'] : '80px'; ?>]" 
-		style="top: 80px;" 
+		class="lc-mega-menu-scope fixed left-0 right-0 z-40 top-[60px]" 
 		@mouseenter="openMenu = <?php echo $index; ?>"
 		@mouseleave="openMenu = null"
 	>
@@ -62,7 +61,7 @@ $hide_classes = "opacity-0 -translate-y-2 pointer-events-none";
 							Shop <?php echo esc_html( $item->title ); ?>
 						</span>
 					</div>
-					<a href="<?php echo esc_url( $item->url ); ?>" class="flex items-center gap-1 text-xs font-semibold text-action-copper hover:text-[#e06b20] transition-colors">
+					<a href="<?php echo esc_url( $item->url ); ?>" class="lc-mega-viewall flex items-center gap-1 text-xs font-semibold text-action-copper hover:text-[#e06b20] transition-colors">
 						View all <?php echo esc_html( $item->title ); ?>
 						<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3 h-3"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
 					</a>
@@ -73,16 +72,16 @@ $hide_classes = "opacity-0 -translate-y-2 pointer-events-none";
 					<?php foreach ( $item->children as $col ) : ?>
 						<div class="flex flex-col gap-2">
 							<!-- Column Heading -->
-							<a href="<?php echo esc_url( $col->url ); ?>" class="text-sm font-semibold text-primary-blue hover:text-action-copper transition-colors pb-2 border-b border-border">
+							<a href="<?php echo esc_url( $col->url ); ?>" class="lc-mega-l2 text-sm font-semibold text-primary-blue hover:text-action-copper transition-colors pb-2 border-b border-border">
 								<?php echo esc_html( $col->title ); ?>
 							</a>
 							
 							<!-- Sub Items -->
 							<?php if ( ! empty( $col->children ) ) : ?>
-								<ul class="flex flex-col gap-1">
+								<ul class="flex flex-col gap-1 list-none m-0 p-0">
 									<?php foreach ( $col->children as $sub ) : ?>
 										<li>
-											<a href="<?php echo esc_url( $sub->url ); ?>" class="text-sm text-body hover:text-action-copper transition-colors leading-relaxed block py-0.5 font-mono">
+											<a href="<?php echo esc_url( $sub->url ); ?>" class="lc-mega-l3 text-sm text-body hover:text-action-copper transition-colors leading-relaxed block py-0.5 font-mono">
 												<?php echo esc_html( $sub->title ); ?>
 											</a>
 										</li>
@@ -113,7 +112,7 @@ $hide_classes = "opacity-0 -translate-y-2 pointer-events-none";
 	>
 		<div class="bg-white border border-border rounded-sm shadow-[0_8px_24px_rgba(11,53,112,0.12)] overflow-hidden py-1">
 			<?php foreach ( $item->children as $child ) : ?>
-				<a href="<?php echo esc_url( $child->url ); ?>" class="flex items-center gap-2 px-4 py-2.5 text-sm text-heading hover:bg-bg-section hover:text-action-copper transition-colors">
+				<a href="<?php echo esc_url( $child->url ); ?>" class="flex items-center gap-2 px-4 py-2.5 text-sm text-primary-blue hover:bg-bg-section hover:text-action-copper transition-colors">
 					<?php echo esc_html( $child->title ); ?>
 				</a>
 			<?php endforeach; ?>

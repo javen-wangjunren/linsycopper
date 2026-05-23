@@ -39,7 +39,7 @@ if ( ! $cta_link ) $cta_link = '/contact';
 	<!-- Header Container with Alpine.js State -->
 	<header
 		x-data="{ openMenu: null, mobileOpen: false }" 
-		class="sticky top-0 z-50 bg-primary-blue shadow-[0_2px_16px_rgba(11,53,112,0.3)]"
+		class="lc-header-scope sticky top-0 z-50 bg-primary-blue shadow-[0_2px_16px_rgba(11,53,112,0.3)]"
 		@mouseleave="openMenu = null"
 	>
 		<nav class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8" aria-label="Main navigation">
@@ -76,7 +76,7 @@ if ( ! $cta_link ) $cta_link = '/contact';
 
 							<a
 								href="<?php echo esc_url( $item->url ); ?>"
-								class="relative z-10 flex items-center gap-1 px-3 py-2 text-[13px] font-medium transition-colors rounded-sm text-white/90 hover:text-white hover:bg-white/10"
+								class="lc-header-nav-link relative z-10 flex items-center gap-1 px-3 py-2 text-[14px] font-semibold transition-colors rounded-sm text-white hover:text-white hover:bg-white/10"
 								:class="{ 'bg-white/10 text-white': openMenu === <?php echo $index; ?> }"
 							>
 								<?php echo esc_html( $item->title ); ?>

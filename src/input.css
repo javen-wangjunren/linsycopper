@@ -96,6 +96,34 @@
     text-decoration-line: none !important;
   }
 
+  body.lc-app #menu-products,
+  body.lc-app #menu-company {
+    margin: 0 !important;
+    padding: 0 !important;
+    list-style: none !important;
+  }
+
+  body.lc-app #menu-products > li + li,
+  body.lc-app #menu-company > li + li {
+    margin-top: 1rem !important;
+  }
+
+  body.lc-app #menu-products a,
+  body.lc-app #menu-company a,
+  body.lc-app #menu-products a:visited,
+  body.lc-app #menu-company a:visited {
+    color: #ffffff !important;
+  }
+
+  body.lc-app #menu-products a:hover,
+  body.lc-app #menu-company a:hover,
+  body.lc-app #menu-products a:focus,
+  body.lc-app #menu-company a:focus,
+  body.lc-app #menu-products a:active,
+  body.lc-app #menu-company a:active {
+    color: #F4BD5D !important;
+  }
+
   body.lc-app .prose ul,
   body.lc-app .prose ol {
     margin: 0 !important;
@@ -295,6 +323,68 @@
   .lc-header-cta:focus,
   .lc-header-cta:active {
     color: #ffffff !important;
+    text-decoration: none !important;
+    text-decoration-line: none !important;
+  }
+
+  .lc-header-scope .lc-header-nav-link,
+  .lc-header-scope .lc-header-nav-link:visited,
+  .lc-header-scope .lc-header-nav-link:hover,
+  .lc-header-scope .lc-header-nav-link:focus,
+  .lc-header-scope .lc-header-nav-link:active {
+    font-weight: 600 !important;
+    font-size: 14px !important;
+    color: #ffffff !important;
+    text-decoration: none !important;
+    text-decoration-line: none !important;
+  }
+
+  .lc-mega-menu-scope ul,
+  .lc-mega-menu-scope ol {
+    list-style: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .lc-mega-menu-scope li {
+    list-style: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .lc-mega-menu-scope .lc-mega-l2,
+  .lc-mega-menu-scope .lc-mega-l2:visited {
+    color: #0B3570 !important;
+    text-decoration: none !important;
+    text-decoration-line: none !important;
+  }
+
+  .lc-mega-menu-scope .lc-mega-l2:hover,
+  .lc-mega-menu-scope .lc-mega-l2:focus,
+  .lc-mega-menu-scope .lc-mega-l2:active {
+    color: #F97C30 !important;
+    text-decoration: none !important;
+    text-decoration-line: none !important;
+  }
+
+  .lc-mega-menu-scope .lc-mega-l3,
+  .lc-mega-menu-scope .lc-mega-l3:visited {
+    color: #6B7280 !important;
+    text-decoration: none !important;
+    text-decoration-line: none !important;
+  }
+
+  .lc-mega-menu-scope .lc-mega-l3:hover,
+  .lc-mega-menu-scope .lc-mega-l3:focus,
+  .lc-mega-menu-scope .lc-mega-l3:active {
+    color: #F97C30 !important;
+    text-decoration: none !important;
+    text-decoration-line: none !important;
+  }
+
+  .lc-mega-menu-scope .lc-mega-viewall,
+  .lc-mega-menu-scope .lc-mega-viewall:visited {
+    color: #F97C30 !important;
     text-decoration: none !important;
     text-decoration-line: none !important;
   }
