@@ -37,6 +37,15 @@ $hide_classes = "opacity-0 -translate-y-2 pointer-events-none";
 ?>
 
 <?php if ( $is_mega ) : ?>
+	<?php
+	$col_count = is_array( $item->children ) ? count( $item->children ) : 1;
+	if ( $col_count < 1 ) $col_count = 1;
+	if ( $col_count > 4 ) $col_count = 4;
+	$grid_cols_class = 'grid-cols-1';
+	if ( $col_count === 2 ) $grid_cols_class = 'grid-cols-2';
+	if ( $col_count === 3 ) $grid_cols_class = 'grid-cols-3';
+	if ( $col_count === 4 ) $grid_cols_class = 'grid-cols-4';
+	?>
 	<!-- Mega Menu Panel (Full Width) -->
 	<div
 		x-show="openMenu === <?php echo $index; ?>"
@@ -68,7 +77,7 @@ $hide_classes = "opacity-0 -translate-y-2 pointer-events-none";
 				</div>
 
 				<!-- Columns -->
-				<div class="grid py-6 gap-x-6 grid-cols-<?php echo count( $item->children ); ?>">
+				<div class="grid py-6 gap-x-6 <?php echo esc_attr( $grid_cols_class ); ?>">
 					<?php foreach ( $item->children as $col ) : ?>
 						<div class="flex flex-col gap-2">
 							<!-- Column Heading -->

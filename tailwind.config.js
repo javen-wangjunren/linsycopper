@@ -40,6 +40,13 @@ module.exports = {
     "./*.php",
   ],
 
+  safelist: [
+    "grid-cols-1",
+    "grid-cols-2",
+    "grid-cols-3",
+    "grid-cols-4",
+  ],
+
   // 2. Dark Mode Strategy (暗色模式策略)
   // 使用 class 策略，通过在 <html> 上添加 .dark 类切换暗色主题。
  
