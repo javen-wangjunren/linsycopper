@@ -55,7 +55,7 @@ $copyright_text = str_replace( '{year}', $current_year, $copyright_text );
 				wp_nav_menu( array(
 					'theme_location' => 'footer_products',
 					'container'      => false,
-					'menu_class'     => 'space-y-3 text-sm',
+					'menu_class'     => 'lc-footer-menu-list text-sm',
 					'fallback_cb'    => false,
 					'depth'          => 1,
 					'link_before'    => '',
@@ -74,7 +74,7 @@ $copyright_text = str_replace( '{year}', $current_year, $copyright_text );
 				wp_nav_menu( array(
 					'theme_location' => 'footer_company',
 					'container'      => false,
-					'menu_class'     => 'space-y-3 text-sm',
+					'menu_class'     => 'lc-footer-menu-list text-sm',
 					'fallback_cb'    => false,
 					'depth'          => 1,
 					'items_wrap'     => '<ul id="%1$s" class="%2$s">%3$s</ul>',

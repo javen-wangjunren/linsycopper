@@ -96,31 +96,56 @@
     text-decoration-line: none !important;
   }
 
-  body.lc-app #menu-products,
-  body.lc-app #menu-company {
+  body.lc-app footer .lc-footer-menu-list,
+  body.lc-app footer #menu-footer-products,
+  body.lc-app footer #menu-footer-company,
+  body.lc-app footer #menu-products,
+  body.lc-app footer #menu-company {
     margin: 0 !important;
     padding: 0 !important;
     list-style: none !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 1rem !important;
   }
 
-  body.lc-app #menu-products > li + li,
-  body.lc-app #menu-company > li + li {
-    margin-top: 1rem !important;
+  body.lc-app footer .lc-footer-menu-list li,
+  body.lc-app footer #menu-footer-products li,
+  body.lc-app footer #menu-footer-company li,
+  body.lc-app footer #menu-products li,
+  body.lc-app footer #menu-company li {
+    margin: 0 !important;
+    padding: 0 !important;
   }
 
-  body.lc-app #menu-products a,
-  body.lc-app #menu-company a,
-  body.lc-app #menu-products a:visited,
-  body.lc-app #menu-company a:visited {
+  body.lc-app footer .lc-footer-menu-list a,
+  body.lc-app footer #menu-footer-products a,
+  body.lc-app footer #menu-footer-company a,
+  body.lc-app footer #menu-products a,
+  body.lc-app footer #menu-company a,
+  body.lc-app footer .lc-footer-menu-list a:visited,
+  body.lc-app footer #menu-footer-products a:visited,
+  body.lc-app footer #menu-footer-company a:visited,
+  body.lc-app footer #menu-products a:visited,
+  body.lc-app footer #menu-company a:visited {
     color: #ffffff !important;
   }
 
-  body.lc-app #menu-products a:hover,
-  body.lc-app #menu-company a:hover,
-  body.lc-app #menu-products a:focus,
-  body.lc-app #menu-company a:focus,
-  body.lc-app #menu-products a:active,
-  body.lc-app #menu-company a:active {
+  body.lc-app footer .lc-footer-menu-list a:hover,
+  body.lc-app footer #menu-footer-products a:hover,
+  body.lc-app footer #menu-footer-company a:hover,
+  body.lc-app footer #menu-products a:hover,
+  body.lc-app footer #menu-company a:hover,
+  body.lc-app footer .lc-footer-menu-list a:focus,
+  body.lc-app footer #menu-footer-products a:focus,
+  body.lc-app footer #menu-footer-company a:focus,
+  body.lc-app footer #menu-products a:focus,
+  body.lc-app footer #menu-company a:focus,
+  body.lc-app footer .lc-footer-menu-list a:active,
+  body.lc-app footer #menu-footer-products a:active,
+  body.lc-app footer #menu-footer-company a:active,
+  body.lc-app footer #menu-products a:active,
+  body.lc-app footer #menu-company a:active {
     color: #F4BD5D !important;
   }
 
