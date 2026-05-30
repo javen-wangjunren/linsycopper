@@ -81,12 +81,12 @@ if ( empty( $stats ) ) {
 	style="background-image: linear-gradient(to bottom, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.35) 50%, rgba(0,0,0,0.60) 100%), url('<?php echo esc_url( $bg_image_url ); ?>');"
 >
 	<!-- Content Container (flex-1 ensures it pushes stats to bottom) -->
-	<div class="relative z-10 flex-1 flex flex-col justify-center mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-8 pt-[120px] pb-[60px]">
+	<div class="relative z-10 flex-1 flex flex-col justify-center mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-8 pt-[96px] pb-[32px] sm:pt-[120px] sm:pb-[60px]">
 		
 		<div class="max-w-4xl">
 			<!-- 1. Certifications (Industrial Tags) -->
 			<?php if ( ! empty( $certs ) ) : ?>
-				<div class="flex flex-wrap items-center gap-6 mb-10">
+				<div class="flex flex-wrap items-center gap-4 mb-8 md:gap-6 md:mb-10">
 					<?php foreach ( $certs as $cert ) : 
 						$cert_text = is_array( $cert ) ? $cert['text'] : $cert;
 					?>
@@ -99,7 +99,7 @@ if ( empty( $stats ) ) {
 			<?php endif; ?>
 
 			<!-- 2. Headline (Machined Impact) -->
-			<h1 class="text-5xl md:text-7xl lg:text-[88px] font-bold text-white leading-[1] tracking-tight text-balance mb-8 text-heading">
+			<h1 class="!text-[42px] sm:!text-5xl md:!text-7xl lg:!text-[88px] font-bold text-white !leading-[1] tracking-tight text-balance mb-8 text-heading">
 				<?php if ( '' !== trim( (string) $headline ) || '' !== trim( (string) $headline_highlight ) ) : ?>
 					<?php echo esc_html( $headline ); ?>
 					<?php if ( '' !== trim( (string) $headline_highlight ) ) : ?>
@@ -112,7 +112,7 @@ if ( empty( $stats ) ) {
 			</h1>
 
 			<!-- 3. Description (Clean Industrial) -->
-			<p class="text-lg md:text-xl text-white/80 leading-relaxed max-w-2xl mb-12">
+			<p class="text-lg md:text-xl text-white/80 leading-relaxed max-w-2xl mb-10 md:mb-12">
 				<?php
 				$description_html = wp_kses(
 					nl2br( html_entity_decode( (string) $description, ENT_QUOTES, 'UTF-8' ) ),
@@ -129,7 +129,7 @@ if ( empty( $stats ) ) {
 			</p>
 
 			<!-- 4. CTAs (Action Oriented) -->
-			<div class="flex flex-wrap gap-5 mb-16">
+			<div class="flex flex-wrap gap-5 mb-10 md:mb-16">
 				<!-- Primary CTA -->
 				<?php if ( $cta_primary ) : ?>
 					<a
@@ -169,15 +169,15 @@ if ( empty( $stats ) ) {
 
 	<!-- 5. Stats Dashboard (Anchored to Bottom, Seamless Background) -->
 	<div class="relative z-10 w-full border-t border-white/10 bg-black/20 backdrop-blur-sm">
-		<div class="mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-8 py-10">
+		<div class="mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-8 py-6 sm:py-10">
 			<?php if ( ! empty( $stats ) ) : ?>
-				<div class="grid grid-cols-2 sm:grid-cols-4 gap-10 md:gap-16">
+				<div class="grid grid-cols-2 sm:grid-cols-4 gap-8 md:gap-16">
 					<?php foreach ( $stats as $stat ) : 
 						$val = is_array( $stat ) ? $stat['value'] : $stat['value'];
 						$lbl = is_array( $stat ) ? $stat['label'] : $stat['label'];
 					?>
 						<div class="group">
-							<div class="font-mono text-3xl md:text-4xl font-bold text-[#F4BD5D] mb-1.5 transition-transform group-hover:scale-105 inline-block">
+							<div class="font-mono text-2xl sm:text-3xl md:text-4xl font-bold text-[#F4BD5D] mb-1.5 transition-transform group-hover:scale-105 inline-block">
 								<?php echo esc_html( $val ); ?>
 							</div>
 							<div class="text-[10px] md:text-[11px] font-bold uppercase tracking-[0.2em] text-white/50 leading-tight">

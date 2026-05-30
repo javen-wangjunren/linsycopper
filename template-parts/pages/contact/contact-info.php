@@ -44,7 +44,7 @@ if ( is_array( $title_tokens ) && count( $title_tokens ) >= 2 ) {
 			<?php endif; ?>
 		</div>
 
-		<div class="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+		<div class="grid grid-cols-2 gap-4 md:gap-6 lg:grid-cols-4">
 			<?php foreach ( $methods as $method ) : ?>
 				<?php
 				$icon_id = isset( $method['icon'] ) ? (int) $method['icon'] : 0;

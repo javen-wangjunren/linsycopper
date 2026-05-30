@@ -66,11 +66,6 @@ if ( ! is_string( $apps_json ) || $apps_json === '' ) {
 	$apps_json = '[]';
 }
 
-$first_app = isset( $apps_data[0] ) && is_array( $apps_data[0] ) ? $apps_data[0] : null;
-$first_title = $first_app['title'] ?? '';
-$first_desc = $first_app['description'] ?? '';
-$first_image = $first_app['image'] ?? '';
-$fallback_image = $first_image ?: 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==';
 $apps_var = 'LC_PRODUCT_APPS_' . (int) get_the_ID();
 ?>
 
@@ -78,113 +73,206 @@ $apps_var = 'LC_PRODUCT_APPS_' . (int) get_the_ID();
 window.<?php echo esc_attr( $apps_var ); ?> = <?php echo $apps_json; ?>;
 </script>
 
-<section id="applications" class="relative overflow-hidden bg-[#F8FAFC] pt-[96px] pb-[96px]">
-	<div class="pointer-events-none absolute inset-0 opacity-[0.035] [background-image:radial-gradient(#0B3570_1px,transparent_1px)] [background-size:26px_26px]"></div>
-	<div class="pointer-events-none absolute inset-0 opacity-[0.025] [background-image:repeating-linear-gradient(135deg,rgba(11,53,112,0.40)_0px,rgba(11,53,112,0.40)_1px,transparent_1px,transparent_52px)]"></div>
+<section id="applications" class="lc-product-applications bg-[#F8FAFC] pt-[100px] pb-16">
+	<style>
+	.lc-product-applications .lc-app-nav-btn{
+		background:#fff;
+		border:2px solid #0B3570;
+		color:#0B3570;
+		padding:8px;
+		border-radius:9999px;
+		box-shadow:0 10px 15px -3px rgba(0,0,0,.10),0 4px 6px -4px rgba(0,0,0,.10);
+		transition:background-color .15s ease,color .15s ease,border-color .15s ease;
+	}
+	.lc-product-applications .lc-app-nav-btn:hover{
+		background:#0B3570;
+		color:#fff;
+	}
+	.lc-product-applications .lc-app-nav-btn:focus{
+		outline:0;
+	}
+	.lc-product-applications .lc-app-nav-btn:focus-visible{
+		box-shadow:0 0 0 2px rgba(11,53,112,.30),0 10px 15px -3px rgba(0,0,0,.10),0 4px 6px -4px rgba(0,0,0,.10);
+	}
+	.lc-product-applications .lc-app-dot{
+		height:8px;
+		width:8px;
+		border-radius:9999px;
+		background:#D1D5DB;
+		padding:0;
+		border:0;
+		box-shadow:none;
+		cursor:pointer;
+		transition:width .15s ease,background-color .15s ease,border-radius .15s ease;
+	}
+	.lc-product-applications .lc-app-dot:hover{
+		background:rgba(249,124,48,.30);
+	}
+	.lc-product-applications .lc-app-dot[data-active="true"]{
+		width:32px;
+		border-radius:2px;
+		background:#F97C30;
+	}
+	.lc-product-applications .lc-app-dot[data-active="true"]:hover{
+		background:#F97C30;
+	}
+	.lc-product-applications .lc-app-dot:focus{
+		outline:0;
+	}
+	.lc-product-applications .lc-app-dot:focus-visible{
+		box-shadow:0 0 0 2px rgba(11,53,112,.20);
+	}
+	</style>
 	<div class="mx-auto max-w-[1280px] px-4">
-		
-		<!-- Header -->
 		<div class="mb-12 text-center">
 			<h2 class="text-heading text-3xl font-bold md:text-4xl">
 				<?php echo esc_html( $title ); ?>
 			</h2>
 			<?php if ( $subtitle ) : ?>
-				<p class="mt-3 text-[#6B7280] max-w-2xl !mx-auto !text-center">
+				<p class="mt-3 max-w-2xl text-body !mx-auto !text-center">
 					<?php echo esc_html( $subtitle ); ?>
 				</p>
 			<?php endif; ?>
 		</div>
 
-		<div class="relative" x-data="productApplicationsRail(window.<?php echo esc_attr( $apps_var ); ?>)" x-init="init()">
-			<div class="relative">
-				<div class="absolute left-0 right-0 top-[18px] h-px bg-[#0B3570]/15"></div>
-				<div class="relative flex items-start gap-6 overflow-x-auto no-scrollbar pb-2 pt-1" x-ref="rail">
-					<template x-for="(app, idx) in apps" :key="idx">
-						<button type="button" class="lc-app-station" @click="goTo(idx)" :data-active="currentIndex === idx">
-							<span class="lc-app-station-dot" aria-hidden="true"></span>
-							<span class="font-mono text-[11px] text-[#0B3570]/70" x-text="String(idx + 1).padStart(2,'0')"></span>
-							<span class="text-sm font-semibold text-[#111827]" x-text="app.title"></span>
-						</button>
+		<div class="relative px-12" x-data="productApplicationsCarousel(window.<?php echo esc_attr( $apps_var ); ?>)" x-init="init()">
+			<button
+				type="button"
+				class="lc-app-nav-btn absolute left-0 top-1/2 z-10 -translate-y-1/2"
+				aria-label="Previous applications"
+				@click="prevSlide(); if ($event.detail) $event.currentTarget.blur()"
+				x-show="maxSlides > 1"
+				x-cloak
+			>
+				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5"><path d="m15 18-6-6 6-6"/></svg>
+			</button>
+			<button
+				type="button"
+				class="lc-app-nav-btn absolute right-0 top-1/2 z-10 -translate-y-1/2"
+				aria-label="Next applications"
+				@click="nextSlide(); if ($event.detail) $event.currentTarget.blur()"
+				x-show="maxSlides > 1"
+				x-cloak
+			>
+				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5"><path d="m9 18 6-6-6-6"/></svg>
+			</button>
+
+			<div class="overflow-hidden">
+				<div class="flex transition-transform duration-500 ease-out" :style="`transform: translateX(-${currentSlide * 100}%);`">
+					<template x-for="(slide, slideIndex) in slides" :key="slideIndex">
+						<div class="w-full flex-shrink-0">
+							<div class="grid grid-cols-1 gap-6 md:grid-cols-3">
+								<template x-for="(app, idx) in slide" :key="idx">
+									<div class="overflow-hidden rounded-sm border border-border bg-white transition-shadow hover:shadow-lg">
+										<div class="relative aspect-[4/3] overflow-hidden">
+											<template x-if="app.image">
+												<img class="absolute inset-0 h-full w-full object-cover" :src="app.image" :alt="app.title || ''" />
+											</template>
+											<template x-if="!app.image">
+												<div class="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-[#C87533]/20 to-[#B87333]/40">
+													<span class="font-mono text-3xl font-bold text-white/30" x-text="(app.title || '').split(' ')[0]"></span>
+												</div>
+											</template>
+											<div class="absolute inset-0 bg-gradient-to-b from-black/0 via-black/0 to-black/15" x-show="app.image" x-cloak></div>
+										</div>
+										<div class="p-6">
+											<h3 class="text-lg font-bold text-[#111827] mb-2" x-text="app.title"></h3>
+											<p class="text-sm leading-relaxed text-body" x-text="app.description"></p>
+										</div>
+									</div>
+								</template>
+							</div>
+						</div>
 					</template>
-				</div>
-				<div class="mt-4 flex items-center justify-center gap-3">
-					<button type="button" class="lc-app-nav-btn" @click="prev()" aria-label="Previous application">
-						<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
-					</button>
-					<div class="flex items-center gap-2">
-						<template x-for="(app, idx) in apps" :key="idx">
-							<button type="button" class="lc-app-dot" @click="goTo(idx)" :data-active="currentIndex === idx" :aria-label="`Go to application ${idx + 1}`"></button>
-						</template>
-					</div>
-					<button type="button" class="lc-app-nav-btn" @click="next()" aria-label="Next application">
-						<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
-					</button>
 				</div>
 			</div>
 
-			<div class="mt-10 grid gap-8 lg:grid-cols-12 lg:items-start">
-				<div class="lg:col-span-7">
-					<div class="relative overflow-hidden rounded-sm border border-black/10 bg-[#0B3570] shadow-[0_22px_60px_rgba(16,24,40,0.14)] aspect-[4/3]">
-						<img
-							class="absolute inset-0 h-full w-full object-cover"
-							src="<?php echo esc_url( $fallback_image ); ?>"
-							alt="<?php echo esc_attr( $first_title ); ?>"
-							:src="apps[currentIndex] && apps[currentIndex].image ? apps[currentIndex].image : <?php echo function_exists( 'wp_json_encode' ) ? wp_json_encode( $fallback_image ) : json_encode( $fallback_image ); ?>"
-							:alt="apps[currentIndex] && apps[currentIndex].title ? apps[currentIndex].title : <?php echo function_exists( 'wp_json_encode' ) ? wp_json_encode( $first_title ) : json_encode( $first_title ); ?>"
-						/>
-						<div class="absolute inset-0 bg-gradient-to-tr from-black/35 via-black/5 to-transparent"></div>
-					</div>
-				</div>
-				<div class="lg:col-span-5">
-					<div class="border-l-2 border-[#F97C30] pl-6">
-						<h3 class="text-heading text-2xl font-semibold tracking-tight text-[#111827] md:text-3xl" x-text="apps[currentIndex] ? apps[currentIndex].title : ''"><?php echo esc_html( $first_title ); ?></h3>
-						<p class="mt-3 text-[15px] leading-relaxed text-[#4B5563]" x-text="apps[currentIndex] ? apps[currentIndex].description : ''"><?php echo esc_html( $first_desc ); ?></p>
-					</div>
-				</div>
+			<div class="mt-8 flex justify-center gap-2" x-show="maxSlides > 1" x-cloak>
+				<template x-for="(slide, idx) in slides" :key="idx">
+					<button
+						type="button"
+						class="lc-app-dot"
+						:data-active="currentSlide === idx ? 'true' : 'false'"
+						@click="goToSlide(idx); if ($event.detail) $event.currentTarget.blur()"
+						:aria-label="`Go to slide ${idx + 1}`"
+					></button>
+				</template>
 			</div>
 		</div>
 	</div>
 </section>
 
 <script>
-function productApplicationsRail(apps) {
+function productApplicationsCarousel(apps) {
 	return {
-		apps: apps || [],
-		currentIndex: 0,
+		apps: Array.isArray(apps) ? apps : [],
+		slides: [],
+		itemsPerSlide: 3,
+		currentSlide: 0,
+		mediaQuery: null,
 
-		init() {
-			if (!this.apps || this.apps.length === 0) return;
-			this.$nextTick(() => {
-				this.goTo(0);
-			});
+		get maxSlides() {
+			return Array.isArray(this.slides) ? this.slides.length : 0;
 		},
 
-		goTo(index) {
-			if (!this.apps || this.apps.length === 0) return;
-			const max = this.apps.length - 1;
-			let idx = Number(index || 0);
-			if (idx < 0) idx = 0;
-			if (idx > max) idx = max;
-			this.currentIndex = idx;
-			const rail = this.$refs.rail;
-			if (rail) {
-				const items = rail.querySelectorAll('.lc-app-station');
-				const el = items && items[idx] ? items[idx] : null;
-				if (el && el.scrollIntoView) {
-					el.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+		init() {
+			if (!this.apps.length) return;
+
+			if (!window.matchMedia) {
+				this.itemsPerSlide = 3;
+				this.buildSlides();
+				return;
+			}
+
+			const mq = window.matchMedia('(min-width: 768px)');
+			this.mediaQuery = mq;
+
+			const apply = () => {
+				this.itemsPerSlide = mq.matches ? 3 : 1;
+				this.buildSlides();
+				const max = this.maxSlides;
+				if (this.currentSlide > max - 1) {
+					this.currentSlide = Math.max(0, max - 1);
 				}
+			};
+
+			apply();
+
+			if (mq.addEventListener) {
+				mq.addEventListener('change', apply);
+			} else if (mq.addListener) {
+				mq.addListener(apply);
 			}
 		},
 
-		next() {
-			if (!this.apps || this.apps.length === 0) return;
-			const nextIndex = this.currentIndex + 1 > (this.apps.length - 1) ? 0 : this.currentIndex + 1;
-			this.goTo(nextIndex);
+		buildSlides() {
+			const per = Math.max(1, Number(this.itemsPerSlide) || 1);
+			const out = [];
+			for (let i = 0; i < this.apps.length; i += per) {
+				out.push(this.apps.slice(i, i + per));
+			}
+			this.slides = out;
 		},
-		prev() {
-			if (!this.apps || this.apps.length === 0) return;
-			const prevIndex = this.currentIndex - 1 < 0 ? (this.apps.length - 1) : this.currentIndex - 1;
-			this.goTo(prevIndex);
+
+		goToSlide(index) {
+			const max = this.maxSlides;
+			if (max <= 1) return;
+			let idx = Number(index || 0);
+			if (idx < 0) idx = 0;
+			if (idx > max - 1) idx = max - 1;
+			this.currentSlide = idx;
+		},
+
+		nextSlide() {
+			const max = this.maxSlides;
+			if (max <= 1) return;
+			this.currentSlide = (this.currentSlide + 1) % max;
+		},
+
+		prevSlide() {
+			const max = this.maxSlides;
+			if (max <= 1) return;
+			this.currentSlide = (this.currentSlide - 1 + max) % max;
 		},
 	};
 }

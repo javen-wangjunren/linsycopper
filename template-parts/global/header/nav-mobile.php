@@ -44,14 +44,14 @@ if ( empty( $menu_tree ) ) {
 		x-transition:leave="transition ease-in duration-200"
 		x-transition:leave-start="translate-x-0"
 		x-transition:leave-end="translate-x-full"
-		class="relative w-full max-w-sm bg-primary-blue h-full shadow-2xl overflow-y-auto"
+		class="lc-mobile-menu-scope relative w-full max-w-sm bg-primary-blue h-full shadow-2xl overflow-y-auto"
 	>
 		<!-- Header -->
 		<div class="flex items-center justify-between p-4 border-b border-white/10">
 			<span class="text-white font-bold text-lg">Menu</span>
 			<button
 				@click="mobileOpen = false"
-				class="p-2 text-white hover:bg-white/10 rounded-sm transition-colors"
+				class="p-2 text-white rounded-sm transition-colors"
 				aria-label="Close menu"
 			>
 				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
@@ -68,7 +68,7 @@ if ( empty( $menu_tree ) ) {
 					<?php if ( $has_children ) : ?>
 						<button
 							@click="open = !open"
-							class="flex items-center justify-between w-full py-3.5 text-sm font-semibold text-white hover:text-accent-gold transition-colors"
+							class="lc-mobile-nav-trigger flex items-center justify-between w-full py-3.5 text-sm font-semibold text-white transition-colors"
 							:aria-expanded="open"
 						>
 							<?php echo esc_html( $item->title ); ?>
@@ -100,14 +100,14 @@ if ( empty( $menu_tree ) ) {
 								<?php foreach ( $item->children as $child ) : ?>
 									<div class="flex flex-col gap-1">
 										<!-- L2 Heading -->
-										<a href="<?php echo esc_url( $child->url ); ?>" @click="mobileOpen = false" class="mt-1 text-xs font-semibold text-accent-gold">
+										<a href="<?php echo esc_url( $child->url ); ?>" @click="mobileOpen = false" class="lc-mobile-nav-l2 mt-1 text-xs font-semibold text-accent-gold">
 											<?php echo esc_html( $child->title ); ?>
 										</a>
 										
 										<!-- L3 Items -->
 										<?php if ( ! empty( $child->children ) ) : ?>
 											<?php foreach ( $child->children as $grandchild ) : ?>
-												<a href="<?php echo esc_url( $grandchild->url ); ?>" @click="mobileOpen = false" class="text-sm text-white/65 hover:text-white transition-colors py-0.5 font-mono">
+												<a href="<?php echo esc_url( $grandchild->url ); ?>" @click="mobileOpen = false" class="lc-mobile-nav-l3 text-sm text-white/65 transition-colors py-0.5 font-mono">
 													<?php echo esc_html( $grandchild->title ); ?>
 												</a>
 											<?php endforeach; ?>
@@ -116,7 +116,7 @@ if ( empty( $menu_tree ) ) {
 								<?php endforeach; ?>
 								
 								<!-- Parent Link -->
-								<a href="<?php echo esc_url( $item->url ); ?>" @click="mobileOpen = false" class="flex items-center gap-1 text-xs font-semibold text-action-copper mt-1">
+								<a href="<?php echo esc_url( $item->url ); ?>" @click="mobileOpen = false" class="lc-mobile-nav-viewall flex items-center gap-1 text-xs font-semibold text-action-copper mt-1">
 									View all <?php echo esc_html( $item->title ); ?>
 									<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3 h-3"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
 								</a>
@@ -126,7 +126,7 @@ if ( empty( $menu_tree ) ) {
 						<a
 							href="<?php echo esc_url( $item->url ); ?>"
 							@click="mobileOpen = false"
-							class="flex items-center justify-between py-3.5 text-sm font-semibold text-white hover:text-accent-gold transition-colors"
+							class="lc-mobile-nav-link flex items-center justify-between py-3.5 text-sm font-semibold text-white transition-colors"
 						>
 							<?php echo esc_html( $item->title ); ?>
 						</a>

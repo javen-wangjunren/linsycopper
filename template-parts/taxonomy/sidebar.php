@@ -48,7 +48,7 @@ if ( ! is_wp_error( $grades ) && ! empty( $grades ) ) {
 $product_search_api = function_exists( 'rest_url' ) ? rest_url( 'linsy/v1/product-search' ) : '';
 ?>
 
-<aside
+<div
 	x-data="{
 		drawerOpen: false,
 		searchQuery: '',
@@ -87,11 +87,56 @@ $product_search_api = function_exists( 'rest_url' ) ? rest_url( 'linsy/v1/produc
 			}
 		}
 	}"
-	class="relative font-sans lg:w-72 flex-shrink-0"
+	@keydown.escape.window="drawerOpen = false"
+	x-effect="document.body.style.overflow = drawerOpen ? 'hidden' : ''"
+	class="w-full font-sans lg:w-72 flex-shrink-0"
 >
-	<div class="w-full bg-[#F7F8F9] p-8 lg:bg-transparent lg:p-0">
-		<div class="space-y-10">
-			<div>
+	<div class="lc-taxonomy-filter-toggle sticky top-0 z-40 -mx-4 !flex items-center justify-between border-b border-gray-100 bg-white px-6 py-4 lg:hidden">
+		<span class="font-mono text-xs font-bold uppercase tracking-widest text-[#0B3570]">Filter Catalog</span>
+		<button
+			@click="drawerOpen = true"
+			class="rounded-sm bg-[#0B3570] p-2 text-white"
+			aria-label="Open filters"
+			type="button"
+		>
+			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+		</button>
+	</div>
+
+	<div
+		x-show="drawerOpen"
+		x-transition:enter="transition-opacity ease-out duration-300"
+		x-transition:enter-start="opacity-0"
+		x-transition:enter-end="opacity-100"
+		x-transition:leave="transition-opacity ease-in duration-200"
+		x-transition:leave-start="opacity-100"
+		x-transition:leave-end="opacity-0"
+		class="lc-taxonomy-filter-backdrop fixed inset-0 z-40 bg-[#0B3570]/60 lg:hidden"
+		@click="drawerOpen = false"
+		style="display: none;"
+	></div>
+
+	<aside
+		:class="drawerOpen ? 'translate-x-0 shadow-2xl' : ''"
+		class="lc-taxonomy-filter-drawer fixed inset-y-0 left-0 z-50 w-72 -translate-x-full overflow-y-auto bg-white transition-transform lg:static lg:z-auto lg:w-full lg:translate-x-0 lg:bg-transparent lg:shadow-none lg:overflow-visible"
+		role="dialog"
+		aria-modal="true"
+	>
+		<div class="lc-taxonomy-filter-drawer-header mb-8 flex items-center justify-between border-b border-gray-100 bg-white px-6 py-4 lg:hidden">
+			<span class="text-sm font-bold uppercase text-[#0B3570]">Filters</span>
+			<button
+				@click="drawerOpen = false"
+				class="flex items-center gap-2 !bg-transparent !p-0 !text-gray-400 !shadow-none !border-0 font-mono text-xs font-bold uppercase tracking-widest hover:!bg-transparent hover:!text-gray-400 focus:!bg-transparent focus:!text-gray-400"
+				type="button"
+			>
+				CLOSE
+				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline h-4 w-4 !text-gray-400"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+			</button>
+		</div>
+
+		<div class="w-full bg-[#F7F8F9] p-8 lg:bg-transparent lg:p-0">
+			<div class="space-y-10">
+				<div>
 				<h3 class="mb-4 block border-b border-gray-100 pb-2 text-xs font-bold uppercase text-[#0B3570]">
 					Copper Shapes
 				</h3>
@@ -110,9 +155,9 @@ $product_search_api = function_exists( 'rest_url' ) ? rest_url( 'linsy/v1/produc
 					endif;
 					?>
 				</nav>
-			</div>
+				</div>
 
-			<div>
+				<div>
 				<h3 class="mb-4 block border-b border-gray-100 pb-2 text-xs font-bold uppercase text-[#0B3570]">
 					Copper Material
 				</h3>
@@ -131,9 +176,9 @@ $product_search_api = function_exists( 'rest_url' ) ? rest_url( 'linsy/v1/produc
 					endif;
 					?>
 				</nav>
-			</div>
+				</div>
 
-			<div>
+				<div>
 				<div class="mb-4 flex items-center justify-between border-b border-gray-100 pb-2">
 					<h3 class="text-xs font-bold uppercase text-[#0B3570]">
 						Copper Grade
@@ -169,7 +214,8 @@ $product_search_api = function_exists( 'rest_url' ) ? rest_url( 'linsy/v1/produc
 						</a>
 					</div>
 				</nav>
+				</div>
 			</div>
 		</div>
-	</div>
-</aside>
+	</aside>
+</div>

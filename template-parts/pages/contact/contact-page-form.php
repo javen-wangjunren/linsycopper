@@ -55,7 +55,7 @@ if ( $fast_desc ) {
 
 ?>
 
-<section class="bg-white pt-[100px] pb-[100px] font-sans">
+<section class="bg-white pt-[56px] md:pt-[80px] pb-[100px] font-sans">
 	<div class="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
 		<div class="grid gap-12 lg:grid-cols-3">
 			<div class="lg:col-span-2">

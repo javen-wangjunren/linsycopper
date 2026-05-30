@@ -3,6 +3,25 @@
 @config "../tailwind.config.js";
 
 @layer base {
+  @media (min-width: 1024px) {
+    body.lc-app .lc-taxonomy-filter-toggle,
+    body.lc-app .lc-taxonomy-filter-backdrop,
+    body.lc-app .lc-taxonomy-filter-drawer-header {
+      display: none !important;
+    }
+
+    body.lc-app .lc-taxonomy-filter-drawer {
+      position: relative !important;
+      transform: none !important;
+      width: 18rem !important;
+      inset: auto !important;
+      overflow: visible !important;
+      background: transparent !important;
+      box-shadow: none !important;
+      z-index: auto !important;
+    }
+  }
+
   body.lc-app a,
   body.lc-app a:visited {
     text-decoration: none !important;
@@ -412,6 +431,60 @@
     color: #F97C30 !important;
     text-decoration: none !important;
     text-decoration-line: none !important;
+  }
+
+  body.lc-app .lc-mobile-menu-scope button {
+    background: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+
+  body.lc-app .lc-mobile-menu-scope .lc-mobile-nav-trigger,
+  body.lc-app .lc-mobile-menu-scope .lc-mobile-nav-link,
+  body.lc-app .lc-mobile-menu-scope .lc-mobile-nav-trigger:visited,
+  body.lc-app .lc-mobile-menu-scope .lc-mobile-nav-link:visited {
+    color: #ffffff !important;
+    text-decoration: none !important;
+    text-decoration-line: none !important;
+  }
+
+  body.lc-app .lc-mobile-menu-scope .lc-mobile-nav-trigger,
+  body.lc-app .lc-mobile-menu-scope .lc-mobile-nav-link {
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    padding-top: 0.875rem !important;
+    padding-bottom: 0.875rem !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  body.lc-app .lc-mobile-menu-scope .lc-mobile-nav-l2,
+  body.lc-app .lc-mobile-menu-scope .lc-mobile-nav-l2:visited {
+    color: #F4BD5D !important;
+    text-decoration: none !important;
+    text-decoration-line: none !important;
+  }
+
+  body.lc-app .lc-mobile-menu-scope .lc-mobile-nav-l3,
+  body.lc-app .lc-mobile-menu-scope .lc-mobile-nav-l3:visited {
+    color: rgba(255, 255, 255, 0.65) !important;
+    text-decoration: none !important;
+    text-decoration-line: none !important;
+  }
+
+  body.lc-app .lc-mobile-menu-scope .lc-mobile-nav-viewall,
+  body.lc-app .lc-mobile-menu-scope .lc-mobile-nav-viewall:visited {
+    color: #F97C30 !important;
+    text-decoration: none !important;
+    text-decoration-line: none !important;
+  }
+
+  body.lc-app .lc-mobile-menu-scope button[aria-label="Close menu"] {
+    color: #ffffff !important;
+    padding: 0.5rem !important;
   }
 
   .lc-btn-primary,
