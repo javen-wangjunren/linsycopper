@@ -38,7 +38,7 @@ $copyright_text = str_replace( '{year}', $current_year, $copyright_text );
 	Converted from React Footer Component
 	Context: /design-preview/react/footer.tsx
 -->
-<footer class="bg-primary-blue text-gray-300 border-t border-white/10">
+<footer class="lc-site-footer-scope bg-primary-blue text-gray-300 border-t border-white/10">
 	<!-- Main Footer Content -->
 	<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
 		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">

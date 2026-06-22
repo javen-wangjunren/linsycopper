@@ -33,12 +33,12 @@ $section_uid = 'lc-review-' . substr( md5( $title ), 0, 8 );
         <!-- Section Header + Navigation -->
         <div class="mb-16 flex flex-col md:flex-row md:items-end justify-between gap-8">
             <div class="max-w-2xl">
-                <h2 class="text-heading text-balance text-3xl font-bold leading-tight md:text-4xl lg:text-5xl">
+                <h2 class="lc-h2-section text-balance text-heading">
                     <?php echo esc_html( $title ); ?>
                 </h2>
                 
                 <?php if ( $desc ) : ?>
-                    <p class="mt-6 text-pretty text-lg leading-relaxed text-[#6B7280]">
+                    <p class="lc-body-section mt-6 text-pretty">
                         <?php echo esc_html( $desc ); ?>
                     </p>
                 <?php endif; ?>
@@ -46,11 +46,11 @@ $section_uid = 'lc-review-' . substr( md5( $title ), 0, 8 );
 
             <!-- Navigation Arrows (Industrial Precision) -->
             <div class="flex gap-3">
-                <button class="review-prev group flex h-12 w-12 items-center justify-center rounded-sm border-2 border-[#E5E7EB] transition-all hover:border-[#0B3570] hover:bg-[#0B3570] hover:text-white active:scale-95" aria-label="Previous review">
-                    <span class="!text-[18px] leading-none font-mono transition-transform group-hover:-translate-x-1">&lt;</span>
+                <button class="lc-btn-reset review-prev group flex h-12 w-12 items-center justify-center p-0 rounded-sm border-2 border-[#E5E7EB] transition-all hover:border-[#0B3570] hover:bg-[#0B3570] hover:text-white active:scale-95" aria-label="Previous review">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="transition-transform group-hover:-translate-x-1"><path d="M15 18l-6-6 6-6"/></svg>
                 </button>
-                <button class="review-next group flex h-12 w-12 items-center justify-center rounded-sm border-2 border-[#E5E7EB] transition-all hover:border-[#0B3570] hover:bg-[#0B3570] hover:text-white active:scale-95" aria-label="Next review">
-                    <span class="!text-[18px] leading-none font-mono transition-transform group-hover:translate-x-1">&gt;</span>
+                <button class="lc-btn-reset review-next group flex h-12 w-12 items-center justify-center p-0 rounded-sm border-2 border-[#E5E7EB] transition-all hover:border-[#0B3570] hover:bg-[#0B3570] hover:text-white active:scale-95" aria-label="Next review">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="transition-transform group-hover:translate-x-1"><path d="M9 18l6-6-6-6"/></svg>
                 </button>
             </div>
         </div>
@@ -92,7 +92,7 @@ $section_uid = 'lc-review-' . substr( md5( $title ), 0, 8 );
                         
                         <div class="flex-1 min-w-0">
                             <div class="font-bold text-lg text-[#1F2937] truncate"><?php echo esc_html( $name ); ?></div>
-                            <div class="font-mono text-[11px] uppercase tracking-wider text-[#6B7280] truncate">
+                            <div class="text-[13px] font-medium text-[#6B7280] truncate">
                                 <?php echo esc_html( $role ); ?>
                             </div>
                         </div>

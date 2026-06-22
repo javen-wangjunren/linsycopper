@@ -36,6 +36,15 @@ add_action( 'after_setup_theme', function() {
 	
 	// 启用特色图片
 	add_theme_support( 'post-thumbnails' );
+
+	// 为 Gutenberg 编辑器启用独立样式，避免前台展示规则直接污染后台写作体验。
+	add_theme_support( 'editor-styles' );
+	add_editor_style(
+		array(
+			'assets/css/fonts.css',
+			'assets/css/editor-style.css',
+		)
+	);
 	
 	// 注册菜单位置
 	// [扩展]: 如果需要新增 Footer 菜单，请在此处添加
@@ -101,6 +110,50 @@ add_action( 'init', function() {
 	
 	// 注意: 'post' (博客) 保留 'editor' 支持以配合古腾堡使用
 }, 100 );
+
+add_action( 'enqueue_block_editor_assets', function() {
+	$editor_layout_css = '
+		.editor-visual-editor__post-title-wrapper,
+		.editor-visual-editor__post-title-wrapper > .editor-post-title {
+			max-width: 760px;
+			margin-left: auto;
+			margin-right: auto;
+			padding-left: 32px;
+			padding-right: 32px;
+		}
+
+		.editor-visual-editor__post-title-wrapper {
+			padding-top: 32px;
+		}
+
+		.editor-visual-editor__post-title-wrapper .editor-post-title__input {
+			font-family: "Geist Sans", Geist, system-ui, -apple-system, sans-serif;
+			font-size: 2.25rem;
+			line-height: 1.15;
+			font-weight: 700;
+			letter-spacing: -0.02em;
+			color: #111827;
+		}
+
+		.editor-visual-editor__post-title-wrapper .editor-post-title__input::placeholder {
+			color: #9ca3af;
+		}
+
+		@media (max-width: 781px) {
+			.editor-visual-editor__post-title-wrapper,
+			.editor-visual-editor__post-title-wrapper > .editor-post-title {
+				padding-left: 20px;
+				padding-right: 20px;
+			}
+
+			.editor-visual-editor__post-title-wrapper .editor-post-title__input {
+				font-size: 1.9rem;
+			}
+		}
+	';
+
+	wp_add_inline_style( 'wp-edit-blocks', $editor_layout_css );
+} );
 
 add_filter( 'body_class', function( $classes ) {
 	if ( is_admin() ) {

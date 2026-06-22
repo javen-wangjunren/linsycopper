@@ -40,10 +40,10 @@ if ( empty( $items ) ) {
         <!-- Section Header -->
         <div class="mb-12 flex flex-col items-center justify-between gap-4 md:flex-row">
             <div>
-                <h2 class="text-heading text-balance text-3xl font-bold tracking-tight md:text-4xl">
+                <h2 class="lc-h2-section text-balance text-heading">
                     <?php echo esc_html( $title ); ?>
                 </h2>
-                <p class="mt-2 text-pretty text-[#6B7280]">
+                <p class="lc-body-section mt-2 text-pretty md:text-base">
                     <?php echo esc_html( $subtitle ); ?>
                 </p>
             </div>
@@ -70,14 +70,14 @@ if ( empty( $items ) ) {
                 <a href="<?php echo esc_url( $target_url ); ?>" <?php echo $target_attr; ?> class="group relative block overflow-hidden rounded-sm border border-[#E5E7EB] bg-white transition-all hover:border-[#F97C30] hover:shadow-lg">
                     
                     <!-- Stock Badge -->
-                    <div class="absolute right-4 top-4 rounded-sm bg-[#10B981] px-2 py-1 font-mono text-[10px] font-bold text-white uppercase">
+                    <div class="lc-mono-chip absolute right-4 top-4 rounded-sm bg-[#10B981] px-2 py-1 text-white uppercase">
                         <?php echo esc_html( $stock ); ?>
                     </div>
 
                     <div class="p-6">
                         <!-- Grade Code -->
                         <div class="mb-6">
-                            <div class="mb-1 font-mono text-3xl font-bold text-[#0B3570]">
+                            <div class="lc-mono-value mb-1 text-3xl text-[#0B3570]">
                                 <?php echo esc_html( $code ); ?>
                             </div>
                             <div class="text-sm font-medium text-[#6B7280]">
@@ -87,7 +87,7 @@ if ( empty( $items ) ) {
 
                         <!-- International Equivalents -->
                         <div class="mb-6 space-y-3">
-                            <div class="mb-3 flex items-center gap-2 font-mono text-[11px] font-bold uppercase tracking-wider text-[#9CA3AF]">
+                            <div class="lc-mono-kicker mb-3 flex items-center gap-2 text-[#9CA3AF]">
                                 <span class="flex-none">International Equivalents</span>
                                 <div class="h-px flex-1 bg-[#E5E7EB]"></div>
                             </div>
@@ -95,11 +95,11 @@ if ( empty( $items ) ) {
                             <div class="space-y-2">
                                 <?php if ( ! empty( $equivalents ) ) : foreach ( $equivalents as $equiv ) : ?>
                                     <div class="flex items-center justify-between text-sm">
-                                        <span class="min-w-[40px] rounded-sm bg-[#F3F4F6] px-1.5 py-0.5 text-center font-mono text-[10px] font-bold text-[#6B7280]">
+                                        <span class="lc-mono-chip min-w-[40px] rounded-sm bg-[#F3F4F6] px-1.5 py-0.5 text-center text-[#6B7280]">
                                             <?php echo esc_html( $equiv['standard'] ); ?>
                                         </span>
                                         <div class="mx-3 flex-1 border-b border-dashed border-[#E5E7EB]"></div>
-                                        <span class="font-mono font-bold text-[#1F2937]">
+                                        <span class="lc-mono-meta font-bold text-[#1F2937]">
                                             <?php echo esc_html( $equiv['code'] ); ?>
                                         </span>
                                     </div>

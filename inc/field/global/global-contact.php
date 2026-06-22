@@ -22,22 +22,6 @@ acf_add_local_field_group(array(
 	'title' => 'Global Contact Section',
 	'fields' => array(
 		array(
-			'key' => 'field_global_contact_tab',
-			'label' => 'Contact Section',
-			'name' => '',
-			'type' => 'tab',
-			'instructions' => '',
-			'required' => 0,
-			'conditional_logic' => 0,
-			'wrapper' => array(
-				'width' => '',
-				'class' => '',
-				'id' => '',
-			),
-			'placement' => 'top',
-			'endpoint' => 0,
-		),
-		array(
 			'key' => 'field_global_contact_title',
 			'label' => 'Section Title',
 			'name' => 'global_contact_title',
@@ -162,9 +146,9 @@ acf_add_local_field_group(array(
 	'location' => array(
 		array(
 			array(
-				'param' => 'options_page',
+				'param' => 'post_type',
 				'operator' => '==',
-				'value' => 'theme-global-modules', // Ensure this slug matches options-page.php
+				'value' => 'post',
 			),
 		),
 	),
@@ -174,7 +158,7 @@ acf_add_local_field_group(array(
 	'label_placement' => 'top',
 	'instruction_placement' => 'label',
 	'hide_on_screen' => '',
-	'active' => true,
+	'active' => false,
 	'description' => 'Global settings for the Contact / Consult form section.',
 ));
 

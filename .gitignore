@@ -10,3 +10,6 @@ pnpm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 *.log
+docs/
+父主题样式参考/
+简易版CMS开发参考/

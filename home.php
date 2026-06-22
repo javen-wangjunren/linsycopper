@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 get_header();
 ?>
 
-<div class="bg-white font-sans antialiased text-[#1F2937]">
+<div class="lc-blog-archive-scope bg-white font-sans antialiased text-[#1F2937]">
 
     <?php
     /**
@@ -28,7 +28,7 @@ get_header();
     ?>
 
     <!-- Main Content Area: Post Grid + Sidebar (if needed) -->
-    <main class="pt-[100px] pb-[100px]">
+    <main class="pb-24 md:pb-28">
         <div class="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
             
             <?php

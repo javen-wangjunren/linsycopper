@@ -109,6 +109,7 @@ if ( empty( $js_images ) ) {
 				
 				<!-- 1. Title -->
 				<div>
+					<?php linsy_render_product_breadcrumbs( $post_id ); ?>
 					<h1 class="text-3xl font-bold text-heading md:text-4xl font-sans">
 						<?php echo esc_html( $title ); ?>
 					</h1>
@@ -143,7 +144,7 @@ if ( empty( $js_images ) ) {
 					<!-- Primary Action: Get Quote -->
 					<a 
 						href="<?php echo esc_url( $quote_link ); ?>" 
-						class="flex-1 inline-flex justify-center items-center px-6 py-3.5 bg-action-copper hover:bg-action-copper/90 text-white font-bold rounded-sm transition-colors uppercase tracking-wide text-sm"
+						class="lc-btn-reset lc-btn-primary lc-btn-action flex-1 px-6 py-3.5 font-bold rounded-sm uppercase tracking-wide text-sm"
 					>
 						<?php echo esc_html( $quote_text ); ?>
 					</a>

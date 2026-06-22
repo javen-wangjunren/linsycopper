@@ -28,8 +28,8 @@ if ( ! $cta_link ) $cta_link = '/contact';
 	<link rel="profile" href="https://gmpg.org/xfn/11">
 	
 	<!-- Preconnect & Preload -->
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="preload" href="<?php echo esc_url( get_stylesheet_directory_uri() . '/assets/fonts/geist-sans/Geist-Regular.woff2' ); ?>" as="font" type="font/woff2" crossorigin>
+	<link rel="preload" href="<?php echo esc_url( get_stylesheet_directory_uri() . '/assets/fonts/geist-sans/Geist-SemiBold.woff2' ); ?>" as="font" type="font/woff2" crossorigin>
 
 	<?php wp_head(); ?>
 </head>
@@ -124,7 +124,7 @@ if ( ! $cta_link ) $cta_link = '/contact';
 					<!-- Mobile Toggle -->
 					<button
 						@click="mobileOpen = true"
-						class="lg:hidden p-2 text-white hover:bg-white/10 rounded-sm transition-colors"
+						class="lc-header-mobile-toggle lc-btn-reset lg:hidden inline-flex items-center justify-center p-2 text-white hover:bg-white/10 focus:bg-white/10 rounded-sm transition-colors"
 						aria-label="Open menu"
 					>
 						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>

@@ -27,20 +27,12 @@ add_action( 'acf/init', function() {
                 'endpoint'  => 0,
             ),
             array(
-                'key'          => 'field_timeline_eyebrow',
-                'label'        => 'Eyebrow',
-                'name'         => 'timeline_eyebrow',
-                'type'          => 'text',
-                'instructions' => 'Small text above title (e.g., Our Journey).',
-                'wrapper'      => array( 'width' => '33' ),
-            ),
-            array(
                 'key'          => 'field_timeline_title',
                 'label'        => 'Title',
                 'name'         => 'timeline_title',
                 'type'          => 'text',
                 'instructions' => 'Main heading for the section.',
-                'wrapper'      => array( 'width' => '67' ),
+                'wrapper'      => array( 'width' => '100' ),
             ),
             array(
                 'key'          => 'field_timeline_desc',

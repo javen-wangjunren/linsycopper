@@ -10,7 +10,6 @@
  */
 
 // Phase 1: Init
-$eyebrow   = get_flat_field( 'timeline_eyebrow' ) ?: 'Our Journey';
 $title     = get_flat_field( 'timeline_title' ) ?: '25+ Years of Excellence';
 $desc      = get_flat_field( 'timeline_desc' ) ?: 'From a small trading company to a global copper solutions provider.';
 $milestones = get_flat_field( 'timeline_list' );
@@ -27,19 +26,12 @@ if ( empty( $milestones ) ) {
 
         <!-- Section Header: Centered for Timeline focus -->
         <div class="lc-section-header mb-20 text-center">
-            <?php if ( $eyebrow ) : ?>
-                <div class="mb-4 inline-flex items-center gap-2 rounded-sm bg-[#0B3570]/5 px-3 py-1 font-mono text-[11px] font-bold uppercase tracking-[0.1em] text-[#0B3570]">
-                    <span class="h-1.5 w-1.5 bg-[#F97C30]"></span>
-                    <?php echo esc_html( $eyebrow ); ?>
-                </div>
-            <?php endif; ?>
-            
-            <h2 class="text-heading mx-auto max-w-3xl text-balance text-3xl font-bold leading-tight md:text-4xl lg:text-5xl">
+            <h2 class="lc-h2-display mx-auto max-w-3xl text-balance text-heading">
                 <?php echo esc_html( $title ); ?>
             </h2>
             
             <?php if ( $desc ) : ?>
-                <p class="mx-auto mt-6 max-w-2xl text-pretty text-lg leading-relaxed text-[#6B7280]">
+                <p class="lc-body-section mx-auto mt-6 max-w-2xl text-pretty">
                     <?php echo esc_html( $desc ); ?>
                 </p>
             <?php endif; ?>
@@ -64,12 +56,12 @@ if ( empty( $milestones ) ) {
                         <!-- Content Side (Text) -->
                         <div class="w-full md:w-1/2 <?php echo $is_even ? 'md:pr-16 md:text-left pl-12 md:pl-0' : 'md:pl-16 md:text-left pl-12 md:pr-0'; ?>">
                             <div class="max-w-xl">
-                                <h3 class="text-heading mb-4 text-2xl font-bold leading-tight md:text-3xl lg:text-4xl">
-                                    <span class="mr-2 font-mono text-[#0B3570]"><?php echo esc_html( $year ); ?></span>
+                                <h3 class="lc-h3-display text-heading mb-4">
+                                    <span class="lc-mono-meta mr-2 text-[#0B3570]"><?php echo esc_html( $year ); ?></span>
                                     <?php echo esc_html( $m_title ); ?>
                                 </h3>
                                 
-                                <p class="text-base leading-relaxed text-[#6B7280]">
+                                <p class="lc-body-card text-base">
                                     <?php echo esc_html( $m_desc ); ?>
                                 </p>
                             </div>

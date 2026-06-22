@@ -141,6 +141,40 @@ function get_flat_field( $field_name, $block = array(), $default = null, $is_opt
 }
 
 /**
+ * 读取兼容性 option 字段，优先取新的扁平字段，缺失时回退到旧 group 结构。
+ *
+ * @param string $field_name         新的扁平字段名。
+ * @param string $legacy_group_name  旧 group 字段名。
+ * @param mixed  $default            默认值。
+ * @return mixed
+ */
+function linsy_get_option_field_compat( $field_name, $legacy_group_name = '', $default = null ) {
+    if ( ! function_exists( 'get_field' ) ) {
+        return $default;
+    }
+
+    $value = get_field( $field_name, 'option' );
+
+    if ( null !== $value && '' !== $value && array() !== $value ) {
+        return $value;
+    }
+
+    if ( $legacy_group_name ) {
+        $legacy_group = get_field( $legacy_group_name, 'option' );
+
+        if ( is_array( $legacy_group ) && array_key_exists( $field_name, $legacy_group ) ) {
+            $legacy_value = $legacy_group[ $field_name ];
+
+            if ( null !== $legacy_value && '' !== $legacy_value && array() !== $legacy_value ) {
+                return $legacy_value;
+            }
+        }
+    }
+
+    return $default;
+}
+
+/**
  * 获取主菜单树状结构
  * 
  * @return array

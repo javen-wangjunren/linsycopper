@@ -46,10 +46,10 @@ if ( empty( $reasons ) ) {
             <!-- Left: Content Area -->
             <div class="flex flex-col gap-8 lg:w-1/2">
                 <div class="flex flex-col gap-5">
-                    <h2 class="text-heading text-balance text-4xl font-bold tracking-tight leading-[1.1] md:text-5xl lg:text-6xl">
+                    <h2 class="lc-h2-display text-balance text-heading">
                         <?php echo nl2br( esc_html( $title ) ); ?>
                     </h2>
-                    <p class="max-w-xl text-[#6B7280] leading-relaxed text-base md:text-lg">
+                    <p class="lc-body-section max-w-xl">
                         <?php echo nl2br( esc_html( $desc ) ); ?>
                     </p>
                 </div>
@@ -63,8 +63,8 @@ if ( empty( $reasons ) ) {
                                 <div class="absolute top-0 right-0 w-2 h-2 border-t border-r border-[#E5E7EB] group-hover:border-[#F97C30]"></div>
                                 
                                 <div class="flex flex-col">
-                                    <span class="font-mono text-3xl font-bold text-[#0B3570] tracking-tight"><?php echo esc_html( $stat['stat_value'] ); ?></span>
-                                    <span class="mt-1 text-[10px] font-bold uppercase tracking-wider text-[#9CA3AF]"><?php echo esc_html( $stat['stat_label'] ); ?></span>
+                                    <span class="lc-mono-value text-3xl text-[#0B3570]"><?php echo esc_html( $stat['stat_value'] ); ?></span>
+                                    <span class="lc-mono-kicker mt-1 text-[#9CA3AF]"><?php echo esc_html( $stat['stat_label'] ); ?></span>
                                 </div>
                             </div>
                         <?php endforeach; ?>
@@ -89,7 +89,7 @@ if ( empty( $reasons ) ) {
                     
                     <!-- Floating Badge (Copper Element) -->
                     <div class="absolute -bottom-6 -left-6 hidden md:block bg-[#F97C30] p-6 rounded-sm shadow-2xl text-white">
-                        <div class="font-mono text-sm font-bold opacity-80 mb-1 uppercase tracking-widest">Quality Assurance</div>
+                        <div class="lc-mono-kicker mb-1 opacity-80">Quality Assurance</div>
                         <div class="text-2xl font-bold leading-none italic">100% Traceable</div>
                     </div>
                 </div>
@@ -105,12 +105,12 @@ if ( empty( $reasons ) ) {
                         <?php echo esc_html( $reason['reason_icon'] ); ?>
                     </span>
 
-                    <h3 class="text-heading relative mb-4 text-lg font-bold leading-snug text-[#1F2937] group-hover:text-[#0B3570] transition-colors">
+                    <h3 class="lc-h3-section relative mb-4 text-[#1F2937] group-hover:text-[#0B3570] transition-colors">
                         <?php echo esc_html( $reason['reason_title'] ); ?>
                         <div class="absolute -left-8 top-1/2 w-4 h-[2px] bg-[#F97C30] opacity-0 group-hover:opacity-100 transition-all"></div>
                     </h3>
                     
-                    <p class="relative text-[#6B7280] leading-relaxed text-sm flex-1">
+                    <p class="lc-body-card relative flex-1">
                         <?php echo esc_html( $reason['reason_desc'] ); ?>
                     </p>
                     

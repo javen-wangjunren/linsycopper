@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 get_header();
 ?>
 
-<div class="bg-white font-sans antialiased text-[#1F2937]">
+<div class="lc-blog-single-scope bg-white font-sans antialiased text-[#1F2937]">
 
     <?php
     while ( have_posts() ) :

@@ -81,9 +81,9 @@ add_action( 'acf/init', function() {
 		'location' => array(
 			array(
 				array(
-					'param'    => 'options_page',
+					'param'    => 'post_type',
 					'operator' => '==',
-					'value'    => 'theme-global-modules',
+					'value'    => 'post',
 				),
 			),
 		),
@@ -92,6 +92,6 @@ add_action( 'acf/init', function() {
 		'style'                 => 'default',
 		'label_placement'       => 'top',
 		'instruction_placement' => 'label',
-		'active'                => true,
+		'active'                => false,
 	) );
 } );

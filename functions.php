@@ -45,6 +45,7 @@ $inc_files = [
     'setup.php',             // 主题初始化 / 基础支持
     'assets.php',            // 资源加载 (CSS/JS/Tailwind)
     'helpers.php',           // 全局工具函数
+    'breadcrumbs.php',       // 产品页面包屑逻辑
     'admin-filters.php',     // 后台体验优化 (SVG支持等)
 
     // 2. ACF 核心 (必须保留)

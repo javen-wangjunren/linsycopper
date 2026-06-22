@@ -40,10 +40,27 @@ foreach ( $app_list as $item ) {
 	}
 
 	$image_url = '';
+	$image_srcset = '';
+	$image_sizes = '';
+	$image_width = 0;
+	$image_height = 0;
 	if ( $img_id && function_exists( 'wp_get_attachment_image_url' ) ) {
 		$url = wp_get_attachment_image_url( $img_id, 'large' );
 		if ( $url ) {
 			$image_url = $url;
+		}
+		if ( function_exists( 'wp_get_attachment_image_src' ) ) {
+			$src = wp_get_attachment_image_src( $img_id, 'large' );
+			if ( is_array( $src ) ) {
+				$image_width = isset( $src[1] ) ? (int) $src[1] : 0;
+				$image_height = isset( $src[2] ) ? (int) $src[2] : 0;
+			}
+		}
+		if ( function_exists( 'wp_get_attachment_image_srcset' ) ) {
+			$srcset = wp_get_attachment_image_srcset( $img_id, 'large' );
+			if ( is_string( $srcset ) && $srcset !== '' ) {
+				$image_srcset = $srcset;
+			}
 		}
 	}
 
@@ -51,6 +68,10 @@ foreach ( $app_list as $item ) {
 		'title' => $name,
 		'description' => $desc,
 		'image' => $image_url ? esc_url( $image_url ) : '',
+		'srcset' => $image_srcset,
+		'sizes' => '(min-width: 768px) 33vw, 100vw',
+		'width' => $image_width,
+		'height' => $image_height,
 	];
 }
 
@@ -125,11 +146,11 @@ window.<?php echo esc_attr( $apps_var ); ?> = <?php echo $apps_json; ?>;
 	</style>
 	<div class="mx-auto max-w-[1280px] px-4">
 		<div class="mb-12 text-center">
-			<h2 class="text-heading text-3xl font-bold md:text-4xl">
+			<h2 class="lc-h2-section text-heading">
 				<?php echo esc_html( $title ); ?>
 			</h2>
 			<?php if ( $subtitle ) : ?>
-				<p class="mt-3 max-w-2xl text-body !mx-auto !text-center">
+				<p class="lc-body-section mt-3 max-w-2xl !mx-auto !text-center md:text-base">
 					<?php echo esc_html( $subtitle ); ?>
 				</p>
 			<?php endif; ?>
@@ -166,18 +187,18 @@ window.<?php echo esc_attr( $apps_var ); ?> = <?php echo $apps_json; ?>;
 									<div class="overflow-hidden rounded-sm border border-border bg-white transition-shadow hover:shadow-lg">
 										<div class="relative aspect-[4/3] overflow-hidden">
 											<template x-if="app.image">
-												<img class="absolute inset-0 h-full w-full object-cover" :src="app.image" :alt="app.title || ''" />
+												<img class="absolute inset-0 h-full w-full object-cover" :src="app.image" :srcset="app.srcset || null" :sizes="app.sizes || null" :width="app.width || null" :height="app.height || null" :alt="app.title || ''" loading="lazy" decoding="async" />
 											</template>
 											<template x-if="!app.image">
 												<div class="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-[#C87533]/20 to-[#B87333]/40">
-													<span class="font-mono text-3xl font-bold text-white/30" x-text="(app.title || '').split(' ')[0]"></span>
+													<span class="lc-mono-value text-3xl text-white/30" x-text="(app.title || '').split(' ')[0]"></span>
 												</div>
 											</template>
 											<div class="absolute inset-0 bg-gradient-to-b from-black/0 via-black/0 to-black/15" x-show="app.image" x-cloak></div>
 										</div>
 										<div class="p-6">
-											<h3 class="text-lg font-bold text-[#111827] mb-2" x-text="app.title"></h3>
-											<p class="text-sm leading-relaxed text-body" x-text="app.description"></p>
+											<h3 class="lc-h3-section mb-2 text-[#111827]" x-text="app.title"></h3>
+											<p class="lc-body-card" x-text="app.description"></p>
 										</div>
 									</div>
 								</template>

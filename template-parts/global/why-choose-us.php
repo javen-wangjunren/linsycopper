@@ -35,19 +35,16 @@ $cta_link = isset( $group_data['wcu_cta_link'] ) ? $group_data['wcu_cta_link'] :
 
 // Card 1: Certification
 $cert_img   = isset( $group_data['wcu_cert_image'] ) ? $group_data['wcu_cert_image'] : '';
-$cert_img_m = isset( $group_data['wcu_cert_image_mobile'] ) ? $group_data['wcu_cert_image_mobile'] : '';
 $cert_title = isset( $group_data['wcu_cert_title'] ) ? $group_data['wcu_cert_title'] : 'Quality Compliance';
 $cert_desc  = isset( $group_data['wcu_cert_desc'] ) ? $group_data['wcu_cert_desc'] : '';
 
 // Card 2: Machine
 $mach_img   = isset( $group_data['wcu_machine_image'] ) ? $group_data['wcu_machine_image'] : '';
-$mach_img_m = isset( $group_data['wcu_machine_image_mobile'] ) ? $group_data['wcu_machine_image_mobile'] : '';
 $mach_title = isset( $group_data['wcu_machine_title'] ) ? $group_data['wcu_machine_title'] : 'Precision Machining';
 $mach_desc  = isset( $group_data['wcu_machine_desc'] ) ? $group_data['wcu_machine_desc'] : '';
 
 // Card 3: Logistics
 $log_img    = isset( $group_data['wcu_logistic_image'] ) ? $group_data['wcu_logistic_image'] : '';
-$log_img_m  = isset( $group_data['wcu_logistic_image_mobile'] ) ? $group_data['wcu_logistic_image_mobile'] : '';
 $log_title  = isset( $group_data['wcu_logistic_title'] ) ? $group_data['wcu_logistic_title'] : 'Global Logistics';
 $log_desc   = isset( $group_data['wcu_logistic_desc'] ) ? $group_data['wcu_logistic_desc'] : '';
 
@@ -91,17 +88,10 @@ $log_desc   = isset( $group_data['wcu_logistic_desc'] ) ? $group_data['wcu_logis
 			<div class="lg:col-span-4 lg:row-span-2 group relative bg-white border border-[#E5E7EB] hover:border-[#F97C30] transition-all duration-300 flex flex-col rounded-sm hover:shadow-xl overflow-hidden">
 				
 				<!-- Vertical Image Area -->
-				<div class="h-auto md:h-[400px] lg:h-full aspect-[16/9] md:aspect-auto bg-[#F8FAFC] relative border-b lg:border-b-0 lg:border-r border-[#E5E7EB] overflow-hidden p-0 md:p-8 flex items-center justify-center">
+				<div class="h-[400px] lg:h-full bg-[#F8FAFC] relative border-b lg:border-b-0 lg:border-r border-[#E5E7EB] overflow-hidden p-8 flex items-center justify-center">
 					<div class="absolute inset-0 bg-gradient-to-br from-[#0B3570]/5 to-[#0B3570]/10"></div>
-					<div class="relative w-full h-full md:hidden">
-						<?php $cert_img_mobile = $cert_img_m ? $cert_img_m : $cert_img; ?>
-						<?php if ( $cert_img_mobile ) : ?>
-							<?php echo wp_get_attachment_image( $cert_img_mobile, 'large', false, ['class' => 'w-full h-full object-cover'] ); ?>
-						<?php else: ?>
-							<img src="https://placehold.co/800x450/F1F5F9/0B3570?text=Quality+Inspection" class="w-full h-full object-cover" alt="Quality inspection">
-						<?php endif; ?>
-					</div>
-					<div class="relative w-full max-w-[240px] aspect-[3/4] bg-white shadow-lg rotate-0 group-hover:scale-105 transition-transform duration-700 p-2 hidden md:block">
+					<!-- Certificate Image -->
+					<div class="relative w-full max-w-[240px] aspect-[3/4] bg-white shadow-lg rotate-0 group-hover:scale-105 transition-transform duration-700 p-2">
 						<?php if ( $cert_img ) : ?>
 							<?php echo wp_get_attachment_image( $cert_img, 'medium', false, ['class' => 'w-full h-full object-cover'] ); ?>
 						<?php else: ?>
@@ -127,18 +117,12 @@ $log_desc   = isset( $group_data['wcu_logistic_desc'] ) ? $group_data['wcu_logis
 			<!-- Card 02: Precision Machining (Right Top - Horizontal) -->
 			<div class="lg:col-span-8 group relative bg-white border border-[#E5E7EB] hover:border-[#F97C30] transition-all duration-300 flex flex-col md:flex-row rounded-sm hover:shadow-xl overflow-hidden min-h-[280px]">
 				<!-- Image -->
-				<div class="md:w-1/2 aspect-[16/9] md:aspect-auto bg-[#F8FAFC] relative overflow-hidden border-b md:border-b-0 md:border-r border-[#E5E7EB]">
+				<div class="md:w-1/2 bg-[#F8FAFC] relative overflow-hidden border-b md:border-b-0 md:border-r border-[#E5E7EB]">
 					<div class="absolute inset-0 bg-gradient-to-br from-[#0B3570]/5 to-[#0B3570]/10"></div>
-					<?php $mach_img_mobile = $mach_img_m ? $mach_img_m : $mach_img; ?>
-					<?php if ( $mach_img_mobile ) : ?>
-						<?php echo wp_get_attachment_image( $mach_img_mobile, 'large', false, ['class' => 'w-full h-full object-cover mix-blend-multiply opacity-80 group-hover:scale-105 transition-transform duration-700 md:hidden'] ); ?>
-					<?php else: ?>
-						<img src="https://placehold.co/800x450/F1F5F9/0B3570?text=Manufacturing" class="w-full h-full object-cover mix-blend-multiply opacity-80 group-hover:scale-105 transition-transform duration-700 md:hidden" alt="Manufacturing">
-					<?php endif; ?>
 					<?php if ( $mach_img ) : ?>
-						<?php echo wp_get_attachment_image( $mach_img, 'large', false, ['class' => 'w-full h-full object-cover mix-blend-multiply opacity-80 group-hover:scale-105 transition-transform duration-700 hidden md:block'] ); ?>
+						<?php echo wp_get_attachment_image( $mach_img, 'large', false, ['class' => 'w-full h-full object-cover mix-blend-multiply opacity-80 group-hover:scale-105 transition-transform duration-700'] ); ?>
 					<?php else: ?>
-						<img src="https://placehold.co/600x400/F1F5F9/0B3570?text=CNC+Machining" class="w-full h-full object-cover mix-blend-multiply opacity-80 group-hover:scale-105 transition-transform duration-700 hidden md:block" alt="Precision Machining">
+						<img src="https://placehold.co/600x400/F1F5F9/0B3570?text=CNC+Machining" class="w-full h-full object-cover mix-blend-multiply opacity-80 group-hover:scale-105 transition-transform duration-700" alt="Precision Machining">
 					<?php endif; ?>
 					<div class="absolute top-4 left-4 font-mono text-4xl font-bold text-[#0B3570]/10 select-none">02</div>
 				</div>
@@ -156,18 +140,12 @@ $log_desc   = isset( $group_data['wcu_logistic_desc'] ) ? $group_data['wcu_logis
 			<!-- Card 03: Global Logistics (Right Bottom - Horizontal) -->
 			<div class="lg:col-span-8 group relative bg-white border border-[#E5E7EB] hover:border-[#F97C30] transition-all duration-300 flex flex-col md:flex-row rounded-sm hover:shadow-xl overflow-hidden min-h-[280px]">
 				<!-- Image -->
-				<div class="md:w-1/2 aspect-[16/9] md:aspect-auto bg-[#F8FAFC] relative overflow-hidden border-b md:border-b-0 md:border-r border-[#E5E7EB]">
+				<div class="md:w-1/2 bg-[#F8FAFC] relative overflow-hidden border-b md:border-b-0 md:border-r border-[#E5E7EB]">
 						<div class="absolute inset-0 bg-gradient-to-br from-[#0B3570]/5 to-[#0B3570]/10"></div>
-					<?php $log_img_mobile = $log_img_m ? $log_img_m : $log_img; ?>
-					<?php if ( $log_img_mobile ) : ?>
-						<?php echo wp_get_attachment_image( $log_img_mobile, 'large', false, ['class' => 'w-full h-full object-cover mix-blend-multiply opacity-80 group-hover:scale-105 transition-transform duration-700 md:hidden'] ); ?>
-					<?php else: ?>
-						<img src="https://placehold.co/800x450/F1F5F9/0B3570?text=Logistics" class="w-full h-full object-cover mix-blend-multiply opacity-80 group-hover:scale-105 transition-transform duration-700 md:hidden" alt="Logistics">
-					<?php endif; ?>
 					<?php if ( $log_img ) : ?>
-						<?php echo wp_get_attachment_image( $log_img, 'large', false, ['class' => 'w-full h-full object-cover mix-blend-multiply opacity-80 group-hover:scale-105 transition-transform duration-700 hidden md:block'] ); ?>
+						<?php echo wp_get_attachment_image( $log_img, 'large', false, ['class' => 'w-full h-full object-cover mix-blend-multiply opacity-80 group-hover:scale-105 transition-transform duration-700'] ); ?>
 					<?php else: ?>
-						<img src="https://placehold.co/600x400/F1F5F9/0B3570?text=Global+Logistics" class="w-full h-full object-cover mix-blend-multiply opacity-80 group-hover:scale-105 transition-transform duration-700 hidden md:block" alt="Global Logistics">
+						<img src="https://placehold.co/600x400/F1F5F9/0B3570?text=Global+Logistics" class="w-full h-full object-cover mix-blend-multiply opacity-80 group-hover:scale-105 transition-transform duration-700" alt="Global Logistics">
 					<?php endif; ?>
 					<div class="absolute top-4 left-4 font-mono text-4xl font-bold text-[#0B3570]/10 select-none">03</div>
 				</div>

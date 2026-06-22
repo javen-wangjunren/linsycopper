@@ -45,7 +45,7 @@ $bg_url = $bg_id ? wp_get_attachment_image_url( $bg_id, 'full' ) : '';
 	<div class="mx-auto max-w-6xl px-4 relative z-10">
 		<div class="mx-auto max-w-4xl -mb-16">
             <!-- Card Wrapper -->
-            <div class="bg-white rounded-sm shadow-2xl p-8 md:p-10 border-t-4 border-[#F97C30]">
+            <div class="lc-consult-form-scope bg-white rounded-sm shadow-2xl p-8 md:p-10 border-t-4 border-[#F97C30]">
                 
                 <!-- Render the Form Atom -->
                 <?php get_template_part( 'template-parts/components/form' ); ?>

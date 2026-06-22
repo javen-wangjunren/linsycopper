@@ -30,7 +30,7 @@ if ( is_array( $title_tokens ) && count( $title_tokens ) >= 2 ) {
 <section class="bg-white pt-[100px] pb-[100px] font-sans">
 	<div class="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
 		<div class="lc-section-header mb-12 text-center">
-			<h1 class="text-heading text-balance text-4xl font-bold tracking-tight text-[#1F2937] md:text-5xl">
+			<h1 class="lc-h1-page text-balance text-[#1F2937]">
 				<?php if ( $title_last ) : ?>
 					<?php echo esc_html( $title_first ); ?> <span class="text-[#F97C30]"><?php echo esc_html( $title_last ); ?></span>
 				<?php else : ?>
@@ -38,7 +38,7 @@ if ( is_array( $title_tokens ) && count( $title_tokens ) >= 2 ) {
 				<?php endif; ?>
 			</h1>
 			<?php if ( $desc ) : ?>
-				<p class="mx-auto mt-3 max-w-2xl text-pretty text-[#6B7280]">
+				<p class="lc-body-section mx-auto mt-3 max-w-2xl text-pretty">
 					<?php echo esc_html( $desc ); ?>
 				</p>
 			<?php endif; ?>
@@ -64,18 +64,18 @@ if ( is_array( $title_tokens ) && count( $title_tokens ) >= 2 ) {
 					</div>
 
 					<?php if ( $label ) : ?>
-						<h3 class="text-heading mb-2 font-semibold text-[#1F2937]">
+						<h3 class="lc-h3-section mb-2 text-[#1F2937]">
 							<?php echo esc_html( $label ); ?>
 						</h3>
 					<?php endif; ?>
 
 					<?php if ( $value ) : ?>
 						<?php if ( $link ) : ?>
-							<a href="<?php echo esc_url( $link ); ?>" class="mb-3 text-sm font-mono font-bold text-[#0B3570] transition-colors hover:text-[#F97C30]">
+							<a href="<?php echo esc_url( $link ); ?>" class="lc-mono-meta mb-3 font-bold text-[#0B3570] transition-colors hover:text-[#F97C30]">
 								<?php echo esc_html( $value ); ?>
 							</a>
 						<?php else : ?>
-							<p class="mb-3 text-sm font-mono font-bold text-[#0B3570]">
+							<p class="lc-mono-meta mb-3 font-bold text-[#0B3570]">
 								<?php echo esc_html( $value ); ?>
 							</p>
 						<?php endif; ?>

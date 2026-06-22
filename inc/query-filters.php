@@ -21,6 +21,19 @@ add_action( 'pre_get_posts', function( $query ) {
         return;
     }
 
+    // Blog posts page category filter via ?category=slug
+    if ( $query->is_home() ) {
+        $category_slug = '';
+
+        if ( isset( $_GET['category'] ) ) {
+            $category_slug = sanitize_title( wp_unslash( $_GET['category'] ) );
+        }
+
+        if ( $category_slug ) {
+            $query->set( 'category_name', $category_slug );
+        }
+    }
+
     // Target Product Taxonomies
     if ( is_tax( array( 'product_shape', 'product_material', 'product_grade' ) ) ) {
         

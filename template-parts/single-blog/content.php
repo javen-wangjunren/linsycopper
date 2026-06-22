@@ -76,12 +76,8 @@ $prose_class = implode( ' ', $prose_classes );
         ?>
     </div>
 
-    <!-- Article Footer / Tags -->
-    <footer class="mt-20 pt-10 border-t border-[#E5E7EB]">
-        <div class="flex flex-wrap items-center gap-4">
-            <span class="text-sm font-mono uppercase text-[#9CA3AF]">Tags:</span>
-            <?php the_tags( '<div class="flex flex-wrap gap-2">', '', '</div>' ); ?>
-        </div>
-    </footer>
+    <div class="mt-16">
+        <?php get_template_part( 'template-parts/single-blog/author-card', null, array( 'variant' => 'footer' ) ); ?>
+    </div>
 
 </article>

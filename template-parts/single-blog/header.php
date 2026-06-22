@@ -4,52 +4,86 @@
  * Path: template-parts/single-blog/header.php
  */
 
-$categories = get_the_category();
-$primary_cat = ! empty( $categories ) ? $categories[0]->name : 'Uncategorized';
+$author_id      = (int) get_the_author_meta( 'ID' );
+$author_profile = function_exists( 'linsy_get_blog_author_profile' ) ? linsy_get_blog_author_profile( $author_id ) : array();
+$author_name    = ! empty( $author_profile['name'] ) ? $author_profile['name'] : get_the_author();
+$posts_page_id  = (int) get_option( 'page_for_posts' );
+$blogs_url      = $posts_page_id ? get_permalink( $posts_page_id ) : home_url( '/blog/' );
+$published_date = get_the_date( 'M j, Y' );
+$updated_date   = get_the_modified_date( 'M j, Y' );
+$author_avatar  = function_exists( 'linsy_get_blog_author_avatar_html' )
+    ? linsy_get_blog_author_avatar_html( $author_id, 64, 'w-full h-full object-cover' )
+    : get_avatar( $author_id, 64, '', $author_name, array( 'class' => 'w-full h-full object-cover' ) );
+
+$text_column_classes = has_post_thumbnail() ? 'lg:col-span-7' : 'lg:col-span-12';
 ?>
 
-<header class="relative bg-[#F8F9FA] pt-16 pb-12 md:pt-24 md:pb-16 border-b border-[#E5E7EB] overflow-hidden">
+<header class="relative bg-[#F8F9FA] border-b border-[#E5E7EB] overflow-hidden">
     <!-- Copper UI: Industrial Grid Background -->
     <div class="absolute inset-0 opacity-[0.03] pointer-events-none" 
          style="background-image: radial-gradient(#0B3570 1px, transparent 1px); background-size: 24px 24px;"></div>
 
-    <div class="relative z-10 mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
-        
-        <!-- Category & Breadcrumb -->
-        <div class="mb-6 flex items-center gap-2 font-mono text-xs font-semibold uppercase tracking-wider text-[#F97C30]">
-            <a href="/blog/" class="hover:underline transition-all">Blog</a>
-            <span class="text-[#9CA3AF]">/</span>
-            <span class="text-[#4B5563]"><?php echo esc_html( $primary_cat ); ?></span>
+    <div class="relative z-10 mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8 py-14 md:py-18">
+        <div class="lc-breadcrumb-scope mb-3">
+            <nav aria-label="Breadcrumb" class="text-sm text-gray-500 sm:text-[15px]">
+                <ol class="flex flex-wrap items-center gap-x-2 gap-y-1">
+                    <li class="flex items-center gap-x-2">
+                        <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="transition-colors hover:text-[#0B3570]">
+                            Home
+                        </a>
+                        <span aria-hidden="true" class="text-gray-300">/</span>
+                    </li>
+                    <li class="flex items-center gap-x-2">
+                        <a href="<?php echo esc_url( $blogs_url ); ?>" class="transition-colors hover:text-[#0B3570]">
+                            Blogs
+                        </a>
+                        <span aria-hidden="true" class="text-gray-300">/</span>
+                    </li>
+                    <li class="flex items-center gap-x-2">
+                        <span class="font-medium text-[#0B3570]">
+                            <?php the_title(); ?>
+                        </span>
+                    </li>
+                </ol>
+            </nav>
         </div>
 
-        <!-- Title & Meta -->
-        <div class="max-w-4xl">
-            <h1 class="text-heading text-4xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight text-[#1F2937] mb-8">
-                <?php the_title(); ?>
-            </h1>
-            
-            <div class="flex flex-wrap items-center gap-6 text-sm text-[#6B7280]">
-                <!-- Date -->
-                <div class="flex items-center gap-2">
-                    <svg class="w-4 h-4 text-[#F97C30]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
-                    <time datetime="<?php echo get_the_date('c'); ?>"><?php echo get_the_date(); ?></time>
-                </div>
-                <!-- Author -->
-                <div class="flex items-center gap-2">
-                    <svg class="w-4 h-4 text-[#F97C30]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
-                    <span class="font-medium text-[#1F2937]">By <?php the_author(); ?></span>
+        <div class="mt-8 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+            <div class="<?php echo esc_attr( $text_column_classes ); ?>">
+                <h1 class="text-[#1F2937] text-4xl md:text-5xl lg:text-[56px] font-bold leading-[1.08] tracking-tight">
+                    <?php the_title(); ?>
+                </h1>
+
+                <div class="mt-8 flex flex-wrap items-center gap-5 text-sm text-[#4B5563]">
+                    <div class="flex items-center gap-3">
+                        <div class="w-11 h-11 rounded-full overflow-hidden border border-[#E5E7EB] bg-white shrink-0">
+                            <?php echo $author_avatar; ?>
+                        </div>
+                        <div>
+                            <div class="font-semibold text-[#1F2937]"><?php echo esc_html( $author_name ); ?></div>
+                        </div>
+                    </div>
+                    <div class="h-10 w-px bg-[#E5E7EB] hidden sm:block"></div>
+                    <div class="font-medium">
+                        <span class="text-[#1F2937]">Published Date:</span>
+                        <time datetime="<?php echo esc_attr( get_the_date( 'c' ) ); ?>"><?php echo esc_html( $published_date ); ?></time>
+                    </div>
+                    <div class="font-medium">
+                        <span class="text-[#1F2937]">Updated Date:</span>
+                        <time datetime="<?php echo esc_attr( get_the_modified_date( 'c' ) ); ?>"><?php echo esc_html( $updated_date ); ?></time>
+                    </div>
                 </div>
             </div>
+
+            <?php if ( has_post_thumbnail() ) : ?>
+                <div class="lg:col-span-5">
+                    <div class="overflow-hidden rounded-sm border border-[#E5E7EB] bg-white p-2 shadow-lg">
+                        <div class="aspect-[4/3] overflow-hidden rounded-sm">
+                            <?php the_post_thumbnail( 'full', array( 'class' => 'h-full w-full object-cover' ) ); ?>
+                        </div>
+                    </div>
+                </div>
+            <?php endif; ?>
         </div>
-
-        <!-- Featured Image -->
-        <?php if ( has_post_thumbnail() ) : ?>
-            <div class="mt-12 md:mt-16 aspect-[21/9] w-full overflow-hidden rounded-sm shadow-xl border border-[#E5E7EB] bg-white p-2">
-                <div class="h-full w-full overflow-hidden rounded-sm">
-                    <?php the_post_thumbnail( 'full', array( 'class' => 'h-full w-full object-cover transition-transform duration-700 hover:scale-105' ) ); ?>
-                </div>
-            </div>
-        <?php endif; ?>
-
     </div>
 </header>

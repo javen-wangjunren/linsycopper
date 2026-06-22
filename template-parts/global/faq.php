@@ -23,9 +23,6 @@ if ( empty( $faqs ) ) {
 	<div class="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
 		<div class="mx-auto max-w-[768px]">
 			<div class="mb-12 text-center">
-				<div class="mb-3 inline-block rounded-sm bg-[#0B3570]/10 px-3 py-1 font-mono text-xs font-semibold uppercase tracking-wider text-[#0B3570]">
-					FAQ
-				</div>
 				<h2 class="text-heading text-balance text-3xl font-bold tracking-tight text-[#1F2937] md:text-4xl">
 					<?php echo esc_html( $title ? $title : 'Frequently Asked Questions' ); ?>
 				</h2>

@@ -28,7 +28,7 @@ $size_matrix = get_flat_field( 'product_desc_size_matrix' ); // Repeater (Row 1 
 		
 		<!-- 1. Product Overview -->
 		<div class="mb-12">
-			<h2 class="text-3xl font-bold text-heading md:text-4xl mb-6 font-sans">
+			<h2 class="lc-h2-section text-heading mb-6">
 				<?php echo esc_html( $overview_title ); ?>
 			</h2>
 			<?php if ( $overview_content ) : ?>
@@ -41,7 +41,7 @@ $size_matrix = get_flat_field( 'product_desc_size_matrix' ); // Repeater (Row 1 
 		<!-- 2. Key Features -->
 		<?php if ( ! empty( $features ) ) : ?>
 		<div class="mb-12 rounded-sm border border-gray-200 bg-gray-50/50 p-8">
-			<h3 class="text-xl font-bold text-primary-blue mb-6 font-sans">
+			<h3 class="lc-h3-feature mb-6 text-primary-blue">
 				<?php echo esc_html( $features_title ); ?>
 			</h3>
 			<div class="grid gap-4 sm:grid-cols-2">
@@ -50,7 +50,7 @@ $size_matrix = get_flat_field( 'product_desc_size_matrix' ); // Repeater (Row 1 
 					<div class="flex items-start gap-3">
 						<!-- Icon: CheckCircle2 -->
 						<svg class="w-5 h-5 text-action-copper flex-shrink-0 mt-0.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
-						<span class="text-sm text-gray-700 font-medium">
+						<span class="lc-body-card text-gray-700 font-medium">
 							<?php echo esc_html( $feature['text'] ); ?>
 						</span>
 					</div>
@@ -63,7 +63,7 @@ $size_matrix = get_flat_field( 'product_desc_size_matrix' ); // Repeater (Row 1 
 		<!-- 3. Available Sizes Matrix -->
 		<?php if ( ! empty( $size_matrix ) ) : ?>
 		<div>
-			<h3 class="text-xl font-bold text-primary-blue mb-6 font-sans">
+			<h3 class="lc-h3-feature mb-6 text-primary-blue">
 				<?php echo esc_html( $size_title ); ?>
 			</h3>
 			<div class="overflow-x-auto rounded-sm border border-gray-200 shadow-sm">
@@ -99,7 +99,7 @@ $size_matrix = get_flat_field( 'product_desc_size_matrix' ); // Repeater (Row 1 
 								if ( ! empty( $header_val ) ) :
 									$cell_val = $row['col_' . $i];
 							?>
-								<td class="px-6 py-4 text-sm text-gray-700 font-mono">
+								<td class="lc-mono-meta px-6 py-4 text-gray-700">
 									<?php echo esc_html( $cell_val ); ?>
 								</td>
 							<?php endif; endfor; ?>
@@ -108,7 +108,7 @@ $size_matrix = get_flat_field( 'product_desc_size_matrix' ); // Repeater (Row 1 
 					</tbody>
 				</table>
 			</div>
-			<p class="mt-4 text-sm text-gray-500 italic">
+			<p class="lc-body-card mt-4 italic text-gray-500">
 				* Custom sizes available upon request. Contact our sales team for special requirements.
 			</p>
 		</div>

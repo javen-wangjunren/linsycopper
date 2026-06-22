@@ -27,7 +27,7 @@ if ( empty( $items ) ) {
         <div class="mb-4 flex items-end justify-between">
             <div>
                 <?php if ( $title ) : ?>
-                    <h2 class="text-heading text-3xl font-bold text-[#1F2937] md:text-4xl">
+                    <h2 class="lc-h2-section text-[#1F2937]">
                         <?php echo esc_html( $title ); ?>
                     </h2>
                 <?php endif; ?>
@@ -42,7 +42,7 @@ if ( empty( $items ) ) {
         </div>
 
         <?php if ( $desc ) : ?>
-            <p class="mb-12 max-w-2xl text-base leading-relaxed text-[#6B7280]">
+            <p class="lc-body-section mb-12 max-w-2xl md:text-base">
                 <?php echo esc_html( $desc ); ?>
             </p>
         <?php endif; ?>
@@ -73,7 +73,7 @@ if ( empty( $items ) ) {
 
                     <!-- Card Content - Bottom Half -->
                     <div class="flex flex-col flex-grow p-6 text-center">
-                        <h3 class="text-heading mb-6 text-xl font-bold text-[#1F2937]">
+                        <h3 class="lc-h3-section mb-6 text-[#1F2937]">
                             <?php echo esc_html( $term->name ); ?>
                         </h3>
 

@@ -39,7 +39,7 @@ if ( empty( $terms ) && current_user_can( 'manage_options' ) ) {
 		
 		<!-- Section Header -->
 		<div class="mb-12 text-center">
-			<h2 class="text-balance text-3xl font-bold tracking-tight text-[#1F2937] md:text-4xl text-heading">
+			<h2 class="lc-h2-section text-balance text-[#1F2937]">
 				<?php echo esc_html( $headline ); ?>
 			</h2>
 		</div>

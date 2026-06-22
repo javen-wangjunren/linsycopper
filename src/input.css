@@ -3,6 +3,16 @@
 @config "../tailwind.config.js";
 
 @layer base {
+  body.lc-app .lc-taxonomy-filter-drawer {
+    transform: translateX(-100%);
+    box-shadow: none;
+  }
+
+  body.lc-app .lc-taxonomy-filter-drawer.is-open {
+    transform: translateX(0);
+    box-shadow: 0 25px 50px -12px rgb(15 23 42 / 0.25);
+  }
+
   @media (min-width: 1024px) {
     body.lc-app .lc-taxonomy-filter-toggle,
     body.lc-app .lc-taxonomy-filter-backdrop,
@@ -119,7 +129,12 @@
   body.lc-app footer #menu-footer-products,
   body.lc-app footer #menu-footer-company,
   body.lc-app footer #menu-products,
-  body.lc-app footer #menu-company {
+  body.lc-app footer #menu-company,
+  .lc-site-footer-scope .lc-footer-menu-list,
+  .lc-site-footer-scope #menu-footer-products,
+  .lc-site-footer-scope #menu-footer-company,
+  .lc-site-footer-scope #menu-products,
+  .lc-site-footer-scope #menu-company {
     margin: 0 !important;
     padding: 0 !important;
     list-style: none !important;
@@ -132,7 +147,12 @@
   body.lc-app footer #menu-footer-products li,
   body.lc-app footer #menu-footer-company li,
   body.lc-app footer #menu-products li,
-  body.lc-app footer #menu-company li {
+  body.lc-app footer #menu-company li,
+  .lc-site-footer-scope .lc-footer-menu-list li,
+  .lc-site-footer-scope #menu-footer-products li,
+  .lc-site-footer-scope #menu-footer-company li,
+  .lc-site-footer-scope #menu-products li,
+  .lc-site-footer-scope #menu-company li {
     margin: 0 !important;
     padding: 0 !important;
   }
@@ -146,7 +166,17 @@
   body.lc-app footer #menu-footer-products a:visited,
   body.lc-app footer #menu-footer-company a:visited,
   body.lc-app footer #menu-products a:visited,
-  body.lc-app footer #menu-company a:visited {
+  body.lc-app footer #menu-company a:visited,
+  .lc-site-footer-scope .lc-footer-menu-list a,
+  .lc-site-footer-scope #menu-footer-products a,
+  .lc-site-footer-scope #menu-footer-company a,
+  .lc-site-footer-scope #menu-products a,
+  .lc-site-footer-scope #menu-company a,
+  .lc-site-footer-scope .lc-footer-menu-list a:visited,
+  .lc-site-footer-scope #menu-footer-products a:visited,
+  .lc-site-footer-scope #menu-footer-company a:visited,
+  .lc-site-footer-scope #menu-products a:visited,
+  .lc-site-footer-scope #menu-company a:visited {
     color: #ffffff !important;
   }
 
@@ -164,7 +194,22 @@
   body.lc-app footer #menu-footer-products a:active,
   body.lc-app footer #menu-footer-company a:active,
   body.lc-app footer #menu-products a:active,
-  body.lc-app footer #menu-company a:active {
+  body.lc-app footer #menu-company a:active,
+  .lc-site-footer-scope .lc-footer-menu-list a:hover,
+  .lc-site-footer-scope #menu-footer-products a:hover,
+  .lc-site-footer-scope #menu-footer-company a:hover,
+  .lc-site-footer-scope #menu-products a:hover,
+  .lc-site-footer-scope #menu-company a:hover,
+  .lc-site-footer-scope .lc-footer-menu-list a:focus,
+  .lc-site-footer-scope #menu-footer-products a:focus,
+  .lc-site-footer-scope #menu-footer-company a:focus,
+  .lc-site-footer-scope #menu-products a:focus,
+  .lc-site-footer-scope #menu-company a:focus,
+  .lc-site-footer-scope .lc-footer-menu-list a:active,
+  .lc-site-footer-scope #menu-footer-products a:active,
+  .lc-site-footer-scope #menu-footer-company a:active,
+  .lc-site-footer-scope #menu-products a:active,
+  .lc-site-footer-scope #menu-company a:active {
     color: #F4BD5D !important;
   }
 
@@ -180,31 +225,62 @@
     padding: 0 !important;
   }
 
+  /* Reusable reset primitives for component UI that must ignore theme defaults. */
+  .lc-list-reset:where(ul, ol),
+  .lc-list-reset :where(ul, ol),
+  .lc-taxonomy-scope :where(ul, ol),
+  .lc-breadcrumb-scope :where(ul, ol) {
+    margin: 0 !important;
+    padding: 0 !important;
+    list-style: none !important;
+  }
+
+  .lc-list-reset :where(li),
+  .lc-taxonomy-scope :where(li),
+  .lc-breadcrumb-scope :where(li) {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .lc-link-reset,
+  .lc-link-reset:hover,
+  .lc-link-reset:focus,
+  .lc-link-reset:active,
+  .lc-taxonomy-scope :where(a),
+  .lc-taxonomy-scope :where(a:hover, a:focus, a:active),
+  .lc-breadcrumb-scope :where(a),
+  .lc-breadcrumb-scope :where(a:hover, a:focus, a:active) {
+    color: inherit;
+    text-decoration: none !important;
+    text-decoration-line: none !important;
+  }
+
+  .lc-btn-reset,
+  .lc-btn-reset:hover,
+  .lc-btn-reset:focus,
+  .lc-btn-reset:active {
+    appearance: none;
+    border: 0;
+    background: none;
+    margin: 0;
+    padding: 0;
+    font: inherit;
+    color: inherit;
+    text-align: inherit;
+    box-shadow: none;
+  }
+
+  .lc-taxonomy-scope .lc-taxonomy-card-title {
+    font-size: clamp(16px, 3.6vw, 18px) !important;
+    line-height: 1.2 !important;
+  }
+
+  .lc-taxonomy-scope .lc-taxonomy-card-body .lc-taxonomy-card-title {
+    margin: 0;
+  }
+
   .lc-taxonomy-scope :where(p) {
     margin: 0;
-  }
-
-  .lc-taxonomy-scope :where(ul, ol) {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-  }
-
-  .lc-taxonomy-scope :where(li) {
-    margin: 0;
-    padding: 0;
-  }
-
-  .lc-taxonomy-scope :where(a) {
-    color: inherit;
-    text-decoration: none !important;
-    text-decoration-line: none !important;
-  }
-
-  .lc-taxonomy-scope :where(a:hover, a:focus, a:active) {
-    color: inherit;
-    text-decoration: none !important;
-    text-decoration-line: none !important;
   }
 
   .lc-taxonomy-scope :where(a:not([class])) {
@@ -233,17 +309,243 @@
   .lc-taxonomy-scope input[x-model="searchQuery"]::placeholder {
     font-size: 12px !important;
   }
+
+  .lc-blog-sidebar-scope :where(ul) {
+    margin: 0;
+    padding-left: 0;
+  }
+
+  .lc-blog-sidebar-scope :where(a) {
+    text-decoration: none !important;
+    text-decoration-line: none !important;
+  }
+
+  .lc-blog-archive-scope :where(a),
+  .lc-blog-archive-scope :where(a:hover, a:focus, a:active, a:visited) {
+    text-decoration: none !important;
+    text-decoration-line: none !important;
+  }
+
+  .lc-blog-archive-header :where(h1, p) {
+    text-align: center !important;
+  }
+
+  .lc-blog-archive-header > h1 {
+    font-size: 2.25rem !important;
+    line-height: 1.08 !important;
+  }
+
+  @media (min-width: 768px) {
+    .lc-blog-archive-header > h1 {
+      font-size: 3rem !important;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .lc-blog-archive-header > h1 {
+      font-size: 2.75rem !important;
+    }
+  }
+
+  .lc-blog-archive-header-desc {
+    display: flex;
+    justify-content: center;
+  }
+
+  .lc-blog-archive-header-desc > p {
+    width: 100%;
+    max-width: 42rem;
+    margin: 0;
+  }
+
+  .lc-blog-archive-header :where(p) {
+    margin-bottom: 0;
+  }
+
+  .lc-breadcrumb-on-dark :where(a),
+  .lc-breadcrumb-on-dark :where(a:visited),
+  .lc-breadcrumb-on-dark :where(span) {
+    color: #ffffff !important;
+  }
+
+  .lc-breadcrumb-on-dark :where(a:hover, a:focus, a:active) {
+    color: #F97C30 !important;
+  }
+
+  .lc-blog-sidebar-scope .lc-blog-author-link,
+  .lc-blog-sidebar-scope .lc-blog-author-link:visited {
+    color: #6B7280 !important;
+    background-color: transparent !important;
+    text-decoration: none !important;
+    text-decoration-line: none !important;
+  }
+
+  .lc-blog-sidebar-scope .lc-blog-author-link:hover,
+  .lc-blog-sidebar-scope .lc-blog-author-link:focus,
+  .lc-blog-sidebar-scope .lc-blog-author-link:active {
+    color: #F97C30 !important;
+    background-color: transparent !important;
+    border-color: #F97C30 !important;
+  }
+
+  .lc-blog-sidebar-scope .lc-blog-sidebar-cta,
+  .lc-blog-sidebar-scope .lc-blog-sidebar-cta:visited {
+    color: #ffffff !important;
+    text-decoration: none !important;
+    text-decoration-line: none !important;
+  }
+
+  .lc-blog-sidebar-scope .lc-blog-sidebar-cta:hover,
+  .lc-blog-sidebar-scope .lc-blog-sidebar-cta:focus,
+  .lc-blog-sidebar-scope .lc-blog-sidebar-cta:active {
+    color: #0B3570 !important;
+    background-color: #ffffff !important;
+    border-color: #ffffff !important;
+    text-decoration: none !important;
+    text-decoration-line: none !important;
+  }
+
+  .lc-site-footer-scope :where(a),
+  .lc-site-footer-scope :where(a:hover, a:focus, a:active, a:visited) {
+    color: inherit;
+    text-decoration: none !important;
+    text-decoration-line: none !important;
+  }
+
+  .lc-blog-author-footer-link,
+  .lc-blog-author-footer-link:visited,
+  .lc-blog-author-footer-link:hover,
+  .lc-blog-author-footer-link:focus,
+  .lc-blog-author-footer-link:active {
+    text-decoration: none !important;
+    text-decoration-line: none !important;
+  }
 }
 
 @layer components {
+  body.lc-app .lc-h1-product {
+    @apply font-sans text-2xl sm:text-3xl md:text-4xl font-bold leading-tight;
+  }
+
+  body.lc-app .lc-h1-page {
+    @apply font-sans text-4xl md:text-5xl font-bold leading-tight tracking-tight;
+  }
+
+  body.lc-app .lc-h1-display {
+    @apply font-sans text-[42px] sm:text-5xl md:text-7xl lg:text-[88px] font-bold tracking-tight;
+    line-height: 1;
+  }
+
+  body.lc-app .lc-h2-section {
+    @apply font-sans text-3xl md:text-4xl font-bold leading-tight;
+  }
+
+  body.lc-app .lc-h2-display {
+    @apply font-sans text-4xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight;
+  }
+
+  body.lc-app .lc-h3-section {
+    @apply font-sans text-lg font-bold leading-snug;
+  }
+
+  body.lc-app .lc-h3-feature {
+    @apply font-sans text-xl font-bold leading-tight;
+  }
+
+  body.lc-app .lc-h3-display {
+    @apply font-sans text-2xl md:text-3xl lg:text-4xl font-bold leading-tight;
+  }
+
+  body.lc-app .lc-body-section {
+    @apply text-body text-base md:text-lg leading-relaxed;
+  }
+
+  body.lc-app .lc-body-card {
+    @apply text-body text-sm leading-relaxed;
+  }
+
+  body.lc-app .lc-body-meta {
+    @apply text-body text-xs leading-relaxed;
+  }
+
+  body.lc-app .lc-mono-kicker {
+    @apply font-mono text-[11px] font-bold uppercase;
+    letter-spacing: 0.14em;
+  }
+
+  body.lc-app .lc-mono-meta {
+    @apply font-mono text-[13px];
+  }
+
+  body.lc-app .lc-mono-value {
+    @apply font-mono font-bold tracking-tight leading-none;
+  }
+
+  .lc-consult-form-scope .lc-mono-kicker {
+    font-family: inherit !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    text-transform: none !important;
+    letter-spacing: 0 !important;
+  }
+
+  .lc-consult-form-scope input[type="text"],
+  .lc-consult-form-scope input[type="tel"],
+  .lc-consult-form-scope textarea {
+    font-size: 15px !important;
+    line-height: 1.5 !important;
+  }
+
+  @media (min-width: 768px) {
+    .lc-consult-form-scope input[type="text"],
+    .lc-consult-form-scope input[type="tel"],
+    .lc-consult-form-scope textarea {
+      font-size: 14px !important;
+    }
+  }
+
+  body.lc-app .lc-mono-chip {
+    @apply font-mono text-[10px] font-bold;
+  }
+
+  .lc-header-scope .lc-header-mobile-toggle {
+    background-color: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
+    color: #ffffff !important;
+    display: inline-flex !important;
+    padding: 0.5rem !important;
+    border-radius: 2px !important;
+    line-height: 0 !important;
+  }
+
+  @media (min-width: 1024px) {
+    .lc-header-scope .lc-header-mobile-toggle {
+      display: none !important;
+    }
+  }
+
+  .lc-header-scope .lc-header-mobile-toggle:hover,
+  .lc-header-scope .lc-header-mobile-toggle:focus {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    color: #ffffff !important;
+  }
+  
+  .lc-header-scope .lc-header-mobile-toggle:focus-visible {
+    outline: 2px solid rgba(249, 124, 48, 0.65) !important;
+    outline-offset: 2px !important;
+  }
+
   .nav_tab {
-    @apply px-6 py-4 text-sm font-semibold whitespace-nowrap transition-colors focus:outline-none rounded-sm;
+    @apply px-6 py-4 text-sm font-semibold whitespace-nowrap transition-colors focus:outline-none;
+    appearance: none;
     font-weight: 600 !important;
     background-color: transparent !important;
     background-image: none !important;
     box-shadow: none !important;
     border: 0 !important;
     border-bottom: 2px solid transparent !important;
+    border-radius: 0 !important;
     color: #9CA3AF !important;
     cursor: pointer;
   }
@@ -308,6 +610,30 @@
   .site-content .lc-hub-cta-btn,
   .lc-hub-cta-btn {
     font-size: 14px !important;
+    font-family: inherit !important;
+    font-weight: 600 !important;
+    text-transform: none !important;
+    letter-spacing: normal !important;
+    color: #ffffff !important;
+    text-decoration: none !important;
+    text-decoration-line: none !important;
+    background-color: #F97C30 !important;
+    border-color: #F97C30 !important;
+  }
+
+  .site-content .lc-hub-cta-btn:hover,
+  .site-content .lc-hub-cta-btn:focus,
+  .site-content .lc-hub-cta-btn:active,
+  .site-content .lc-hub-cta-btn:visited,
+  .lc-hub-cta-btn:hover,
+  .lc-hub-cta-btn:focus,
+  .lc-hub-cta-btn:active,
+  .lc-hub-cta-btn:visited {
+    color: #ffffff !important;
+    text-decoration: none !important;
+    text-decoration-line: none !important;
+    background-color: #F97C30 !important;
+    border-color: #F97C30 !important;
   }
 
   .lc-section-header,
@@ -514,6 +840,29 @@
     color: #ffffff !important;
     text-decoration: none !important;
     text-decoration-line: none !important;
+  }
+
+  .lc-btn-action,
+  .lc-btn-action:visited,
+  .lc-btn-action:hover,
+  .lc-btn-action:focus,
+  .lc-btn-action:active {
+    background-color: #F97C30 !important;
+    border-color: #F97C30 !important;
+    color: #ffffff !important;
+    text-decoration: none !important;
+    text-decoration-line: none !important;
+  }
+
+  .lc-hero > div.absolute.inset-0 img {
+    height: 100% !important;
+    min-height: 100% !important;
+    max-width: none !important;
+  }
+
+  .lc-review .review-prev,
+  .lc-review .review-next {
+    padding: 0 !important;
   }
 
   .lc-hero-btn {

@@ -61,11 +61,11 @@ if ( $fast_desc ) {
 			<div class="lg:col-span-2">
 				<div class="space-y-6">
 					<div>
-						<h2 class="text-heading mb-2 text-3xl font-bold text-[#1F2937]">
+						<h2 class="lc-h2-section mb-2 text-[#1F2937]">
 							<?php echo esc_html( $title ); ?>
 						</h2>
 						<?php if ( $desc ) : ?>
-							<p class="text-[#6B7280]">
+							<p class="lc-body-section">
 								<?php echo esc_html( $desc ); ?>
 							</p>
 						<?php endif; ?>
@@ -78,18 +78,18 @@ if ( $fast_desc ) {
 			<div class="lg:col-span-1">
 				<div class="sticky top-8 space-y-6">
 					<div class="rounded-sm border border-[#E5E7EB] bg-[#F8F9FA] p-6">
-						<h3 class="text-heading mb-2 font-bold text-[#1F2937]">
+						<h3 class="lc-h3-section mb-2 text-[#1F2937]">
 							<?php echo esc_html( $fast_title ); ?>
 						</h3>
 						<?php if ( $fast_desc_html ) : ?>
-							<p class="text-sm text-[#6B7280]">
+							<p class="lc-body-card">
 								<?php echo $fast_desc_html; ?>
 							</p>
 						<?php endif; ?>
 					</div>
 
 					<div class="rounded-sm border border-[#E5E7EB] bg-white p-6">
-						<h3 class="text-heading mb-4 font-bold text-[#1F2937]">
+						<h3 class="lc-h3-section mb-4 text-[#1F2937]">
 							<?php echo esc_html( $commit_title ); ?>
 						</h3>
 						<div class="space-y-4">
@@ -112,7 +112,7 @@ if ( $fast_desc ) {
 										<circle cx="12" cy="12" r="10"></circle>
 										<path d="M9 12l2 2 4-4"></path>
 									</svg>
-									<span class="text-sm text-[#6B7280]">
+									<span class="lc-body-card">
 										<?php echo esc_html( $item ); ?>
 									</span>
 								</div>
@@ -128,7 +128,7 @@ if ( $fast_desc ) {
 						</div>
 
 						<?php if ( $review_quote ) : ?>
-							<p class="mb-3 text-sm italic text-[#6B7280]">
+							<p class="lc-body-card mb-3 italic">
 								<?php echo esc_html( $review_quote ); ?>
 							</p>
 						<?php endif; ?>
@@ -140,7 +140,7 @@ if ( $fast_desc ) {
 						<?php endif; ?>
 
 						<?php if ( $review_company ) : ?>
-							<div class="text-xs text-[#6B7280]">
+							<div class="lc-body-meta">
 								<?php echo esc_html( $review_company ); ?>
 							</div>
 						<?php endif; ?>

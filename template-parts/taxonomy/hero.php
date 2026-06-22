@@ -14,6 +14,11 @@
 
 // Get current term context
 $term = get_queried_object();
+$hub_page = null;
+
+if ( $term && ! empty( $term->taxonomy ) && function_exists( 'linsy_get_product_taxonomy_hub_page' ) ) {
+    $hub_page = linsy_get_product_taxonomy_hub_page( $term->taxonomy );
+}
 
 // Get ACF Fields
 $hero_image_id = get_field( 'hero_image', $term );
@@ -34,21 +39,41 @@ if ( empty( $hero_title ) ) {
         <!-- Text Content -->
         <div class="z-10 flex flex-col justify-center p-8 text-left md:w-1/2 md:py-16 lg:px-24 lg:py-20">
             <!-- Breadcrumb -->
-            <nav class="mb-6 font-mono text-[16px] font-semibold text-white uppercase tracking-wider">
-                <a href="<?php echo home_url(); ?>" class="!text-white visited:!text-white transition hover:!text-[#F97C30] focus:!text-[#F97C30] active:!text-[#F97C30]">Home</a>
-                <span class="mx-2">/</span>
-                <a href="<?php echo home_url('/products'); ?>" class="!text-white visited:!text-white transition hover:!text-[#F97C30] focus:!text-[#F97C30] active:!text-[#F97C30]">Catalog</a>
-                <span class="mx-2">/</span>
-                <span class="text-white"><?php echo esc_html( $term->name ); ?></span>
-            </nav>
+            <div class="lc-breadcrumb-scope lc-breadcrumb-on-dark mb-6">
+                <nav aria-label="Breadcrumb" class="text-sm text-white sm:text-[15px]">
+                    <ol class="flex flex-wrap items-center gap-x-2 gap-y-1">
+                        <li class="flex items-center gap-x-2">
+                            <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="transition-colors hover:text-[#F97C30]">
+                                Home
+                            </a>
+                            <span aria-hidden="true" class="text-white/35">/</span>
+                        </li>
+
+                        <?php if ( $hub_page && is_object( $hub_page ) ) : ?>
+                            <li class="flex items-center gap-x-2">
+                                <a href="<?php echo esc_url( get_permalink( $hub_page ) ); ?>" class="transition-colors hover:text-[#F97C30]">
+                                    <?php echo esc_html( linsy_get_product_taxonomy_hub_label( $hub_page ) ); ?>
+                                </a>
+                                <span aria-hidden="true" class="text-white/35">/</span>
+                            </li>
+                        <?php endif; ?>
+
+                        <li class="flex items-center gap-x-2">
+                            <span class="font-medium text-white">
+                                <?php echo esc_html( $term->name ); ?>
+                            </span>
+                        </li>
+                    </ol>
+                </nav>
+            </div>
             
             <!-- Copper UI: Theme Bridge (H1) -->
-            <h1 class="mb-6 text-4xl font-bold leading-tight tracking-tight text-white md:text-5xl lg:text-6xl text-heading">
+            <h1 class="lc-h1-page mb-6 text-white">
                 <?php echo wp_kses_post( $hero_title ); ?>
             </h1>
             
             <?php if ( $hero_desc ) : ?>
-            <p class="mb-8 max-w-xl text-lg leading-relaxed text-blue-100/80">
+            <p class="lc-body-section mb-8 max-w-xl text-blue-100/80 md:text-lg">
                 <?php echo esc_html( $hero_desc ); ?>
             </p>
             <?php endif; ?>
@@ -57,7 +82,7 @@ if ( empty( $hero_title ) ) {
             <div>
                 <a
                     href="<?php echo esc_url( $hero_cta_link ); ?>"
-                    class="inline-block transform bg-[#F97C30] px-8 py-4 font-mono text-[16px] font-bold !text-white visited:!text-white hover:!text-white focus:!text-white active:!text-white shadow-lg transition hover:-translate-y-1 hover:bg-orange-600 rounded-sm uppercase tracking-wider"
+                    class="inline-block transform bg-[#F97C30] px-8 py-4 text-[16px] font-bold !text-white visited:!text-white hover:!text-white focus:!text-white active:!text-white shadow-lg transition hover:-translate-y-1 hover:bg-orange-600 rounded-sm uppercase tracking-wider"
                 >
                     <?php echo esc_html( $hero_cta_text ); ?>
                 </a>

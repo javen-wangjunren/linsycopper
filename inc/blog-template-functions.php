@@ -106,3 +106,68 @@ function lc_get_reading_time( $post_id ) {
 
     return $reading_time . ' min read';
 }
+
+/**
+ * Get structured author profile data for blog single modules.
+ *
+ * @param int $author_id User ID.
+ * @return array
+ */
+function linsy_get_blog_author_profile( $author_id = 0 ) {
+    $author_id = $author_id ? (int) $author_id : (int) get_the_author_meta( 'ID' );
+
+    $data = array(
+        'id'       => $author_id,
+        'name'     => $author_id ? get_the_author_meta( 'display_name', $author_id ) : '',
+        'job'      => '',
+        'linkedin' => '',
+        'bio'      => '',
+        'image_id' => 0,
+    );
+
+    if ( ! $author_id || ! function_exists( 'get_field' ) ) {
+        return $data;
+    }
+
+    $data['image_id'] = (int) get_field( 'user_author_image', 'user_' . $author_id );
+    $data['job']      = trim( (string) get_field( 'user_author_job', 'user_' . $author_id ) );
+    $data['linkedin'] = trim( (string) get_field( 'user_author_linkedin', 'user_' . $author_id ) );
+    $data['bio']      = trim( (string) get_field( 'user_author_bio', 'user_' . $author_id ) );
+
+    return $data;
+}
+
+/**
+ * Render author avatar HTML with ACF image fallback to Gravatar.
+ *
+ * @param int    $author_id Author ID.
+ * @param int    $size      Avatar size.
+ * @param string $class     CSS classes.
+ * @return string
+ */
+function linsy_get_blog_author_avatar_html( $author_id = 0, $size = 80, $class = '' ) {
+    $author_id = $author_id ? (int) $author_id : (int) get_the_author_meta( 'ID' );
+    $profile   = linsy_get_blog_author_profile( $author_id );
+
+    if ( $profile['image_id'] ) {
+        return wp_get_attachment_image(
+            $profile['image_id'],
+            'thumbnail',
+            false,
+            array(
+                'class' => $class,
+                'alt'   => $profile['name'],
+            )
+        );
+    }
+
+    return get_avatar(
+        $author_id,
+        $size,
+        '',
+        $profile['name'],
+        array(
+            'class' => $class,
+        )
+    );
+}

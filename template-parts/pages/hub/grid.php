@@ -62,7 +62,7 @@ if ( empty( $terms ) || is_wp_error( $terms ) ) {
                     
                     <!-- Ready to Ship Badge (Mock Logic: If description exists, assume stock) -->
                     <?php if ( ! empty( $term->description ) ) : ?>
-                    <div class="absolute right-0 top-0 bg-[#0B3570] px-3 py-1.5 font-mono text-[9px] font-bold uppercase tracking-widest text-white">
+                    <div class="absolute right-0 top-0 bg-[#0B3570] px-3 py-1.5 text-[11px] font-semibold tracking-normal text-white">
                         Ready to Ship
                     </div>
                     <?php endif; ?>
@@ -70,14 +70,14 @@ if ( empty( $terms ) || is_wp_error( $terms ) ) {
 
                 <!-- Content Section -->
                 <div class="flex flex-1 flex-col p-8 text-left">
-                    <h3 class="mb-4 text-xl font-bold uppercase tracking-tight text-[#0B3570] text-heading">
+                    <h3 class="lc-h3-feature mb-4 uppercase tracking-tight text-[#0B3570]">
                         <a href="<?php echo esc_url( $link ); ?>">
                             <?php echo esc_html( $term->name ); ?>
                         </a>
                     </h3>
                     
                     <?php if ( ! empty( $term->description ) ) : ?>
-                    <p class="mb-6 text-sm leading-relaxed text-[#6B7280] line-clamp-3">
+                    <p class="lc-body-card mb-6 line-clamp-3">
                         <?php echo wp_trim_words( $term->description, 20 ); ?>
                     </p>
                     <?php else : ?>

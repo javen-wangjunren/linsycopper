@@ -40,11 +40,11 @@ if ( empty( $tables ) && empty( $available_grades ) ) {
 		<!-- II. 模块头部 (Section Header) -->
 		<!-- ========================================================================== -->
 		<div class="mb-12 text-center">
-			<h2 class="text-heading text-3xl font-bold md:text-4xl">
+			<h2 class="lc-h2-section text-heading">
 				<?php echo esc_html( $title ); ?>
 			</h2>
 			<?php if ( $subtitle ) : ?>
-				<p class="mt-3 text-[#6B7280] max-w-2xl !mx-auto !text-center">
+				<p class="lc-body-meta mt-3 max-w-2xl !mx-auto !text-center text-sm">
 					<?php echo esc_html( $subtitle ); ?>
 				</p>
 			<?php endif; ?>
@@ -68,8 +68,8 @@ if ( empty( $tables ) && empty( $available_grades ) ) {
 			<div class="mb-12 last:mb-0">
 				
 				<!-- 3.1 Table Title -->
-				<h3 class="mb-4 text-xl font-bold text-[#0B3570] flex items-center">
-					<span class="inline-flex items-center justify-center w-8 h-8 rounded bg-[#0B3570] text-white text-sm font-mono mr-3">
+				<h3 class="lc-h3-feature mb-4 flex items-center text-[#0B3570]">
+					<span class="lc-mono-chip inline-flex items-center justify-center w-8 h-8 rounded bg-[#0B3570] mr-3 text-white text-sm">
 						<?php echo esc_html( $index_str ); ?>
 					</span>
 					<?php echo esc_html( $table_name ); ?>
@@ -151,7 +151,7 @@ if ( empty( $tables ) && empty( $available_grades ) ) {
 											// === 单元格样式逻辑 (Visual First) ===
 											// 默认: 灰色, Mono字体, 小号
 											$cell_class = 'text-[#6B7280]'; 
-											$font_class = 'font-mono text-sm'; 
+											$font_class = 'lc-mono-meta text-sm'; 
 											
 											// 规则 A: 第一列 (Label) -> 深色, Sans, 加粗
 											if ( $i === 1 ) {
@@ -166,7 +166,7 @@ if ( empty( $tables ) && empty( $available_grades ) ) {
 											// 简单判断: 如果是第4列，或者第3列且总列数为3
 											// 这里简单粗暴一点，只要是第4列就变小
 											elseif ( $i === 4 ) {
-												$font_class = 'font-mono text-xs';
+												$font_class = 'lc-mono-chip text-xs';
 											}
 									?>
 										<td class="px-6 py-3 <?php echo $font_class . ' ' . $cell_class; ?> whitespace-nowrap">
@@ -211,8 +211,8 @@ if ( empty( $tables ) && empty( $available_grades ) ) {
 			<?php if ( ! empty( $grade_items ) ) : ?>
 				<?php $index_str = str_pad( $table_index, 2, '0', STR_PAD_LEFT ); ?>
 				<div class="mb-12 last:mb-0">
-					<h3 class="mb-4 text-xl font-bold text-[#0B3570] flex items-center">
-						<span class="inline-flex items-center justify-center w-8 h-8 rounded bg-[#0B3570] text-white text-sm font-mono mr-3">
+					<h3 class="lc-h3-feature mb-4 flex items-center text-[#0B3570]">
+						<span class="lc-mono-chip inline-flex items-center justify-center w-8 h-8 rounded bg-[#0B3570] mr-3 text-white text-sm">
 							<?php echo esc_html( $index_str ); ?>
 						</span>
 						<?php echo esc_html( 'Available Grades' ); ?>

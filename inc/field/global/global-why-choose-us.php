@@ -20,19 +20,6 @@ if ( function_exists( 'acf_add_local_field_group' ) ) {
 		'key'    => 'group_global_why_choose_us',
 		'title'  => 'Module: Why Choose Us',
 		'fields' => array(
-			
-			// ===================================
-			// Module Wrapper: Accordion (Closed)
-			// ===================================
-			array(
-				'key' => 'field_global_wcu_accordion',
-				'label' => 'Why Choose Us Section',
-				'type' => 'accordion',
-				'open' => 0,
-				'multi_expand' => 1,
-				'endpoint' => 0,
-			),
-
 			// 1. Section Header
 			array(
 				'key' => 'field_global_wcu_title',
@@ -154,14 +141,6 @@ if ( function_exists( 'acf_add_local_field_group' ) ) {
 				'type' => 'textarea',
 				'rows' => 3,
 				'wrapper' => array( 'width' => '50' ),
-			),
-			
-			// End Accordion
-			array(
-				'key' => 'field_global_wcu_accordion_end',
-				'label' => 'End Accordion',
-				'type' => 'accordion',
-				'endpoint' => 1,
 			),
 
 		),

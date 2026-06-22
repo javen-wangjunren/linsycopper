@@ -17,11 +17,17 @@ foreach ( $slides as $slide ) {
 	}
 
 	$bg_image_id = isset( $slide['industry_slide_bg_image'] ) ? (int) $slide['industry_slide_bg_image'] : 0;
-	$bg_image_url = '';
+	$bg_image_sm_url = '';
+	$bg_image_lg_url = '';
 	if ( $bg_image_id ) {
-		$url = wp_get_attachment_image_url( $bg_image_id, 'full' );
+		$url_sm = wp_get_attachment_image_url( $bg_image_id, 'medium_large' );
+		$url_lg = wp_get_attachment_image_url( $bg_image_id, 'full' );
+		if ( $url_sm ) {
+			$bg_image_sm_url = $url_sm;
+		}
+		$url = $url_lg ? $url_lg : $url_sm;
 		if ( $url ) {
-			$bg_image_url = $url;
+			$bg_image_lg_url = $url;
 		}
 	}
 
@@ -56,7 +62,8 @@ foreach ( $slides as $slide ) {
 	$cta_target = $cta_link && ! empty( $cta_link['target'] ) ? (string) $cta_link['target'] : '_self';
 
 	$normalized_slides[] = [
-		'bg' => $bg_image_url,
+		'bg_sm' => $bg_image_sm_url,
+		'bg_lg' => $bg_image_lg_url,
 		'kicker' => $kicker,
 		'title' => $title,
 		'desc' => $desc,
@@ -89,7 +96,7 @@ window.<?php echo esc_attr( $instance_var ); ?> = <?php echo $slides_json; ?>;
 <section class="lc-home-industry-immersive relative flex w-full items-center overflow-hidden bg-[#0B3570] pt-[100px] pb-[100px] min-h-[850px] md:min-h-[750px]" x-data="lcHomeIndustryImmersive(window.<?php echo esc_attr( $instance_var ); ?>)" x-init="init()">
 	<div class="absolute inset-0 overflow-hidden">
 		<template x-for="(slide, idx) in slides" :key="idx">
-			<div class="lc-home-industry-bg absolute inset-0" :style="slide.bg ? { backgroundImage: 'url(' + slide.bg + ')' } : {}" x-show="idx === currentIndex" x-transition.opacity.duration.700ms></div>
+			<div class="lc-home-industry-bg absolute inset-0" :style="(idx === currentIndex && slide.bg_lg) ? { backgroundImage: 'url(' + ((isMobile && slide.bg_sm) ? slide.bg_sm : slide.bg_lg) + ')' } : {}" x-show="idx === currentIndex" x-transition.opacity.duration.700ms></div>
 		</template>
 	</div>
 	<div class="absolute inset-0 bg-gradient-to-r from-[#0B3570] via-[#0B3570]/60 to-transparent pointer-events-none"></div>
@@ -103,13 +110,13 @@ window.<?php echo esc_attr( $instance_var ); ?> = <?php echo $slides_json; ?>;
 
 			<h3 class="text-heading lc-home-industry-title mb-6" x-text="slides[currentIndex] ? slides[currentIndex].title : ''"></h3>
 
-			<p class="text-lg md:text-xl text-white/80 mb-10 leading-relaxed" x-text="slides[currentIndex] ? slides[currentIndex].desc : ''"></p>
+			<p class="lc-body-section mb-10 text-white/80 md:text-xl" x-text="slides[currentIndex] ? slides[currentIndex].desc : ''"></p>
 
 			<div class="grid grid-cols-2 gap-8 mb-12 py-6 border-y border-white/10" x-show="slides[currentIndex] && slides[currentIndex].metrics && slides[currentIndex].metrics.length">
 				<template x-for="(m, mi) in ((slides[currentIndex] && slides[currentIndex].metrics) ? slides[currentIndex].metrics.slice(0, 2) : [])" :key="mi">
 					<div class="flex flex-col">
-						<span class="font-mono text-[11px] text-white/55 mb-1" x-text="m.label"></span>
-						<span class="font-mono text-2xl font-semibold text-[#F97C30]" x-text="m.value"></span>
+						<span class="lc-mono-kicker text-white/55 mb-1 normal-case" x-text="m.label"></span>
+						<span class="lc-mono-value text-2xl font-semibold text-[#F97C30]" x-text="m.value"></span>
 					</div>
 				</template>
 			</div>
@@ -141,9 +148,24 @@ function lcHomeIndustryImmersive(slides) {
 		slides: Array.isArray(slides) ? slides : [],
 		currentIndex: 0,
 		timer: null,
+		isMobile: false,
+		mediaQuery: null,
 
 		init() {
 			if (!this.slides.length) return;
+			if (window.matchMedia) {
+				const mq = window.matchMedia('(max-width: 767px)');
+				this.mediaQuery = mq;
+				const apply = () => {
+					this.isMobile = mq.matches;
+				};
+				apply();
+				if (mq.addEventListener) {
+					mq.addEventListener('change', apply);
+				} else if (mq.addListener) {
+					mq.addListener(apply);
+				}
+			}
 			this.start();
 			this.$el.addEventListener('mouseenter', () => this.stop());
 			this.$el.addEventListener('mouseleave', () => this.start());

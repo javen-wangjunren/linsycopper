@@ -43,12 +43,12 @@ if ( empty( $desc ) ) $desc   = 'Give us a call at <a href="tel:3462305191" clas
         <!-- Left Content -->
         <div class="text-white lg:w-5/12">
             <!-- Heading -->
-            <h2 class="mb-6 text-4xl font-bold uppercase leading-none tracking-tight md:text-5xl text-heading text-white">
+            <h2 class="lc-h2-display mb-6 uppercase text-white">
                 <?php echo esc_html( $title ); ?>
             </h2>
             
             <!-- Description -->
-            <div class="mb-10 text-lg leading-relaxed text-blue-100/80">
+            <div class="lc-body-section mb-10 text-blue-100/80">
                 <?php echo wp_kses_post( $desc ); ?>
             </div>
 
@@ -58,11 +58,11 @@ if ( empty( $desc ) ) $desc   = 'Give us a call at <a href="tel:3462305191" clas
                 <?php foreach ( $strengths as $item ) : ?>
                 <div>
                     <!-- Copper UI: Font Logic (Mono for Data) -->
-                    <div class="font-mono text-2xl font-bold text-[#F4BD5D]">
+                    <div class="lc-mono-value text-2xl text-[#F4BD5D]">
                         <?php echo esc_html( $item['strength_value'] ); ?>
                     </div>
                     <!-- Copper UI: Micro Typography -->
-                    <div class="mt-1 text-[10px] font-bold uppercase tracking-widest opacity-60">
+                    <div class="lc-mono-kicker mt-1 opacity-60">
                         <?php echo esc_html( $item['strength_label'] ); ?>
                     </div>
                 </div>
@@ -73,7 +73,7 @@ if ( empty( $desc ) ) $desc   = 'Give us a call at <a href="tel:3462305191" clas
 
         <!-- Right: Contact Form -->
         <!-- Copper UI: Micro-Radius (rounded-sm) & Interaction Border -->
-        <div class="w-full rounded-sm border-t-4 border-[#F97C30] bg-white p-8 shadow-2xl md:p-10 lg:w-7/12">
+        <div class="lc-consult-form-scope w-full rounded-sm border-t-4 border-[#F97C30] bg-white p-8 shadow-2xl md:p-10 lg:w-7/12">
             
             <!-- Render the Form Atom -->
             <?php get_template_part( 'template-parts/components/form' ); ?>

@@ -65,8 +65,8 @@ if ( have_posts() ) {
 $render_card_html = function( $product ) {
 	?>
 	<article class="group flex flex-col bg-white border border-gray-100 shadow-sm transition hover:shadow-md hover:border-gray-200">
-		<!-- Image Aspect Ratio 4:3 -->
-		<a href="<?php echo esc_url( $product['permalink'] ); ?>" class="relative block w-full aspect-[4/3] overflow-hidden bg-gray-50">
+		<!-- Image Aspect Ratio 1:1 (Square) -->
+		<a href="<?php echo esc_url( $product['permalink'] ); ?>" class="relative block w-full aspect-square overflow-hidden bg-gray-50">
 			<?php if ( $product['thumb_id'] ) : ?>
 				<?php echo wp_get_attachment_image( $product['thumb_id'], 'medium_large', false, array( 'class' => 'absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-105' ) ); ?>
 			<?php else : ?>
@@ -80,14 +80,14 @@ $render_card_html = function( $product ) {
 		</a>
 
 		<!-- Content -->
-		<div class="flex flex-1 flex-col p-6 text-center">
-			<h3 class="mb-4 text-base font-bold uppercase tracking-wide text-[#0B3570] text-heading">
+		<div class="lc-taxonomy-card-body flex flex-1 flex-col px-4 py-3 text-center sm:p-6">
+			<h3 class="lc-taxonomy-card-title mb-0 font-semibold uppercase tracking-wide text-[#0B3570] text-heading sm:mb-4 sm:text-base">
 				<a href="<?php echo esc_url( $product['permalink'] ); ?>">
 					<?php echo esc_html( $product['title'] ); ?>
 				</a>
 			</h3>
 			
-			<div class="mt-auto">
+			<div class="mt-auto hidden sm:block">
 				<!-- Copper UI: Micro-Radius (rounded-sm) -->
 				<a href="<?php echo esc_url( $product['permalink'] ); ?>" class="lc-btn-primary px-6 py-3 text-[10px] font-bold uppercase tracking-wider transition rounded-sm">
 					View Specs
@@ -139,7 +139,7 @@ else :
         <!-- Material Panel -->
         <div x-show="activeTab === 'material'" x-transition.opacity.duration.300ms>
             <?php if ( ! empty( $material_products ) ) : ?>
-                <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+                <div class="grid grid-cols-2 gap-4 sm:grid-cols-2 sm:gap-8 lg:grid-cols-3">
                     <?php foreach ( $material_products as $product ) { $render_card_html( $product ); } ?>
                 </div>
             <?php else : ?>
@@ -152,7 +152,7 @@ else :
         <!-- Feature Panel -->
         <div x-show="activeTab === 'feature'" x-transition.opacity.duration.300ms style="display: none;">
             <?php if ( ! empty( $feature_products ) ) : ?>
-                <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+                <div class="grid grid-cols-2 gap-4 sm:grid-cols-2 sm:gap-8 lg:grid-cols-3">
                     <?php foreach ( $feature_products as $product ) { $render_card_html( $product ); } ?>
                 </div>
             <?php else : ?>

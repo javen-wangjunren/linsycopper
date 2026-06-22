@@ -10,7 +10,6 @@
  */
 
 // Phase 1: Init
-$eyebrow = get_flat_field( 'team_eyebrow' ) ?: 'Leadership';
 $title   = get_flat_field( 'team_title' ) ?: 'Meet Our Team';
 $desc    = get_flat_field( 'team_desc' ) ?: 'Industry experts dedicated to delivering exceptional copper solutions.';
 $members = get_flat_field( 'team_list' );
@@ -27,19 +26,12 @@ if ( empty( $members ) ) {
 
         <!-- Section Header -->
         <div class="lc-section-header mb-16 text-center">
-            <?php if ( $eyebrow ) : ?>
-                <div class="mb-4 inline-flex items-center gap-2 rounded-sm bg-[#0B3570]/5 px-3 py-1 font-mono text-[11px] font-bold uppercase tracking-[0.1em] text-[#0B3570]">
-                    <span class="h-1.5 w-1.5 bg-[#F97C30]"></span>
-                    <?php echo esc_html( $eyebrow ); ?>
-                </div>
-            <?php endif; ?>
-            
-            <h2 class="text-heading mx-auto max-w-3xl text-balance text-3xl font-bold leading-tight md:text-4xl lg:text-5xl">
+            <h2 class="lc-h2-display mx-auto max-w-3xl text-balance text-heading">
                 <?php echo esc_html( $title ); ?>
             </h2>
             
             <?php if ( $desc ) : ?>
-                <p class="mx-auto mt-6 max-w-2xl text-pretty text-lg leading-relaxed text-[#6B7280]">
+                <p class="lc-body-section mx-auto mt-6 max-w-2xl text-pretty">
                     <?php echo esc_html( $desc ); ?>
                 </p>
             <?php endif; ?>
@@ -89,14 +81,14 @@ if ( empty( $members ) ) {
 
                     <!-- Member Info -->
                     <div class="p-6">
-                        <h3 class="text-heading text-lg font-bold">
+                        <h3 class="lc-h3-section text-heading">
                             <?php echo esc_html( $name ); ?>
                         </h3>
-                        <p class="mb-4 font-mono text-[11px] font-bold uppercase tracking-wider text-[#F97C30]">
+                        <p class="lc-mono-kicker mb-4 text-[#F97C30]">
                             <?php echo esc_html( $position ); ?>
                         </p>
                         <?php if ( $bio ) : ?>
-                            <p class="text-sm leading-relaxed text-[#6B7280]">
+                            <p class="lc-body-card">
                                 <?php echo esc_html( $bio ); ?>
                             </p>
                         <?php endif; ?>

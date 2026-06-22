@@ -77,9 +77,31 @@ if ( empty( $stats ) ) {
 	always follows the container's height without proportional scaling gaps.
 -->
 <section 
-	class="lc-hero relative min-h-screen lg:min-h-screen flex flex-col overflow-hidden bg-neutral-950 bg-center bg-cover bg-no-repeat"
-	style="background-image: linear-gradient(to bottom, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.35) 50%, rgba(0,0,0,0.60) 100%), url('<?php echo esc_url( $bg_image_url ); ?>');"
+	class="lc-hero relative min-h-screen lg:min-h-screen flex flex-col overflow-hidden bg-neutral-950"
 >
+	<div class="absolute inset-0 overflow-hidden">
+		<?php if ( $bg_image_id ) : ?>
+			<?php
+			echo wp_get_attachment_image(
+				$bg_image_id,
+				'full',
+				false,
+				array(
+					'class' => 'absolute inset-0 h-full w-full object-cover',
+					'alt' => '',
+					'aria-hidden' => 'true',
+					'decoding' => 'async',
+					'loading' => 'eager',
+					'fetchpriority' => 'high',
+					'sizes' => '100vw',
+				)
+			);
+			?>
+		<?php else : ?>
+			<img class="absolute inset-0 h-full w-full object-cover" src="<?php echo esc_url( $bg_image_url ); ?>" alt="" aria-hidden="true" decoding="async" loading="eager" fetchpriority="high">
+		<?php endif; ?>
+		<div class="absolute inset-0 bg-gradient-to-b from-black/55 via-black/35 to-black/60"></div>
+	</div>
 	<!-- Content Container (flex-1 ensures it pushes stats to bottom) -->
 	<div class="relative z-10 flex-1 flex flex-col justify-center mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-8 pt-[96px] pb-[32px] sm:pt-[120px] sm:pb-[60px]">
 		
@@ -90,7 +112,7 @@ if ( empty( $stats ) ) {
 					<?php foreach ( $certs as $cert ) : 
 						$cert_text = is_array( $cert ) ? $cert['text'] : $cert;
 					?>
-						<span class="flex items-center gap-2 font-mono text-[15px] font-bold text-[#F4BD5D]">
+						<span class="lc-mono-meta flex items-center gap-2 font-bold text-[#F4BD5D]">
 							<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5 shrink-0 opacity-80"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
 							<?php echo esc_html( $cert_text ); ?>
 						</span>
@@ -99,7 +121,7 @@ if ( empty( $stats ) ) {
 			<?php endif; ?>
 
 			<!-- 2. Headline (Machined Impact) -->
-			<h1 class="!text-[42px] sm:!text-5xl md:!text-7xl lg:!text-[88px] font-bold text-white !leading-[1] tracking-tight text-balance mb-8 text-heading">
+			<h1 class="lc-h1-display text-white text-balance mb-8">
 				<?php if ( '' !== trim( (string) $headline ) || '' !== trim( (string) $headline_highlight ) ) : ?>
 					<?php echo esc_html( $headline ); ?>
 					<?php if ( '' !== trim( (string) $headline_highlight ) ) : ?>
@@ -112,7 +134,7 @@ if ( empty( $stats ) ) {
 			</h1>
 
 			<!-- 3. Description (Clean Industrial) -->
-			<p class="text-lg md:text-xl text-white/80 leading-relaxed max-w-2xl mb-10 md:mb-12">
+			<p class="lc-body-section max-w-2xl mb-10 text-white/80 md:mb-12 md:text-xl">
 				<?php
 				$description_html = wp_kses(
 					nl2br( html_entity_decode( (string) $description, ENT_QUOTES, 'UTF-8' ) ),
@@ -177,10 +199,10 @@ if ( empty( $stats ) ) {
 						$lbl = is_array( $stat ) ? $stat['label'] : $stat['label'];
 					?>
 						<div class="group">
-							<div class="font-mono text-2xl sm:text-3xl md:text-4xl font-bold text-[#F4BD5D] mb-1.5 transition-transform group-hover:scale-105 inline-block">
+							<div class="lc-mono-value text-2xl sm:text-3xl md:text-4xl text-[#F4BD5D] mb-1.5 transition-transform group-hover:scale-105 inline-block">
 								<?php echo esc_html( $val ); ?>
 							</div>
-							<div class="text-[10px] md:text-[11px] font-bold uppercase tracking-[0.2em] text-white/50 leading-tight">
+							<div class="lc-mono-kicker text-white/50 md:text-[11px] leading-tight">
 								<?php echo esc_html( $lbl ); ?>
 							</div>
 						</div>

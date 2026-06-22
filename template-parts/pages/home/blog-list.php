@@ -29,6 +29,8 @@ if ( empty( $post_ids ) ) {
 if ( empty( $post_ids ) ) {
     return; // No posts found at all
 }
+
+$post_ids = array_values( array_slice( $post_ids, 0, 3 ) );
 ?>
 
 <section class="lc-blog-list bg-[#F2F4F7] pt-[100px] pb-24 overflow-hidden">
@@ -41,8 +43,25 @@ if ( empty( $post_ids ) ) {
             </h2>
         </div>
 
-        <!-- Blog Grid / Mobile Slider -->
-        <div class="flex md:grid gap-6 md:gap-8 md:grid-cols-2 lg:grid-cols-3 overflow-x-auto md:overflow-visible snap-x snap-mandatory no-scrollbar pb-8 md:pb-0 -mx-4 px-4 md:mx-0 md:px-0">
+        <div x-data class="relative">
+            <button
+                type="button"
+                class="lc-btn-reset md:hidden absolute left-2 top-1/2 -translate-y-1/2 z-10 h-11 w-11 rounded-full border border-gray-200 bg-white/90 text-[#0B3570] shadow-sm backdrop-blur-sm"
+                aria-label="Scroll left"
+                @click="$refs.track.scrollBy({ left: -($refs.track.clientWidth * 0.85), behavior: 'smooth' })"
+            >
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+            </button>
+            <button
+                type="button"
+                class="lc-btn-reset md:hidden absolute right-2 top-1/2 -translate-y-1/2 z-10 h-11 w-11 rounded-full border border-gray-200 bg-white/90 text-[#0B3570] shadow-sm backdrop-blur-sm"
+                aria-label="Scroll right"
+                @click="$refs.track.scrollBy({ left: ($refs.track.clientWidth * 0.85), behavior: 'smooth' })"
+            >
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+            </button>
+
+            <div x-ref="track" class="flex md:grid gap-6 md:gap-8 md:grid-cols-2 lg:grid-cols-3 overflow-x-auto md:overflow-visible snap-x snap-mandatory no-scrollbar pb-8 md:pb-0 -mx-4 px-4 md:mx-0 md:px-0 scroll-px-4">
             <?php foreach ( $post_ids as $post_id ) : 
                 $post_obj     = get_post( $post_id );
                 $permalink    = get_permalink( $post_id );
@@ -50,8 +69,6 @@ if ( empty( $post_ids ) ) {
                 $excerpt      = get_the_excerpt( $post_id );
                 $date         = get_the_date( 'M j, Y', $post_id );
                 $thumbnail_id = get_post_thumbnail_id( $post_id );
-                $categories   = get_the_category( $post_id );
-                $primary_cat  = ! empty( $categories ) ? $categories[0]->name : 'Uncategorized';
                 
                 // Author Data (Industrial Precision: using user meta from ACF)
                 $author_id      = $post_obj->post_author;
@@ -60,16 +77,16 @@ if ( empty( $post_ids ) ) {
                 $author_img_id  = get_field( 'user_author_image', 'user_' . $author_id );
                 $author_img_url = $author_img_id ? wp_get_attachment_image_url( $author_img_id, 'thumbnail' ) : get_avatar_url( $author_id );
             ?>
-                <article class="group flex flex-col min-w-[85%] md:min-w-0 snap-center overflow-hidden rounded-sm border border-[#E5E7EB] bg-white transition-all hover:border-[#0B3570] hover:shadow-xl">
+                <article class="group flex flex-col shrink-0 min-w-[72%] sm:min-w-[52%] md:min-w-0 snap-start overflow-hidden rounded-sm border border-[#E5E7EB] bg-white transition-all hover:border-[#0B3570] hover:shadow-xl">
                     
                     <!-- Featured Image (Machined Edge) -->
-                    <a href="<?php echo esc_url( $permalink ); ?>" class="relative block h-56 w-full overflow-hidden bg-gray-200">
+                    <a href="<?php echo esc_url( $permalink ); ?>" class="relative block w-full aspect-[4/3] overflow-hidden bg-gray-200">
                         <?php if ( $thumbnail_id ) : ?>
                             <?php echo wp_get_attachment_image( $thumbnail_id, 'medium_large', false, [
-                                'class' => 'h-full w-full object-cover transition-transform duration-500 group-hover:scale-105'
+                                'class' => 'block h-full w-full object-cover transition-transform duration-500 group-hover:scale-105'
                             ] ); ?>
                         <?php else : ?>
-                            <div class="w-full h-full bg-slate-200 flex items-center justify-center text-slate-400">
+                            <div class="flex h-full w-full items-center justify-center bg-slate-200 text-slate-400">
                                 <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                             </div>
                         <?php endif; ?>
@@ -78,10 +95,9 @@ if ( empty( $post_ids ) ) {
                     </a>
 
                     <!-- Content Body -->
-                    <div class="flex flex-1 flex-col justify-between p-6">
+                    <div class="flex flex-1 flex-col justify-between p-5">
                         <div>
-                            <!-- Meta Info (font-mono) -->
-                            <div class="mb-4 flex items-center gap-3 font-mono text-[13px] text-[#6B7280]">
+                            <div class="mb-3 flex items-center gap-3 text-[13px] text-[#6B7280]">
                                 <time class="font-medium">
                                     <?php echo esc_html( $date ); ?>
                                 </time>
@@ -89,43 +105,19 @@ if ( empty( $post_ids ) ) {
                                 <span class="font-medium">
                                     <?php echo esc_html( lc_get_reading_time( $post_id ) ); ?>
                                 </span>
-                                <span class="rounded-full bg-[#0B3570] px-3 py-0.5 text-[13px] uppercase font-bold text-white">
-                                    <?php echo esc_html( $primary_cat ); ?>
-                                </span>
                             </div>
 
                             <!-- Title -->
-                            <h3 class="mb-3 text-xl font-bold leading-snug text-[#1F2937] transition-colors group-hover:text-[#0B3570]">
+                            <h3 class="text-lg sm:text-xl font-bold leading-snug text-[#1F2937] transition-colors group-hover:text-[#0B3570]">
                                 <a href="<?php echo esc_url( $permalink ); ?>" class="text-heading">
                                     <?php echo esc_html( $post_title ); ?>
                                 </a>
                             </h3>
-
-                            <!-- Excerpt -->
-                            <p class="line-clamp-3 text-sm text-[#6B7280] leading-relaxed">
-                                <?php echo esc_html( wp_trim_words( $excerpt, 25 ) ); ?>
-                            </p>
-                        </div>
-
-                        <!-- Author Info (Bottom) -->
-                        <div class="mt-8 border-t border-[#E5E7EB] pt-5">
-                            <div class="flex items-center gap-3">
-                                <div class="h-10 w-10 overflow-hidden rounded-full border border-[#E5E7EB] bg-slate-50">
-                                    <img
-                                        src="<?php echo esc_url( $author_img_url ); ?>"
-                                        alt="<?php echo esc_attr( $author_name ); ?>"
-                                        class="h-full w-full object-cover"
-                                    />
-                                </div>
-                                <div>
-                                    <p class="text-sm font-bold text-[#1F2937] leading-none mb-1"><?php echo esc_html( $author_name ); ?></p>
-                                    <p class="font-mono text-[10px] uppercase tracking-wider text-[#F97C30]"><?php echo esc_html( $author_job ); ?></p>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </article>
             <?php endforeach; ?>
+            </div>
         </div>
 
         <!-- View All CTA -->
@@ -146,7 +138,7 @@ if ( empty( $post_ids ) ) {
     border-radius:0.5rem;
     border:2px solid #0B3570;
     padding:0.75rem 2rem;
-    font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
+    font-family:inherit;
     font-size:0.875rem;
     font-weight:600;
     color:#0B3570;

@@ -27,28 +27,90 @@ add_action( 'wp_enqueue_scripts', function() {
     // I. 基础资源 (Fonts & Libraries)
     // ==========================================================================
 
-    // 1. Fonts (Geist & Geist Mono) [Industrial Material Realism]
-    // 加载 Vercel Geist 字体 (CDN: jsDelivr)
-    // 文档: https://www.npmjs.com/package/geist
-    // 注意: Tailwind Config 需配置 font-family: 'Geist Sans' / 'Geist Mono'
-    //wp_enqueue_style( 'geist-sans', 'https://cdn.jsdelivr.net/npm/geist@1.3.0/dist/fonts/geist-sans/style.css', array(), '1.3.0' );
-    //wp_enqueue_style( 'geist-mono', 'https://cdn.jsdelivr.net/npm/geist@1.3.0/dist/fonts/geist-mono/style.css', array(), '1.3.0' );
+    $gp_google_font_handles = array(
+        'generate-google-fonts',
+        'generate-fonts',
+        'generatepress-google-fonts',
+        'generatepress-fonts',
+    );
+
+    foreach ( $gp_google_font_handles as $handle ) {
+        wp_dequeue_style( $handle );
+        wp_deregister_style( $handle );
+    }
+
+    add_filter( 'style_loader_tag', function( $html, $handle, $href, $media ) {
+        if ( is_string( $href ) && strpos( $href, 'fonts.googleapis.com' ) !== false ) {
+            return '';
+        }
+
+        return $html;
+    }, 10, 4 );
+
+    $fonts_css_file = 'assets/css/fonts.css';
+    $fonts_css_path = get_stylesheet_directory() . '/' . $fonts_css_file;
+    $fonts_css_uri  = get_stylesheet_directory_uri() . '/' . $fonts_css_file;
+
+    if ( file_exists( $fonts_css_path ) ) {
+        wp_enqueue_style(
+            'lc-fonts',
+            $fonts_css_uri,
+            array(),
+            filemtime( $fonts_css_path )
+        );
+    }
 
     // 2. Alpine.js (Lightweight Reactivity) [默认开启]
     // 现代 Web 开发标配，用于处理 Header, Menu, Modal 等交互
     // 使用 defer 策略避免阻塞渲染
+    $alpine_collapse_file = 'assets/vendor/alpine/collapse.min.js';
+    $alpine_collapse_path = get_stylesheet_directory() . '/' . $alpine_collapse_file;
+    $alpine_collapse_uri  = get_stylesheet_directory_uri() . '/' . $alpine_collapse_file;
+
+    wp_enqueue_script(
+        'alpine-collapse',
+        $alpine_collapse_uri,
+        array(),
+        file_exists( $alpine_collapse_path ) ? filemtime( $alpine_collapse_path ) : null,
+        array( 'strategy' => 'defer' )
+    );
+
+    $alpine_file = 'assets/vendor/alpine/alpine.min.js';
+    $alpine_path = get_stylesheet_directory() . '/' . $alpine_file;
+    $alpine_uri  = get_stylesheet_directory_uri() . '/' . $alpine_file;
+
     wp_enqueue_script( 
         'alpine-js', 
-        'https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.13.3/cdn.min.js', 
-        array(), 
-        '3.13.3', 
+        $alpine_uri, 
+        array( 'alpine-collapse' ), 
+        file_exists( $alpine_path ) ? filemtime( $alpine_path ) : null, 
         array( 'strategy' => 'defer' ) 
     );
 
     // 3. Swiper Slider [按需开启]
     if ( is_front_page() || is_page_template( 'templates/page-about.php' ) ) {
-        wp_enqueue_style( 'swiper-css', 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css', array(), '11.0.0' );
-        wp_enqueue_script( 'swiper-js', 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js', array(), '11.0.0', true );
+        $swiper_css_file = 'assets/vendor/swiper/swiper-bundle.min.css';
+        $swiper_css_path = get_stylesheet_directory() . '/' . $swiper_css_file;
+        $swiper_css_uri  = get_stylesheet_directory_uri() . '/' . $swiper_css_file;
+
+        $swiper_js_file = 'assets/vendor/swiper/swiper-bundle.min.js';
+        $swiper_js_path = get_stylesheet_directory() . '/' . $swiper_js_file;
+        $swiper_js_uri  = get_stylesheet_directory_uri() . '/' . $swiper_js_file;
+
+        wp_enqueue_style(
+            'swiper-css',
+            $swiper_css_uri,
+            array(),
+            file_exists( $swiper_css_path ) ? filemtime( $swiper_css_path ) : null
+        );
+
+        wp_enqueue_script(
+            'swiper-js',
+            $swiper_js_uri,
+            array(),
+            file_exists( $swiper_js_path ) ? filemtime( $swiper_js_path ) : null,
+            array( 'in_footer' => true, 'strategy' => 'defer' )
+        );
     }
 
     // ==========================================================================
@@ -92,4 +154,4 @@ add_action( 'wp_enqueue_scripts', function() {
     // wp_dequeue_script( 'generate-menu' );
     // wp_dequeue_script( 'generate-navigation' );
 
-} );
+}, 20 );
