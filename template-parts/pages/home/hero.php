@@ -5,7 +5,7 @@
  * Logic:
  * 1. Fetches ACF data for the Home Hero module.
  * 2. Renders a full-screen height banner with background image.
- * 3. Displays Certifications, Headline, Description, CTAs, and Stats.
+ * 3. Displays Headline, CTAs, and Stats.
  * 
  * Industrial Design Rules:
  * - Robust background coverage using CSS Background (fixed scaling).
@@ -24,17 +24,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 // ==========================================
 $bg_image_id    = get_flat_field( 'home_hero_bg' );
 $headline       = get_flat_field( 'hero_headline', [], 'Premium Copper' );
-$headline_highlight = get_flat_field( 'hero_highlight_headline', [], '& Bronze Alloys' );
 $legacy_headline = get_flat_field( 'home_hero_title' );
-$description    = get_flat_field( 'home_hero_desc', [], 'Largest inventory of C11000, C10100, and Naval Brass in the region. Cut to size, precision machined, and shipped globally.' );
-
 // CTAs
 $cta_primary    = get_flat_field( 'home_hero_cta_primary' );
 $cta_secondary  = get_flat_field( 'home_hero_cta_secondary' );
-
-// Repeaters
-$certs          = get_flat_field( 'home_hero_certs', [], [] );
-$stats          = get_flat_field( 'home_hero_stats', [], [] );
 
 // ==========================================
 // 2. Preprocess (Logic & Defaults)
@@ -47,24 +40,6 @@ if ( $bg_image_id ) {
 	if ( $img_src ) {
 		$bg_image_url = $img_src;
 	}
-}
-
-// Default Data (if empty)
-if ( empty( $certs ) ) {
-	$certs = [
-		['text' => 'ASTM B152'],
-		['text' => 'RoHS Compliant'],
-		['text' => 'Full MTR Docs'],
-	];
-}
-
-if ( empty( $stats ) ) {
-	$stats = [
-		['value' => '1,000+', 'label' => 'Tons Ready Stock'],
-		['value' => 'ISO 9001', 'label' => 'Certified Quality'],
-		['value' => '25+ Years', 'label' => 'Industry Experience'],
-		['value' => '48-Hr', 'label' => 'Quote Turnaround'],
-	];
 }
 
 ?>
@@ -105,53 +80,18 @@ if ( empty( $stats ) ) {
 	<!-- Content Container (flex-1 ensures it pushes stats to bottom) -->
 	<div class="relative z-10 flex-1 flex flex-col justify-center mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-8 pt-[96px] pb-[32px] sm:pt-[120px] sm:pb-[60px]">
 		
-		<div class="max-w-4xl">
-			<!-- 1. Certifications (Industrial Tags) -->
-			<?php if ( ! empty( $certs ) ) : ?>
-				<div class="flex flex-wrap items-center gap-4 mb-8 md:gap-6 md:mb-10">
-					<?php foreach ( $certs as $cert ) : 
-						$cert_text = is_array( $cert ) ? $cert['text'] : $cert;
-					?>
-						<span class="lc-mono-meta flex items-center gap-2 font-bold text-[#F4BD5D]">
-							<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5 shrink-0 opacity-80"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
-							<?php echo esc_html( $cert_text ); ?>
-						</span>
-					<?php endforeach; ?>
-				</div>
-			<?php endif; ?>
-
-			<!-- 2. Headline (Machined Impact) -->
+		<div class="mx-auto max-w-4xl text-center">
+			<!-- 1. Headline (Machined Impact) -->
 			<h1 class="lc-h1-display text-white text-balance mb-8">
-				<?php if ( '' !== trim( (string) $headline ) || '' !== trim( (string) $headline_highlight ) ) : ?>
+				<?php if ( '' !== trim( (string) $headline ) ) : ?>
 					<?php echo esc_html( $headline ); ?>
-					<?php if ( '' !== trim( (string) $headline_highlight ) ) : ?>
-						<br>
-						<span class="text-[#F97C30]"><?php echo esc_html( $headline_highlight ); ?></span>
-					<?php endif; ?>
 				<?php else : ?>
-					<?php echo wp_kses_post( $legacy_headline ? $legacy_headline : 'Premium Copper <br><span class="text-[#F97C30]">&amp; Bronze Alloys</span>' ); ?>
+					<?php echo wp_kses_post( $legacy_headline ? $legacy_headline : 'Premium Copper' ); ?>
 				<?php endif; ?>
 			</h1>
 
-			<!-- 3. Description (Clean Industrial) -->
-			<p class="lc-body-section max-w-2xl mb-10 text-white/80 md:mb-12 md:text-xl">
-				<?php
-				$description_html = wp_kses(
-					nl2br( html_entity_decode( (string) $description, ENT_QUOTES, 'UTF-8' ) ),
-					[
-						'br'     => [],
-						'strong' => [],
-						'em'     => [],
-						'b'      => [],
-						'i'      => [],
-					]
-				);
-				echo $description_html;
-				?>
-			</p>
-
-			<!-- 4. CTAs (Action Oriented) -->
-			<div class="flex flex-wrap gap-5 mb-10 md:mb-16">
+			<!-- 2. CTAs (Action Oriented) -->
+			<div class="flex flex-wrap justify-center gap-5 mb-10 md:mb-16">
 				<!-- Primary CTA -->
 				<?php if ( $cta_primary ) : ?>
 					<a
@@ -189,26 +129,4 @@ if ( empty( $stats ) ) {
 		</div>
 	</div>
 
-	<!-- 5. Stats Dashboard (Anchored to Bottom, Seamless Background) -->
-	<div class="relative z-10 w-full border-t border-white/10 bg-black/20 backdrop-blur-sm">
-		<div class="mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-8 py-6 sm:py-10">
-			<?php if ( ! empty( $stats ) ) : ?>
-				<div class="grid grid-cols-2 sm:grid-cols-4 gap-8 md:gap-16">
-					<?php foreach ( $stats as $stat ) : 
-						$val = is_array( $stat ) ? $stat['value'] : $stat['value'];
-						$lbl = is_array( $stat ) ? $stat['label'] : $stat['label'];
-					?>
-						<div class="group">
-							<div class="lc-mono-value text-2xl sm:text-3xl md:text-4xl text-[#F4BD5D] mb-1.5 transition-transform group-hover:scale-105 inline-block">
-								<?php echo esc_html( $val ); ?>
-							</div>
-							<div class="lc-mono-kicker text-white/50 md:text-[11px] leading-tight">
-								<?php echo esc_html( $lbl ); ?>
-							</div>
-						</div>
-					<?php endforeach; ?>
-				</div>
-			<?php endif; ?>
-		</div>
-	</div>
 </section>

@@ -109,9 +109,8 @@ if ( empty( $items ) ) {
 
                         <!-- View More CTA -->
                         <div class="border-t border-[#F3F4F6] pt-4">
-                            <div class="flex w-full items-center justify-center rounded-sm bg-[#F2F4F7] py-3 text-sm font-bold text-[#0B3570] transition-colors group-hover:bg-[#0B3570] group-hover:text-white">
+                            <div class="lc-card-cta">
                                 <?php echo esc_html( $target_title ); ?>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ml-2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
                             </div>
                         </div>
                     </div>

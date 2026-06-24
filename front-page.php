@@ -38,7 +38,7 @@ get_template_part( 'template-parts/pages/home/why-choose-us' );
 get_template_part( 'template-parts/global/certifications' );
 
 // 9. Review (Testimonials)
-get_template_part( 'template-parts/pages/home/review' );
+//get_template_part( 'template-parts/pages/home/review' );
 
 // 10. Blog List (Technical Resources)
 get_template_part( 'template-parts/pages/home/blog-list' );

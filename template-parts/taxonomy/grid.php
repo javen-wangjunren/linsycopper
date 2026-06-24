@@ -47,7 +47,7 @@ if ( have_posts() ) {
 			'id'        => $pid,
 			'title'     => get_the_title(),
 			'permalink' => get_permalink(),
-			'thumb_id'  => get_post_thumbnail_id(),
+			'thumb_id'  => linsy_get_product_primary_image_id( $pid ),
 		);
 
 		if ( $is_feature ) {

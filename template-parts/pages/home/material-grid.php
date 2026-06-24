@@ -80,9 +80,8 @@ if ( empty( $terms ) && current_user_can( 'manage_options' ) ) {
 							</p>
 
 							<!-- CTA Button -->
-							<div class="mt-auto w-full bg-[#F2F4F7] text-[#0B3570] font-semibold py-2 px-4 rounded-sm transition-colors hover:bg-[#0B3570] hover:text-white group-hover:bg-[#0B3570] group-hover:text-white flex items-center justify-center gap-2">
+							<div class="lc-card-cta mt-auto">
 								View Details
-								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
 							</div>
 						</div>
 

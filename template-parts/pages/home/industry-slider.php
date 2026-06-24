@@ -31,30 +31,11 @@ foreach ( $slides as $slide ) {
 		}
 	}
 
-	$kicker = isset( $slide['industry_slide_kicker'] ) ? (string) $slide['industry_slide_kicker'] : '';
 	$title_raw = isset( $slide['industry_slide_title'] ) ? (string) $slide['industry_slide_title'] : '';
 	$desc_raw  = isset( $slide['industry_description'] ) ? (string) $slide['industry_description'] : '';
 
 	$title = trim( function_exists( 'wp_specialchars_decode' ) ? wp_specialchars_decode( $title_raw, ENT_QUOTES ) : html_entity_decode( $title_raw, ENT_QUOTES, 'UTF-8' ) );
 	$desc  = trim( function_exists( 'wp_strip_all_tags' ) ? wp_strip_all_tags( html_entity_decode( $desc_raw, ENT_QUOTES, 'UTF-8' ) ) : strip_tags( html_entity_decode( $desc_raw, ENT_QUOTES, 'UTF-8' ) ) );
-
-	$metrics_in = isset( $slide['industry_slide_metrics'] ) && is_array( $slide['industry_slide_metrics'] ) ? $slide['industry_slide_metrics'] : [];
-	$metrics = [];
-	foreach ( $metrics_in as $m ) {
-		if ( ! is_array( $m ) ) {
-			continue;
-		}
-		$label = isset( $m['industry_slide_metric_label'] ) ? trim( (string) $m['industry_slide_metric_label'] ) : '';
-		$value_raw = isset( $m['industry_slide_metric_value'] ) ? (string) $m['industry_slide_metric_value'] : '';
-		$value = trim( function_exists( 'wp_specialchars_decode' ) ? wp_specialchars_decode( $value_raw, ENT_QUOTES ) : html_entity_decode( $value_raw, ENT_QUOTES, 'UTF-8' ) );
-		if ( $label === '' && $value === '' ) {
-			continue;
-		}
-		$metrics[] = [
-			'label' => $label,
-			'value' => $value,
-		];
-	}
 
 	$cta_label = isset( $slide['industry_slide_cta_label'] ) ? trim( (string) $slide['industry_slide_cta_label'] ) : '';
 	$cta_link  = isset( $slide['industry_slide_cta_link'] ) && is_array( $slide['industry_slide_cta_link'] ) ? $slide['industry_slide_cta_link'] : null;
@@ -64,10 +45,8 @@ foreach ( $slides as $slide ) {
 	$normalized_slides[] = [
 		'bg_sm' => $bg_image_sm_url,
 		'bg_lg' => $bg_image_lg_url,
-		'kicker' => $kicker,
 		'title' => $title,
 		'desc' => $desc,
-		'metrics' => $metrics,
 		'cta_label' => $cta_label !== '' ? $cta_label : 'Get a Specific Quote',
 		'cta_url' => $cta_url,
 		'cta_target' => $cta_target,
@@ -103,28 +82,14 @@ window.<?php echo esc_attr( $instance_var ); ?> = <?php echo $slides_json; ?>;
 
 	<div class="relative z-10 mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-8">
 		<div class="max-w-2xl text-white" x-show="slides && slides.length">
-			<div class="flex items-center gap-2 mb-6">
-				<span class="lc-home-industry-kicker" x-text="slides[currentIndex] ? slides[currentIndex].kicker : ''"></span>
-				<div class="h-px w-12 bg-white/30"></div>
-			</div>
-
 			<h3 class="text-heading lc-home-industry-title mb-6" x-text="slides[currentIndex] ? slides[currentIndex].title : ''"></h3>
 
 			<p class="lc-body-section mb-10 text-white/80 md:text-xl" x-text="slides[currentIndex] ? slides[currentIndex].desc : ''"></p>
 
-			<div class="grid grid-cols-2 gap-8 mb-12 py-6 border-y border-white/10" x-show="slides[currentIndex] && slides[currentIndex].metrics && slides[currentIndex].metrics.length">
-				<template x-for="(m, mi) in ((slides[currentIndex] && slides[currentIndex].metrics) ? slides[currentIndex].metrics.slice(0, 2) : [])" :key="mi">
-					<div class="flex flex-col">
-						<span class="lc-mono-kicker text-white/55 mb-1 normal-case" x-text="m.label"></span>
-						<span class="lc-mono-value text-2xl font-semibold text-[#F97C30]" x-text="m.value"></span>
-					</div>
-				</template>
-			</div>
-
 			<div class="flex flex-col sm:flex-row gap-4">
-				<a class="lc-home-industry-btn group" :href="(slides[currentIndex] && slides[currentIndex].cta_url) ? slides[currentIndex].cta_url : '#'" :target="(slides[currentIndex] && slides[currentIndex].cta_target) ? slides[currentIndex].cta_target : '_self'">
+				<a class="lc-home-industry-btn" :href="(slides[currentIndex] && slides[currentIndex].cta_url) ? slides[currentIndex].cta_url : '#'" :target="(slides[currentIndex] && slides[currentIndex].cta_target) ? slides[currentIndex].cta_target : '_self'">
 					<span x-text="(slides[currentIndex] && slides[currentIndex].cta_label) ? slides[currentIndex].cta_label : 'Get a Specific Quote'"></span>
-					<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 transition-transform group-hover:translate-x-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+					<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
 					</svg>
 				</a>

@@ -14,7 +14,7 @@ add_action( 'acf/init', function () {
 				'label' => 'Slides',
 				'name' => 'industry_slides',
 				'type' => 'repeater',
-				'instructions' => 'Add 2–6 slides. Each slide supports background image, label, title, description, two metrics, and CTA.',
+				'instructions' => 'Add 2–6 slides. Each slide supports background image, title, description, and CTA.',
 				'required' => 0,
 				'min' => 0,
 				'layout' => 'block',
@@ -31,17 +31,6 @@ add_action( 'acf/init', function () {
 						'library' => 'all',
 						'required' => 0,
 						'instructions' => 'Full-width background image.',
-						'wrapper' => array(
-							'width' => '50',
-						),
-					),
-					array(
-						'key' => 'field_industry_slide_kicker',
-						'label' => 'Kicker',
-						'name' => 'industry_slide_kicker',
-						'type' => 'text',
-						'required' => 0,
-						'instructions' => 'Orange label (e.g., Automotive Industry).',
 						'wrapper' => array(
 							'width' => '50',
 						),
@@ -65,41 +54,6 @@ add_action( 'acf/init', function () {
 						'new_lines' => '',
 						'required' => 0,
 						'instructions' => 'Short description (1–2 lines recommended).',
-					),
-					array(
-						'key' => 'field_industry_slide_metrics',
-						'label' => 'Metrics',
-						'name' => 'industry_slide_metrics',
-						'type' => 'repeater',
-						'instructions' => 'Exactly 2 metrics as shown in the design.',
-						'required' => 0,
-						'min' => 2,
-						'max' => 2,
-						'layout' => 'table',
-						'button_label' => 'Add Metric',
-						'collapsed' => 'field_industry_slide_metric_label',
-						'sub_fields' => array(
-							array(
-								'key' => 'field_industry_slide_metric_label',
-								'label' => 'Label',
-								'name' => 'industry_slide_metric_label',
-								'type' => 'text',
-								'required' => 0,
-								'wrapper' => array(
-									'width' => '50',
-								),
-							),
-							array(
-								'key' => 'field_industry_slide_metric_value',
-								'label' => 'Value',
-								'name' => 'industry_slide_metric_value',
-								'type' => 'text',
-								'required' => 0,
-								'wrapper' => array(
-									'width' => '50',
-								),
-							),
-						),
 					),
 					array(
 						'key' => 'field_industry_slide_cta_label',

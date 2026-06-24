@@ -141,6 +141,39 @@ function get_flat_field( $field_name, $block = array(), $default = null, $is_opt
 }
 
 /**
+ * 获取产品主图 ID。
+ *
+ * 业务规则：
+ * 1. 优先使用 Product Hero Gallery 的第一张图
+ * 2. 如果 Gallery 为空，则回退到 Featured Image
+ * 3. 若两者都不存在，返回 0
+ *
+ * @param int $post_id Product post ID.
+ * @return int
+ */
+function linsy_get_product_primary_image_id( $post_id ) {
+    $post_id = (int) $post_id;
+
+    if ( ! $post_id ) {
+        return 0;
+    }
+
+    if ( function_exists( 'get_field' ) ) {
+        $gallery_ids = get_field( 'product_hero_gallery', $post_id );
+
+        if ( is_array( $gallery_ids ) && ! empty( $gallery_ids ) ) {
+            return (int) reset( $gallery_ids );
+        }
+
+        if ( is_numeric( $gallery_ids ) ) {
+            return (int) $gallery_ids;
+        }
+    }
+
+    return (int) get_post_thumbnail_id( $post_id );
+}
+
+/**
  * 读取兼容性 option 字段，优先取新的扁平字段，缺失时回退到旧 group 结构。
  *
  * @param string $field_name         新的扁平字段名。

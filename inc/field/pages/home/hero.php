@@ -4,7 +4,7 @@
  * 
  * Description:
  * Configuration for the main homepage banner.
- * Features: Background Image, Certifications, Rich Headline, Dual CTAs, Trust Stats.
+ * Features: Background Image, Rich Headline, Dual CTAs.
  * 
  * @package GeneratePress_Child
  */
@@ -41,79 +41,6 @@ if ( function_exists( 'acf_add_local_field_group' ) ) {
 				'required' => 0,
 				'wrapper' => array(
 					'width' => '67',
-				),
-			),
-			array(
-				'key' => 'field_home_hero_highlight_headline',
-				'label' => 'Highlight Headline',
-				'name' => 'hero_highlight_headline',
-				'type' => 'text',
-				'instructions' => 'Orange highlighted part of the headline (line 2).',
-				'required' => 0,
-				'wrapper' => array(
-					'width' => '67',
-				),
-			),
-
-			// Field: Description
-			array(
-				'key' => 'field_home_hero_desc',
-				'label' => 'Description',
-				'name' => 'home_hero_desc',
-				'type' => 'textarea',
-				'instructions' => 'Short intro text below the headline.',
-				'required' => 0,
-				'rows' => 3,
-				'new_lines' => 'br',
-			),
-
-			// Field: Certifications (Repeater)
-			array(
-				'key' => 'field_home_hero_certs',
-				'label' => 'Top Certifications',
-				'name' => 'home_hero_certs',
-				'type' => 'repeater',
-				'instructions' => 'Small tags above the headline (e.g., ASTM B152).',
-				'layout' => 'table',
-				'button_label' => 'Add Cert',
-				'sub_fields' => array(
-					array(
-						'key' => 'field_home_hero_cert_text',
-						'label' => 'Cert Text',
-						'name' => 'text',
-						'type' => 'text',
-						'placeholder' => 'ASTM B152',
-					),
-				),
-			),
-
-			// Field: Trust Stats (Repeater)
-			array(
-				'key' => 'field_home_hero_stats',
-				'label' => 'Bottom Stats',
-				'name' => 'home_hero_stats',
-				'type' => 'repeater',
-				'instructions' => 'Key metrics shown at the bottom (Max 4).',
-				'layout' => 'table',
-				'max' => 4,
-				'button_label' => 'Add Stat',
-				'sub_fields' => array(
-					array(
-						'key' => 'field_home_hero_stat_val',
-						'label' => 'Value',
-						'name' => 'value',
-						'type' => 'text',
-						'placeholder' => '1,000+',
-						'wrapper' => array('width' => '50'),
-					),
-					array(
-						'key' => 'field_home_hero_stat_label',
-						'label' => 'Label',
-						'name' => 'label',
-						'type' => 'text',
-						'placeholder' => 'Tons Ready Stock',
-						'wrapper' => array('width' => '50'),
-					),
 				),
 			),
 

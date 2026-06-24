@@ -1083,15 +1083,20 @@
     border-radius: 2px !important;
     font-family: var(--font-sans) !important;
     font-weight: 700 !important;
-    background-color: #FFFFFF !important;
-    color: #0B3570 !important;
-    transition: background-color 300ms, color 300ms, transform 300ms !important;
+    background-color: #F97C30 !important;
+    color: #FFFFFF !important;
+    transition: none !important;
     text-decoration: none !important;
   }
 
-  .lc-home-industry-btn:hover {
+  .lc-home-industry-btn,
+  .lc-home-industry-btn:visited,
+  .lc-home-industry-btn:hover,
+  .lc-home-industry-btn:focus,
+  .lc-home-industry-btn:active {
     background-color: #F97C30 !important;
     color: #FFFFFF !important;
+    text-decoration: none !important;
   }
 
   .lc-home-industry-btn:focus-visible {
@@ -1217,6 +1222,29 @@
   .lc-home-viewall-btn:focus-visible {
     outline: 2px solid rgba(249, 124, 48, 0.65) !important;
     outline-offset: 2px !important;
+  }
+
+  .lc-card-cta {
+    display: flex !important;
+    width: 100% !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
+    padding: 12px 16px !important;
+    border-radius: 2px !important;
+    background-color: #0B3570 !important;
+    color: #FFFFFF !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    line-height: 1 !important;
+    text-decoration: none !important;
+    transition: background-color 180ms, color 180ms !important;
+  }
+
+  .lc-card-cta:hover,
+  .group:hover .lc-card-cta {
+    background-color: #F97C30 !important;
+    color: #FFFFFF !important;
   }
 
   .lc-cert-swiper {

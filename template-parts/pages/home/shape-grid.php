@@ -77,7 +77,7 @@ if ( empty( $items ) ) {
                             <?php echo esc_html( $term->name ); ?>
                         </h3>
 
-                        <div class="w-full rounded-sm bg-[#F2F4F7] py-3 text-sm font-semibold text-[#0B3570] transition-colors group-hover:bg-[#F97C30] group-hover:text-white">
+                        <div class="lc-card-cta">
                             View Details
                         </div>
                     </div>

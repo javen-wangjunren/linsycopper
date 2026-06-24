@@ -22,19 +22,14 @@ $title    = get_flat_field( 'why_title', [], 'Why Choose Linsy Copper?' );
 $desc     = get_flat_field( 'why_desc', [], 'With over two decades of expertise in copper and alloy distribution, we deliver precision-cut materials with full traceability.' );
 $stats    = get_flat_field( 'why_stats', [], [] );
 $img_id   = get_flat_field( 'why_main_image' );
-$reasons  = get_flat_field( 'why_reasons', [], [] );
-
-// ==========================================
-// 2. Preprocess
-// ==========================================
-if ( empty( $reasons ) ) {
-	return;
-}
+$badge_enabled = get_flat_field( 'why_badge_enabled', [], true );
+$badge_kicker  = get_flat_field( 'why_badge_kicker', [], 'Quality Assurance' );
+$badge_title   = get_flat_field( 'why_badge_title', [], '100% Traceable' );
 ?>
 
 <section class="relative overflow-hidden bg-[#F8FAFC] pt-[100px] pb-24">
     <!-- Background Technical Grid -->
-    <div class="absolute inset-0 opacity-[0.03] pointer-events-none" 
+    <div class="absolute inset-0 opacity-[0.02] pointer-events-none" 
          style="background-image: radial-gradient(#0B3570 1px, transparent 1px); background-size: 24px 24px;">
     </div>
 
@@ -58,13 +53,13 @@ if ( empty( $reasons ) ) {
                     <!-- Stats Dashboard Grid -->
                     <div class="grid grid-cols-2 gap-4 w-full max-w-md">
                         <?php foreach ( $stats as $stat ) : ?>
-                            <div class="relative bg-white p-5 border border-[#E5E7EB] rounded-sm group hover:border-[#F97C30] transition-colors">
+                            <div class="relative bg-white p-5 rounded-lg border border-slate-200/70 shadow-[0_10px_30px_-24px_rgba(15,23,42,0.35)] group hover:border-[#F97C30] transition-colors">
                                 <!-- Technical Corner Accent -->
-                                <div class="absolute top-0 right-0 w-2 h-2 border-t border-r border-[#E5E7EB] group-hover:border-[#F97C30]"></div>
+                                <div class="absolute top-0 right-0 w-2 h-2 border-t border-r border-slate-200/70 group-hover:border-[#F97C30]"></div>
                                 
                                 <div class="flex flex-col">
-                                    <span class="lc-mono-value text-3xl text-[#0B3570]"><?php echo esc_html( $stat['stat_value'] ); ?></span>
-                                    <span class="lc-mono-kicker mt-1 text-[#9CA3AF]"><?php echo esc_html( $stat['stat_label'] ); ?></span>
+                                    <span class="font-sans tabular-nums text-3xl font-bold tracking-tight text-[#0B3570]"><?php echo esc_html( $stat['stat_value'] ); ?></span>
+                                    <span class="mt-1 font-sans text-[12px] font-medium text-[#64748B]"><?php echo esc_html( $stat['stat_label'] ); ?></span>
                                 </div>
                             </div>
                         <?php endforeach; ?>
@@ -76,7 +71,7 @@ if ( empty( $reasons ) ) {
             <div class="lg:w-1/2">
                 <div class="relative group">
                     <!-- Image Container with "Machined" Border -->
-                    <div class="relative overflow-hidden rounded-sm border-[8px] border-white shadow-xl aspect-[4/3]">
+                    <div class="relative overflow-hidden rounded-lg shadow-xl aspect-[3/4] ring-1 ring-black/5">
                         <?php if ( $img_id ) : ?>
                             <?php echo wp_get_attachment_image( $img_id, 'large', false, array( 'class' => 'h-full w-full object-cover grayscale-[0.3] contrast-[1.1] transition-transform duration-700 group-hover:scale-105' ) ); ?>
                         <?php else : ?>
@@ -87,39 +82,14 @@ if ( empty( $reasons ) ) {
                         <div class="absolute inset-0 bg-gradient-to-tr from-[#0B3570]/40 via-transparent to-transparent mix-blend-multiply"></div>
                     </div>
                     
-                    <!-- Floating Badge (Copper Element) -->
-                    <div class="absolute -bottom-6 -left-6 hidden md:block bg-[#F97C30] p-6 rounded-sm shadow-2xl text-white">
-                        <div class="lc-mono-kicker mb-1 opacity-80">Quality Assurance</div>
-                        <div class="text-2xl font-bold leading-none italic">100% Traceable</div>
-                    </div>
+                    <?php if ( $badge_enabled ) : ?>
+                        <div class="absolute -bottom-6 -left-6 hidden md:block bg-[#F97C30] p-6 rounded-sm shadow-2xl text-white">
+                            <div class="lc-mono-kicker mb-1 opacity-80"><?php echo esc_html( $badge_kicker ); ?></div>
+                            <div class="text-2xl font-bold leading-none italic"><?php echo esc_html( $badge_title ); ?></div>
+                        </div>
+                    <?php endif; ?>
                 </div>
             </div>
-        </div>
-
-        <!-- Bottom Section: 3-Column Advantage Cards -->
-        <div class="grid gap-6 md:grid-cols-3 border-t border-[#E5E7EB] pt-16">
-            <?php foreach ( $reasons as $reason ) : ?>
-                <div class="group relative flex flex-col overflow-hidden rounded-sm border border-[#E5E7EB] bg-white p-8 transition-all hover:border-[#F97C30] hover:shadow-2xl">
-                    <!-- Background Index Number (Etched look) -->
-                    <span class="absolute -right-2 -top-4 font-mono text-8xl font-black text-[#0B3570]/[0.03] transition-colors group-hover:text-[#F97C30]/[0.05] leading-none select-none italic">
-                        <?php echo esc_html( $reason['reason_icon'] ); ?>
-                    </span>
-
-                    <h3 class="lc-h3-section relative mb-4 text-[#1F2937] group-hover:text-[#0B3570] transition-colors">
-                        <?php echo esc_html( $reason['reason_title'] ); ?>
-                        <div class="absolute -left-8 top-1/2 w-4 h-[2px] bg-[#F97C30] opacity-0 group-hover:opacity-100 transition-all"></div>
-                    </h3>
-                    
-                    <p class="lc-body-card relative flex-1">
-                        <?php echo esc_html( $reason['reason_desc'] ); ?>
-                    </p>
-                    
-                    <!-- Bottom Progress Indicator -->
-                    <div class="mt-8 h-[2px] w-full bg-[#F3F4F6] overflow-hidden">
-                        <div class="h-full w-0 bg-[#F97C30] transition-all duration-500 group-hover:w-full"></div>
-                    </div>
-                </div>
-            <?php endforeach; ?>
         </div>
 
     </div>
