@@ -27,21 +27,11 @@ add_action( 'acf/init', function() {
                 'collapsed'    => 'field_about_mission_item_title',
                 'sub_fields'   => array(
                     array(
-                        'key'          => 'field_about_mission_item_icon',
-                        'label'        => 'Icon',
-                        'name'         => 'item_icon',
-                        'type'          => 'image',
-                        'return_format' => 'id',
-                        'preview_size' => 'thumbnail',
-                        'wrapper'      => array( 'width' => '25' ),
-                    ),
-                    array(
                         'key'          => 'field_about_mission_item_title',
                         'label'        => 'Title',
                         'name'         => 'item_title',
                         'type'          => 'text',
                         'required'     => 1,
-                        'wrapper'      => array( 'width' => '75' ),
                     ),
                     array(
                         'key'          => 'field_about_mission_item_desc',

@@ -39,7 +39,10 @@ function linsy_register_product_taxonomies() {
 		'show_ui'           => true,
 		'show_admin_column' => true,
 		'query_var'         => true,
-		'rewrite'           => array( 'slug' => 'shape' ), // /shape/copper-sheet/
+		'rewrite'           => array(
+			'slug'       => 'shape',
+			'with_front' => false,
+		), // /shape/copper-sheet/
 		'show_in_rest'      => true, // Enable for Gutenberg/REST API
 	) );
 
@@ -67,7 +70,10 @@ function linsy_register_product_taxonomies() {
 		'show_ui'           => true,
 		'show_admin_column' => true,
 		'query_var'         => true,
-		'rewrite'           => array( 'slug' => 'material' ), // /material/brass/
+		'rewrite'           => array(
+			'slug'       => 'material',
+			'with_front' => false,
+		), // /material/brass/
 		'show_in_rest'      => true,
 	) );
 
@@ -95,7 +101,10 @@ function linsy_register_product_taxonomies() {
 		'show_ui'           => true,
 		'show_admin_column' => true,
 		'query_var'         => true,
-		'rewrite'           => array( 'slug' => 'grade' ), // /grade/c11000/
+		'rewrite'           => array(
+			'slug'       => 'grade',
+			'with_front' => false,
+		), // /grade/c11000/
 		'show_in_rest'      => true,
 	) );
 
@@ -124,7 +133,10 @@ function linsy_register_product_taxonomies() {
 		'show_ui'           => true,
 		'show_admin_column' => true,
 		'query_var'         => true,
-		'rewrite'           => array( 'slug' => 'product-tag' ),
+		'rewrite'           => array(
+			'slug'       => 'product-tag',
+			'with_front' => false,
+		),
 		'show_in_rest'      => true,
 	) );
 }

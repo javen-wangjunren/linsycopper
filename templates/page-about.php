@@ -5,8 +5,9 @@
  * 
  * Logic:
  * Assembles the About page using modular blocks.
- * 1. Hero (reused from home)
- * 2. Mission & Values
+ * 1. Mission & Values
+ * 2. Company Timeline
+ * 3. Our Team
  * 
  * @package GeneratePress_Child
  */
@@ -18,33 +19,32 @@ if ( ! defined( 'ABSPATH' ) ) {
 get_header();
 
 /**
- * 1. About Hero
- * Reuses the home hero module logic.
- */
-get_template_part( 'template-parts/pages/home/hero' );
-
-/**
- * 2. Mission & Values
+ * 1. Mission & Values
  */
 get_template_part( 'template-parts/pages/about/mission' );
 
 /**
- * 3. Company Timeline
+ * 2. Company Timeline
  */
 get_template_part( 'template-parts/pages/about/timeline' );
 
 /**
- * 5. Our Team
+ * 3. Our Team
  */
 get_template_part( 'template-parts/pages/about/team' );
 
 /**
- * 6. Certifications (Global)
+ * 4. Certifications (Global)
  */
 get_template_part( 'template-parts/global/certifications' );
 
 /**
- * 7. Consult Form (Global)
+ * 5. Brand Trust
+ */
+get_template_part( 'template-parts/pages/about/brand-trust' );
+
+/**
+ * 6. Consult Form (Global)
  */
 get_template_part( 'template-parts/global/consult-form' );
 

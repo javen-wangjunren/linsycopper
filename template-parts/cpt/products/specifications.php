@@ -149,24 +149,22 @@ if ( empty( $tables ) && empty( $available_grades ) ) {
 											$cell_val = isset( $row[ $col_key ] ) ? $row[ $col_key ] : '';
 											
 											// === 单元格样式逻辑 (Visual First) ===
-											// 默认: 灰色, Mono字体, 小号
-											$cell_class = 'text-[#6B7280]'; 
-											$font_class = 'lc-mono-meta text-sm'; 
+											// 默认: 使用主题正文字体与中性灰，避免技术表出现过强的 mono/高饱和对比
+											$cell_class = 'text-[#64748B]';
+											$font_class = 'font-sans text-sm';
 											
 											// 规则 A: 第一列 (Label) -> 深色, Sans, 加粗
 											if ( $i === 1 ) {
 												$cell_class = 'text-[#1F2937] font-semibold font-sans';
 												$font_class = '';
 											} 
-											// 规则 B: 智能高亮列 (Value) -> 橙色 (#F97C30), 加粗
+											// 规则 B: 智能高亮列 (Value) -> 保留层级但改为克制的深灰蓝
 											elseif ( isset( $highlight_cols[$i] ) ) {
-												$cell_class = 'text-[#F97C30] font-semibold';
+												$cell_class = 'text-[#334155] font-medium';
 											}
-											// 规则 C: 最后一列 (Note/Standard) -> 更小的字体 (React design: text-xs)
-											// 简单判断: 如果是第4列，或者第3列且总列数为3
-											// 这里简单粗暴一点，只要是第4列就变小
+											// 规则 C: 最后一列 (Note/Standard) -> 更轻的说明色，但继续使用主题 Sans
 											elseif ( $i === 4 ) {
-												$font_class = 'lc-mono-chip text-xs';
+												$cell_class = 'text-[#94A3B8]';
 											}
 									?>
 										<td class="px-6 py-3 <?php echo $font_class . ' ' . $cell_class; ?> whitespace-nowrap">

@@ -6,10 +6,9 @@
  * Uses the 'clone' strategy to import modular field groups for the About page.
  * 
  * Modules:
- * 1. Hero (inc/field/pages/home/hero.php) - Reused from home
- * 2. Mission & Values (inc/field/pages/about/mission.php)
- * 3. Timeline (inc/field/pages/about/timeline.php)
- * 4. Team (inc/field/pages/about/team.php)
+ * 1. Mission & Values (inc/field/pages/about/mission.php)
+ * 2. Timeline (inc/field/pages/about/timeline.php)
+ * 3. Team (inc/field/pages/about/team.php)
  * 
  * @package GeneratePress_Child
  */
@@ -36,38 +35,13 @@ add_action( 'acf/init', function () {
 			),
 
 			// =================================================================
-			// Accordion: Hero Banner
-			// =================================================================
-			array(
-				'key' => 'field_acc_about_hero_wrapper',
-				'label' => 'Hero Banner',
-				'type' => 'accordion',
-				'open' => 1,
-				'multi_expand' => 1,
-				'endpoint' => 0,
-			),
-			array(
-				'key' => 'field_about_hero_clone',
-				'label' => 'Hero Section',
-				'name' => 'hero_section',
-				'type' => 'clone',
-				'clone' => array(
-					0 => 'group_home_hero',
-				),
-				'display' => 'seamless',
-				'layout' => 'block',
-				'prefix_label' => 0,
-				'prefix_name' => 0,
-			),
-
-			// =================================================================
 			// Accordion: Mission & Values
 			// =================================================================
 			array(
 				'key' => 'field_acc_about_mission_wrapper',
 				'label' => 'Mission & Values',
 				'type' => 'accordion',
-				'open' => 0,
+				'open' => 1,
 				'multi_expand' => 1,
 				'endpoint' => 0,
 			),

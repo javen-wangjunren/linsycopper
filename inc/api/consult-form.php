@@ -108,18 +108,20 @@ function handle_consult_form_submission( $request ) {
 	$country = sanitize_text_field( $params['country'] ?? '' );
 	$message = sanitize_textarea_field( $params['message'] ?? '' );
 
-	if ( empty( $name ) || empty( $company ) || empty( $phone ) || empty( $country ) || empty( $message ) ) {
+	if ( empty( $name ) || empty( $phone ) || empty( $message ) ) {
 		return new WP_Error( 'missing_fields', 'Please fill in all required fields.', array( 'status' => 400 ) );
 	}
 
 	// 3. 构建邮件内容
-	$subject = "[New Inquiry] from $name - $company";
+	$subject = $company !== '' ? "[New Inquiry] from $name - $company" : "[New Inquiry] from $name";
+	$company_html = $company !== '' ? "<p><strong>Company:</strong> $company</p>" : '';
+	$country_html = $country !== '' ? "<p><strong>Country:</strong> $country</p>" : '';
 	$html_content = "
 		<h2>New Inquiry Received</h2>
 		<p><strong>Name:</strong> $name</p>
-		<p><strong>Company:</strong> $company</p>
+		$company_html
 		<p><strong>Phone:</strong> $phone</p>
-		<p><strong>Country:</strong> $country</p>
+		$country_html
 		<hr>
 		<p><strong>Message:</strong></p>
 		<p>" . nl2br( $message ) . "</p>

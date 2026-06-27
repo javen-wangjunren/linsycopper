@@ -10,9 +10,10 @@
  * Structure:
  * 1. Hero Section (template-parts/products/hero.php)
  * 2. Product Tabs (Description, Specs, etc.)
- * 3. Applications Slider
+ * 3. Product Specifications
  * 4. Trust Gallery
- * 5. Consult Form
+ * 5. Applications Slider
+ * 6. Consult Form
  * 
  * @package GeneratePress_Child
  */
@@ -33,7 +34,7 @@ get_template_part( 'template-parts/cpt/products/hero' );
 // ==========================================
 // 2. Sticky Navigation
 // ==========================================
-// Anchor links for Description, Applications, Specs, Manufacturing
+// Anchor links for Description, Specifications, Applications, Manufacturing
 get_template_part( 'template-parts/cpt/products/nav' );
 
 // ==========================================
@@ -43,22 +44,22 @@ get_template_part( 'template-parts/cpt/products/nav' );
 get_template_part( 'template-parts/cpt/products/description' );
 
 // ==========================================
-// 4. Product Applications
-// ==========================================
-// Data Source: ACF Group 'group_product_applications' (cloned)
-get_template_part( 'template-parts/cpt/products/applications' );
-
-// ==========================================
-// 5. Product Specifications
+// 4. Product Specifications
 // ==========================================
 // Data Source: ACF Group 'group_product_specifications' (cloned)
 get_template_part( 'template-parts/cpt/products/specifications' );
 
 // ==========================================
-// 6. Global Module: Why Choose Us
+// 5. Global Module: Why Choose Us
 // ==========================================
 // Data Source: ACF Options Page (Global Modules)
 get_template_part( 'template-parts/global/why-choose-us' );
+
+// ==========================================
+// 6. Product Applications
+// ==========================================
+// Data Source: ACF Group 'group_product_applications' (cloned)
+get_template_part( 'template-parts/cpt/products/applications' );
 
 // ==========================================
 // 7. Consult Form

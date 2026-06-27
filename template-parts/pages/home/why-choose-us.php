@@ -71,7 +71,7 @@ $badge_title   = get_flat_field( 'why_badge_title', [], '100% Traceable' );
             <div class="lg:w-1/2">
                 <div class="relative group">
                     <!-- Image Container with "Machined" Border -->
-                    <div class="relative overflow-hidden rounded-lg shadow-xl aspect-[3/4] ring-1 ring-black/5">
+                    <div class="relative overflow-hidden rounded-lg shadow-xl aspect-square ring-1 ring-black/5">
                         <?php if ( $img_id ) : ?>
                             <?php echo wp_get_attachment_image( $img_id, 'large', false, array( 'class' => 'h-full w-full object-cover grayscale-[0.3] contrast-[1.1] transition-transform duration-700 group-hover:scale-105' ) ); ?>
                         <?php else : ?>

@@ -69,7 +69,7 @@
             if (this.loading) return;
             
             // Validation
-            if (!this.formData.name || !this.formData.company || !this.formData.phone || !this.formData.country || !this.formData.message) {
+            if (!this.formData.name || !this.formData.phone || !this.formData.message) {
                 this.errorMessage = 'Please fill in all required fields.';
                 return;
             }
@@ -137,13 +137,12 @@
         <!-- Field: Company -->
         <div class="flex flex-col">
             <label for="company" class="lc-mono-kicker mb-2 text-[#1F2937]">
-                Company <span class="text-[#F97C30]">*</span>
+                Company
             </label>
             <input
                 id="company"
                 type="text"
                 x-model="formData.company"
-                required
                 class="px-4 py-3 border border-gray-200 rounded-sm bg-white focus:border-[#F97C30] focus:ring-1 focus:ring-[#F97C30] outline-none transition w-full text-sm placeholder:text-gray-400"
                 placeholder="Your Company Inc."
             />
@@ -167,13 +166,12 @@
         <!-- Field: Country -->
         <div class="flex flex-col">
             <label for="country" class="lc-mono-kicker mb-2 text-[#1F2937]">
-                Country <span class="text-[#F97C30]">*</span>
+                Country
             </label>
             <input
                 id="country"
                 type="text"
                 x-model="formData.country"
-                required
                 class="px-4 py-3 border border-gray-200 rounded-sm bg-white focus:border-[#F97C30] focus:ring-1 focus:ring-[#F97C30] outline-none transition w-full text-sm placeholder:text-gray-400"
                 placeholder="United States"
             />

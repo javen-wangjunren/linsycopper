@@ -20,8 +20,8 @@
 		activeTab: 'description', 
 		tabs: [
 			{ id: 'description', label: 'Description' },
-			{ id: 'applications', label: 'Applications' },
 			{ id: 'specifications', label: 'Specifications' },
+			{ id: 'applications', label: 'Applications' },
 			{ id: 'manufacturing', label: 'Manufacturing' }
 		],
 		initObserver() {
