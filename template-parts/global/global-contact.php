@@ -73,7 +73,7 @@ if ( empty( $desc ) ) $desc   = 'Give us a call at <a href="tel:3462305191" clas
 
         <!-- Right: Contact Form -->
         <!-- Copper UI: Micro-Radius (rounded-sm) & Interaction Border -->
-        <div class="lc-consult-form-scope w-full rounded-sm border-t-4 border-[#F97C30] bg-white p-8 shadow-2xl md:p-10 lg:w-7/12">
+        <div class="w-full rounded-sm border-t-4 border-[#F97C30] bg-white p-8 shadow-2xl md:p-10 lg:w-7/12">
             
             <!-- Render the Form Atom -->
             <?php get_template_part( 'template-parts/components/form' ); ?>

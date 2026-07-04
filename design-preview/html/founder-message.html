@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Founder Message - Linsy Copper</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/geist@1.3.0/dist/fonts/geist.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/geist@1.3.0/dist/fonts/geist-mono.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            "primary-blue": "#0B3570",
+            "action-copper": "#F97C30",
+            "accent-gold": "#F4BD5D",
+            heading: "#1F2937",
+            body: "#6B7280",
+            surface: "#F8F9FA",
+            border: "#E5E7EB",
+          },
+          fontFamily: {
+            sans: ["Geist Sans", "Geist", "system-ui", "sans-serif"],
+            mono: ["Geist Mono", "Geist Mono Fallback", "monospace"],
+          },
+          borderRadius: {
+            sm: "2px",
+          },
+          boxShadow: {
+            panel: "0 16px 42px rgba(11, 53, 112, 0.08)",
+          },
+        },
+      },
+    };
+  </script>
+</head>
+<body class="bg-white font-sans text-heading antialiased">
+  <section class="relative overflow-hidden border-t border-[#0B3570]/6 bg-surface pt-[120px] pb-24">
+    <div class="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
+      <div class="grid items-center gap-12 lg:grid-cols-[minmax(360px,460px)_minmax(0,640px)] lg:justify-between lg:gap-18">
+        <div class="relative mx-auto w-full max-w-[440px] lg:mx-0 lg:max-w-none">
+          <figure class="relative overflow-hidden rounded-sm bg-white shadow-panel">
+            <div class="relative aspect-4/5 overflow-hidden bg-[#EDEFF2]">
+              <img
+                src="https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=professional%20male%20founder%20portrait%20in%20industrial%20copper%20materials%20company%2C%20standing%20confidently%20in%20a%20clean%20factory%20environment%2C%20business%20casual%20attire%2C%20natural%20light%2C%20realistic%20photography%2C%20high-end%20corporate%20portrait%2C%20subtle%20industrial%20background&image_size=portrait_4_3"
+                alt="Founder portrait"
+                class="h-full w-full object-cover object-center"
+              />
+            </div>
+          </figure>
+        </div>
+
+        <div class="relative max-w-[640px] lg:justify-self-start">
+          <div class="mb-6 flex items-center gap-4">
+            <span class="h-px w-12 bg-action-copper"></span>
+            <p class="text-sm font-medium tracking-tight text-primary-blue/72">Founder message</p>
+          </div>
+
+          <h2 class="mb-7 text-3xl font-bold leading-[1.08] tracking-tight text-heading md:text-[40px] lg:text-[44px]">
+            A long-term business is built on trust, consistency, and the willingness to keep improving.
+          </h2>
+
+          <div class="border-t border-[#0B3570]/10 pt-6">
+            <div class="space-y-6 text-[17px] leading-8 text-body md:text-[19px] md:leading-9">
+              <p>
+                From the very beginning, I believed that supplying industrial materials should be more than completing an order.
+                It should mean helping customers move forward with confidence, whether they need stable stock, precise processing,
+                or a partner who responds clearly when timelines and specifications matter.
+              </p>
+              <p>
+                What we continue to build at Linsy Copper is not only production capability, but also a way of working rooted in
+                reliability, practical communication, and long-term trust. That is the standard I expect from our team, and the
+                promise I hope every customer can feel in each cooperation.
+              </p>
+            </div>
+
+            <div class="mt-6 pt-0">
+              <p class="mb-0 text-base font-semibold text-heading">Jack Zhang</p>
+              <p class="mb-0 mt-0.5 text-[12px] tracking-[0.08em] text-primary-blue/60">Founder, Linsy Copper</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</body>
+</html>

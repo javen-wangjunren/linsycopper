@@ -1228,6 +1228,202 @@
     outline-offset: 2px !important;
   }
 
+  body.lc-app .lc-founder-message {
+    overflow: hidden;
+    background: #F8F9FA;
+    border-top: 1px solid rgba(11, 53, 112, 0.06);
+    padding-top: 120px;
+    padding-bottom: 96px;
+  }
+
+  body.lc-app .lc-founder-message__grid {
+    display: grid;
+    align-items: center;
+    gap: 3rem;
+  }
+
+  @media (min-width: 1024px) {
+    body.lc-app .lc-founder-message__grid {
+      grid-template-columns: minmax(360px, 460px) minmax(0, 640px);
+      justify-content: space-between;
+      gap: 4.5rem;
+    }
+  }
+
+  body.lc-app .lc-founder-message__media {
+    width: 100%;
+    max-width: 440px;
+    margin: 0 auto;
+  }
+
+  @media (min-width: 1024px) {
+    body.lc-app .lc-founder-message__media {
+      max-width: none;
+      margin: 0;
+      justify-self: start;
+      align-self: center;
+    }
+  }
+
+  body.lc-app .lc-founder-message__figure {
+    margin: 0;
+    overflow: hidden;
+    border-radius: 2px;
+    background: #ffffff;
+    box-shadow: 0 16px 42px rgba(11, 53, 112, 0.08);
+  }
+
+  body.lc-app .lc-founder-message__image-wrap {
+    position: relative;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    background: #EDEFF2;
+  }
+
+  body.lc-app .lc-founder-message__image,
+  body.lc-app .lc-founder-message__image-placeholder {
+    display: block;
+    width: 100% !important;
+    height: 100% !important;
+  }
+
+  body.lc-app .lc-founder-message__image {
+    object-fit: cover;
+    object-position: center;
+  }
+
+  body.lc-app .lc-founder-message__image-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  body.lc-app .lc-founder-message__content {
+    width: 100%;
+    max-width: 640px;
+  }
+
+  @media (min-width: 1024px) {
+    body.lc-app .lc-founder-message__content {
+      justify-self: start;
+      align-self: center;
+    }
+  }
+
+  body.lc-app .lc-founder-message__kicker {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  body.lc-app .lc-founder-message__kicker-line {
+    width: 3rem;
+    height: 1px;
+    background: #F97C30;
+    flex: 0 0 auto;
+  }
+
+  body.lc-app .lc-founder-message__kicker-text {
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    color: rgba(11, 53, 112, 0.72);
+  }
+
+  body.lc-app .lc-founder-message__title {
+    margin: 0 0 1.75rem;
+    color: #1F2937;
+    font-family: "Geist Sans", "Geist", system-ui, sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    max-width: none;
+  }
+
+  @media (min-width: 768px) {
+    body.lc-app .lc-founder-message__title {
+      font-size: 2.5rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    body.lc-app .lc-founder-message__title {
+      font-size: 2.75rem;
+    }
+  }
+
+  body.lc-app .lc-founder-message__body {
+    border-top: 1px solid rgba(11, 53, 112, 0.10);
+    padding-top: 1.5rem;
+  }
+
+  body.lc-app .lc-founder-message__paragraph {
+    margin: 0;
+    color: #6B7280;
+    font-size: 17px;
+    line-height: 1.9;
+  }
+
+  body.lc-app .lc-founder-message__paragraph + .lc-founder-message__paragraph {
+    margin-top: 1rem;
+  }
+
+  @media (min-width: 768px) {
+    body.lc-app .lc-founder-message__paragraph {
+      font-size: 18px;
+    }
+  }
+
+  body.lc-app .lc-founder-message__signature {
+    margin-top: 1.5rem;
+  }
+
+  body.lc-app .lc-founder-message__name {
+    margin: 0;
+    color: #1F2937;
+    font-size: 1rem;
+    font-weight: 600;
+  }
+
+  body.lc-app .lc-founder-message__role {
+    margin: 0.125rem 0 0;
+    color: rgba(11, 53, 112, 0.6);
+    font-size: 12px;
+    letter-spacing: 0.08em;
+  }
+
+  body.lc-app .lc-about-factory-slider__nav-btn {
+    appearance: none;
+    -webkit-appearance: none;
+    flex: 0 0 auto;
+    padding: 0 !important;
+    margin: 0;
+    line-height: 0;
+    box-shadow: none !important;
+  }
+
+  body.lc-app .lc-about-factory-slider__nav-btn:focus,
+  body.lc-app .lc-about-factory-slider__nav-btn:active {
+    outline: none;
+  }
+
+  body.lc-app .lc-about-factory-slider__nav-btn:focus-visible {
+    outline: 2px solid rgba(249, 124, 48, 0.72);
+    outline-offset: 2px;
+  }
+
+  body.lc-app .lc-about-factory-slider__nav-icon {
+    display: block;
+    width: 18px !important;
+    height: 18px !important;
+    flex: 0 0 18px;
+    max-width: none;
+    max-height: none;
+  }
+
   .lc-card-cta {
     display: flex !important;
     width: 100% !important;

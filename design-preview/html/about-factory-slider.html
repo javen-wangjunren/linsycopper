@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Factory Slider - Linsy Copper</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/geist@1.3.0/dist/fonts/geist.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/geist@1.3.0/dist/fonts/geist-mono.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            "primary-blue": "#0B3570",
+            "action-copper": "#F97C30",
+            "accent-gold": "#F4BD5D",
+            heading: "#1F2937",
+            body: "#6B7280",
+            surface: "#F8FAFC",
+            border: "#E5E7EB",
+          },
+          fontFamily: {
+            sans: ["Geist Sans", "Geist", "system-ui", "sans-serif"],
+            mono: ["Geist Mono", "Geist Mono Fallback", "monospace"],
+          },
+          borderRadius: {
+            sm: "2px",
+          },
+        },
+      },
+    };
+  </script>
+  <style>
+    body {
+      background: #F2F4F7;
+    }
+
+    .lc-factory-swiper {
+      overflow: visible;
+    }
+
+    .lc-factory-swiper .swiper-slide {
+      height: auto;
+    }
+
+    .lc-factory-slider-nav__btn {
+      -webkit-appearance: none;
+      appearance: none;
+      flex: 0 0 auto;
+      padding: 0;
+      margin: 0;
+      line-height: 0;
+      box-shadow: none;
+    }
+
+    .lc-factory-slider-nav__icon {
+      display: block;
+      width: 18px;
+      height: 18px;
+      flex: 0 0 18px;
+      max-width: none;
+      max-height: none;
+    }
+  </style>
+</head>
+<body class="font-sans text-heading antialiased">
+  <section class="relative overflow-hidden border-t border-[#0B3570]/6 bg-[#FCFDFE] pt-[84px] pb-20">
+    <div class="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
+      <div class="mb-9 text-center">
+        <div class="mx-auto max-w-[760px]">
+          <h2 class="text-3xl font-bold leading-tight tracking-tight text-heading md:text-4xl lg:text-[42px]">
+            Factory and workshop environment
+          </h2>
+        </div>
+      </div>
+
+      <div class="mb-4 flex items-center justify-end gap-3">
+        <button type="button" class="lc-factory-prev lc-factory-slider-nav__btn flex h-11 w-11 items-center justify-center rounded-sm border border-[#0B3570]/14 bg-white text-primary-blue transition-colors hover:border-action-copper/50 hover:text-action-copper" aria-label="Previous slide">
+          <svg xmlns="http://www.w3.org/2000/svg" class="lc-factory-slider-nav__icon h-[18px] w-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M15 18l-6-6 6-6"></path>
+          </svg>
+        </button>
+        <button type="button" class="lc-factory-next lc-factory-slider-nav__btn flex h-11 w-11 items-center justify-center rounded-sm border border-[#0B3570]/14 bg-white text-primary-blue transition-colors hover:border-action-copper/50 hover:text-action-copper" aria-label="Next slide">
+          <svg xmlns="http://www.w3.org/2000/svg" class="lc-factory-slider-nav__icon h-[18px] w-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 18l6-6-6-6"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="relative left-1/2 w-screen -translate-x-1/2 overflow-hidden">
+      <div class="swiper lc-factory-swiper">
+          <div class="swiper-wrapper">
+            <article class="swiper-slide">
+              <figure class="overflow-hidden">
+                <div class="relative aspect-[4/3] overflow-hidden">
+                  <img
+                    src="https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=industrial%20copper%20coil%20slitting%20line%2C%20large%20metal%20processing%20equipment%2C%20clean%20factory%20interior%2C%20organized%20production%20floor%2C%20cool%20steel%20and%20copper%20tones%2C%20realistic%20photography%2C%20wide%20composition&image_size=landscape_4_3"
+                    alt="Copper coil slitting line inside the factory"
+                    class="h-full w-full object-cover"
+                  />
+                </div>
+              </figure>
+            </article>
+
+            <article class="swiper-slide">
+              <figure class="overflow-hidden">
+                <div class="relative aspect-[4/3] overflow-hidden">
+                  <img
+                    src="https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=precision%20copper%20sheet%20processing%20equipment%2C%20bright%20industrial%20workshop%2C%20flatness%20control%20line%2C%20modern%20manufacturing%20machines%2C%20clean%20technical%20environment%2C%20realistic%20photography&image_size=landscape_4_3"
+                    alt="Copper sheet processing equipment"
+                    class="h-full w-full object-cover"
+                  />
+                </div>
+              </figure>
+            </article>
+
+            <article class="swiper-slide">
+              <figure class="overflow-hidden">
+                <div class="relative aspect-[4/3] overflow-hidden">
+                  <img
+                    src="https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=large%20copper%20processing%20factory%20interior%2C%20multiple%20industrial%20machines%2C%20organized%20aisles%2C%20high%20ceiling%20production%20hall%2C%20copper%20metal%20materials%2C%20realistic%20industrial%20photography&image_size=landscape_4_3"
+                    alt="Wide view of the main copper processing workshop"
+                    class="h-full w-full object-cover"
+                  />
+                </div>
+              </figure>
+            </article>
+
+            <article class="swiper-slide">
+              <figure class="overflow-hidden">
+                <div class="relative aspect-[4/3] overflow-hidden">
+                  <img
+                    src="https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=industrial%20quality%20inspection%20station%20for%20copper%20materials%2C%20precision%20measurement%20equipment%2C%20clean%20factory%20inspection%20area%2C%20technical%20manufacturing%20photography&image_size=landscape_4_3"
+                    alt="Quality inspection station for copper materials"
+                    class="h-full w-full object-cover"
+                  />
+                </div>
+              </figure>
+            </article>
+
+            <article class="swiper-slide">
+              <figure class="overflow-hidden">
+                <div class="relative aspect-[4/3] overflow-hidden">
+                  <img
+                    src="https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=industrial%20copper%20material%20packing%20and%20warehouse%20area%2C%20organized%20export%20preparation%2C%20metal%20coils%20and%20sheets%2C%20realistic%20factory%20logistics%20photography&image_size=landscape_4_3"
+                    alt="Packing and warehouse preparation area"
+                    class="h-full w-full object-cover"
+                  />
+                </div>
+              </figure>
+            </article>
+          </div>
+      </div>
+    </div>
+  </section>
+
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script>
+    new Swiper(".lc-factory-swiper", {
+      loop: false,
+      rewind: true,
+      centeredSlides: false,
+      watchSlidesProgress: true,
+      speed: 720,
+      spaceBetween: 20,
+      slidesPerView: 1.08,
+      autoplay: {
+        delay: 4200,
+        disableOnInteraction: false,
+        pauseOnMouseEnter: true,
+      },
+      navigation: {
+        nextEl: ".lc-factory-next",
+        prevEl: ".lc-factory-prev",
+      },
+      breakpoints: {
+        640: {
+          slidesPerView: 1.6,
+          spaceBetween: 22,
+        },
+        1024: {
+          slidesPerView: 3.1,
+          spaceBetween: 24,
+        },
+        1280: {
+          slidesPerView: 4.1,
+          spaceBetween: 14,
+        },
+      },
+    });
+  </script>
+</body>
+</html>

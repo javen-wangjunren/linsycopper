@@ -76,22 +76,9 @@ if ( empty( $js_images ) ) {
 		}">
 			
 			<!-- Left: Image Gallery -->
-			<div class="flex gap-4">
-				<!-- Thumbnail Column -->
-				<div class="flex flex-col gap-2">
-					<template x-for="(img, index) in images" :key="index">
-						<button
-							@click="selectedImage = index"
-							class="w-20 h-20 !p-0 rounded-sm overflow-hidden border transition-all flex-shrink-0 bg-white"
-							:class="selectedImage === index ? 'border-action-copper ring-1 ring-action-copper/20' : 'border-gray-200 hover:border-action-copper/50'"
-						>
-							<img :src="img.thumb" class="!w-full !h-full !object-cover !block" alt="Thumbnail">
-						</button>
-					</template>
-				</div>
-
+			<div class="flex flex-col gap-4 md:flex-row">
 				<!-- Main Image -->
-				<div class="relative flex-1 aspect-square overflow-hidden rounded-sm bg-gray-100 group">
+				<div class="order-1 relative flex-1 aspect-square overflow-hidden rounded-sm bg-gray-100 group md:order-2">
 					<img 
 						:src="images[selectedImage].full" 
 						class="absolute inset-0 !h-full !w-full !object-cover !block transition-transform duration-500 group-hover:scale-110" 
@@ -102,6 +89,19 @@ if ( empty( $js_images ) ) {
 						<svg class="w-5 h-5 text-primary-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"></path></svg>
 					</div>
 				</div>
+
+				<!-- Thumbnail Column -->
+				<div class="order-2 flex gap-2 overflow-x-auto pb-1 md:order-1 md:flex-col md:overflow-visible md:pb-0">
+					<template x-for="(img, index) in images" :key="index">
+						<button
+							@click="selectedImage = index"
+							class="h-16 w-16 !p-0 rounded-sm overflow-hidden border transition-all flex-shrink-0 bg-white md:h-20 md:w-20"
+							:class="selectedImage === index ? 'border-action-copper ring-1 ring-action-copper/20' : 'border-gray-200 hover:border-action-copper/50'"
+						>
+							<img :src="img.thumb" class="!w-full !h-full !object-cover !block" alt="Thumbnail">
+						</button>
+					</template>
+				</div>
 			</div>
 
 			<!-- Right: Product Info -->
@@ -109,8 +109,7 @@ if ( empty( $js_images ) ) {
 				
 				<!-- 1. Title -->
 				<div>
-					<?php linsy_render_product_breadcrumbs( $post_id ); ?>
-					<h1 class="text-3xl font-bold text-heading md:text-4xl font-sans">
+					<h1 class="lc-h1-product text-heading">
 						<?php echo esc_html( $title ); ?>
 					</h1>
 				</div>
@@ -121,7 +120,7 @@ if ( empty( $js_images ) ) {
 					<?php foreach ( $specs as $spec ) : ?>
 						<div class="p-4 text-center">
 							<!-- Copper UI: Font Logic - Technical Data uses font-mono -->
-							<div class="text-xl font-bold text-primary-blue font-mono">
+							<div class="lc-mono-value text-xl text-primary-blue">
 								<?php echo esc_html( $spec['value'] ); ?>
 							</div>
 							<div class="mt-1 text-xs text-gray-500 font-sans tracking-wide">
@@ -144,7 +143,7 @@ if ( empty( $js_images ) ) {
 					<!-- Primary Action: Get Quote -->
 					<a 
 						href="<?php echo esc_url( $quote_link ); ?>" 
-						class="lc-btn-reset lc-btn-primary lc-btn-action flex-1 px-6 py-3.5 font-bold rounded-sm uppercase tracking-wide text-sm"
+						class="flex-1 inline-flex justify-center items-center px-6 py-3.5 bg-action-copper hover:bg-action-copper/90 text-white font-bold rounded-sm transition-colors uppercase tracking-wide text-sm"
 					>
 						<?php echo esc_html( $quote_text ); ?>
 					</a>
