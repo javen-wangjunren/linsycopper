@@ -3,6 +3,10 @@
 @config "../tailwind.config.js";
 
 @layer base {
+  [x-cloak] {
+    display: none !important;
+  }
+
   body.lc-app .lc-taxonomy-filter-drawer {
     transform: translateX(-100%);
     box-shadow: none;

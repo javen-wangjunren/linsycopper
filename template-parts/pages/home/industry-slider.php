@@ -89,9 +89,6 @@ window.<?php echo esc_attr( $instance_var ); ?> = <?php echo $slides_json; ?>;
 			<div class="flex flex-col sm:flex-row gap-4">
 				<a class="lc-home-industry-btn" :href="(slides[currentIndex] && slides[currentIndex].cta_url) ? slides[currentIndex].cta_url : '#'" :target="(slides[currentIndex] && slides[currentIndex].cta_target) ? slides[currentIndex].cta_target : '_self'">
 					<span x-text="(slides[currentIndex] && slides[currentIndex].cta_label) ? slides[currentIndex].cta_label : 'Get a Specific Quote'"></span>
-					<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-					</svg>
 				</a>
 			</div>
 		</div>

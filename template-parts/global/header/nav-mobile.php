@@ -16,6 +16,7 @@ if ( empty( $menu_tree ) ) {
 
 <!-- Mobile Menu Drawer -->
 <div
+	x-cloak
 	x-show="mobileOpen"
 	class="fixed inset-0 z-50 flex justify-end"
 	role="dialog"
@@ -24,6 +25,7 @@ if ( empty( $menu_tree ) ) {
 >
 	<!-- Backdrop -->
 	<div
+		x-cloak
 		x-show="mobileOpen"
 		x-transition:enter="transition-opacity ease-out duration-300"
 		x-transition:enter-start="opacity-0"
@@ -37,6 +39,7 @@ if ( empty( $menu_tree ) ) {
 
 	<!-- Drawer Panel -->
 	<div
+		x-cloak
 		x-show="mobileOpen"
 		x-transition:enter="transition ease-out duration-300"
 		x-transition:enter-start="translate-x-full"
@@ -91,6 +94,7 @@ if ( empty( $menu_tree ) ) {
 
 						<!-- Accordion Body -->
 						<div
+							x-cloak
 							x-show="open"
 							x-collapse
 							class="overflow-hidden"

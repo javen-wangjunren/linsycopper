@@ -23,8 +23,22 @@ if ( empty( $certs ) ) {
     return; // Don't render if no data
 }
 
+$cert_items = array_values(
+	array_filter(
+		$certs,
+		static function ( $cert ) {
+			return ! empty( $cert['cert_image'] );
+		}
+	)
+);
+
+if ( empty( $cert_items ) ) {
+	return;
+}
+
 $certs_hash_source = function_exists( 'wp_json_encode' ) ? wp_json_encode( $certs ) : json_encode( $certs );
 $section_uid = 'lc-certifications-' . substr( md5( is_string( $certs_hash_source ) ? $certs_hash_source : '' ), 0, 8 );
+$cert_count = count( $cert_items );
 ?>
 
 <section class="lc-certifications w-full overflow-hidden pt-[100px] pb-[100px]">
@@ -40,12 +54,9 @@ $section_uid = 'lc-certifications-' . substr( md5( is_string( $certs_hash_source
 	<div class="w-full px-4 sm:px-6 lg:px-12 xl:px-16 2xl:px-20">
 		<div id="<?php echo esc_attr( $section_uid ); ?>" class="swiper lc-cert-swiper w-full overflow-visible">
 			<div class="swiper-wrapper">
-				<?php foreach ( $certs as $cert ) : ?>
+				<?php foreach ( $cert_items as $cert ) : ?>
 					<?php
 					$image_id = isset( $cert['cert_image'] ) ? (int) $cert['cert_image'] : 0;
-					if ( ! $image_id ) {
-						continue;
-					}
 					?>
 					<div class="swiper-slide">
 						<div class="lc-cert-card aspect-[3/4] rounded-sm bg-white border border-black/10 shadow-sm transition-all duration-300 hover:shadow-xl hover:-translate-y-1 hover:border-[#F97C30]">
@@ -73,6 +84,7 @@ $section_uid = 'lc-certifications-' . substr( md5( is_string( $certs_hash_source
 <script>
 	(function() {
 		const rootId = '<?php echo esc_attr( $section_uid ); ?>';
+		const certCount = <?php echo (int) $cert_count; ?>;
 
 		const init = () => {
 			const root = document.getElementById(rootId);
@@ -80,12 +92,13 @@ $section_uid = 'lc-certifications-' . substr( md5( is_string( $certs_hash_source
 			if (root.dataset.swiperInit === '1') return true;
 
 			root.dataset.swiperInit = '1';
+			const enableLoop = certCount > 4;
 
 			new Swiper(root, {
 				slidesPerView: 1,
 				spaceBetween: 20,
-				loop: true,
-				autoplay: { delay: 5000 },
+				loop: enableLoop,
+				autoplay: enableLoop ? { delay: 5000 } : false,
 				pagination: { el: root.querySelector('.swiper-pagination'), clickable: true },
 				navigation: { nextEl: root.querySelector('.swiper-button-next'), prevEl: root.querySelector('.swiper-button-prev') },
 				watchOverflow: true,

@@ -97,15 +97,13 @@ if ( $bg_image_id ) {
 					<a
 						href="<?php echo esc_url( $cta_primary['url'] ); ?>"
 						target="<?php echo esc_attr( $cta_primary['target'] ?: '_self' ); ?>"
-						class="lc-hero-btn lc-hero-btn--primary group"
+						class="lc-hero-btn lc-hero-btn--primary"
 					>
 						<?php echo esc_html( $cta_primary['title'] ); ?>
-						<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 transition-transform group-hover:translate-x-1.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
 					</a>
 				<?php else: ?>
-					<a href="/shapes" class="lc-hero-btn lc-hero-btn--primary group">
+					<a href="/shapes" class="lc-hero-btn lc-hero-btn--primary">
 						Browse Products
-						<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 transition-transform group-hover:translate-x-1.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
 					</a>
 				<?php endif; ?>
 
@@ -114,15 +112,13 @@ if ( $bg_image_id ) {
 					<a
 						href="<?php echo esc_url( $cta_secondary['url'] ); ?>"
 						target="<?php echo esc_attr( $cta_secondary['target'] ?: '_self' ); ?>"
-						class="lc-hero-btn lc-hero-btn--secondary group"
+						class="lc-hero-btn lc-hero-btn--secondary"
 					>
 						<?php echo esc_html( $cta_secondary['title'] ); ?>
-						<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
 					</a>
 				<?php else: ?>
-					<a href="/contact" class="lc-hero-btn lc-hero-btn--secondary group">
+					<a href="/contact" class="lc-hero-btn lc-hero-btn--secondary">
 						Request a Quote
-						<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
 					</a>
 				<?php endif; ?>
 			</div>

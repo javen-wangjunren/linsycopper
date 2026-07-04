@@ -77,10 +77,10 @@ if ( empty( $items ) ) {
                     <div class="p-6">
                         <!-- Grade Code -->
                         <div class="mb-6">
-                            <div class="lc-mono-value mb-1 text-3xl text-[#0B3570]">
+                            <div class="font-sans mb-1 text-3xl font-bold tracking-tight text-[#0B3570]">
                                 <?php echo esc_html( $code ); ?>
                             </div>
-                            <div class="text-sm font-medium text-[#6B7280]">
+                            <div class="font-sans text-sm font-medium text-[#6B7280]">
                                 <?php echo esc_html( $name ); ?>
                             </div>
                         </div>

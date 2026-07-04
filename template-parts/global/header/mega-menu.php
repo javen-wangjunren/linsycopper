@@ -48,6 +48,7 @@ $hide_classes = "opacity-0 -translate-y-2 pointer-events-none";
 	?>
 	<!-- Mega Menu Panel (Full Width) -->
 	<div
+		x-cloak
 		x-show="openMenu === <?php echo $index; ?>"
 		x-transition:enter="transition ease-out duration-200"
 		x-transition:enter-start="opacity-0 -translate-y-2"
@@ -108,6 +109,7 @@ $hide_classes = "opacity-0 -translate-y-2 pointer-events-none";
 <?php else : ?>
 	<!-- Simple Dropdown -->
 	<div
+		x-cloak
 		x-show="openMenu === <?php echo $index; ?>"
 		x-transition:enter="transition ease-out duration-200"
 		x-transition:enter-start="opacity-0 -translate-y-2"
