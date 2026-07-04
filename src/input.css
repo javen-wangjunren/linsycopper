@@ -639,6 +639,10 @@ body.lc-app .lc-card-btn:active {
   text-decoration-line: none !important;
 }
 
+body.lc-app .lc-taxonomy-hero-scope .lc-taxonomy-hero-desc {
+  color: rgb(239 246 255 / 0.8) !important;
+}
+
 @layer components {
 
   .lc-consult-form-scope .lc-mono-kicker {

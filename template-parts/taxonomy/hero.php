@@ -33,7 +33,7 @@ $breadcrumb_items = function_exists( 'linsy_get_taxonomy_breadcrumb_items' )
 ?>
 
 <!-- Copper UI: Vertical Rhythm (pt-[100px] implied by header spacing) -->
-<section class="relative bg-[#0B3570] overflow-hidden font-sans">
+<section class="lc-taxonomy-hero-scope relative bg-[#0B3570] overflow-hidden font-sans">
     <div class="mx-auto flex max-w-[1440px] flex-col items-stretch md:flex-row">
         <!-- Text Content -->
         <div class="z-10 flex flex-col justify-center p-8 text-left md:w-1/2 md:py-16 lg:px-24 lg:py-20">
@@ -71,7 +71,7 @@ $breadcrumb_items = function_exists( 'linsy_get_taxonomy_breadcrumb_items' )
             </h1>
             
             <?php if ( $hero_desc ) : ?>
-            <p class="lc-body-section mb-8 max-w-xl text-blue-100/80 md:text-lg">
+            <p class="lc-taxonomy-hero-desc lc-body-section mb-8 max-w-xl md:text-lg">
                 <?php echo esc_html( $hero_desc ); ?>
             </p>
             <?php endif; ?>
