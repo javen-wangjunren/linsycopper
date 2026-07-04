@@ -67,23 +67,13 @@ add_action( 'acf/init', function() {
                 'collapsed'    => 'field_contact_method_label',
                 'sub_fields'   => array(
                     array(
-                        'key'          => 'field_contact_method_icon',
-                        'label'        => 'Icon',
-                        'name'         => 'icon',
-                        'type'          => 'image',
-                        'instructions' => 'SVG or PNG icon (e.g., 48x48).',
-                        'return_format' => 'id',
-                        'preview_size' => 'thumbnail',
-                        'wrapper'      => array( 'width' => '25' ),
-                    ),
-                    array(
                         'key'          => 'field_contact_method_label',
                         'label'        => 'Label',
                         'name'         => 'label',
                         'type'          => 'text',
                         'instructions' => 'e.g., Phone, Email, Address.',
                         'required'     => 1,
-                        'wrapper'      => array( 'width' => '25' ),
+                        'wrapper'      => array( 'width' => '30' ),
                     ),
                     array(
                         'key'          => 'field_contact_method_value',
@@ -92,7 +82,7 @@ add_action( 'acf/init', function() {
                         'type'          => 'text',
                         'instructions' => 'The text shown on the card.',
                         'required'     => 1,
-                        'wrapper'      => array( 'width' => '50' ),
+                        'wrapper'      => array( 'width' => '70' ),
                     ),
                     array(
                         'key'          => 'field_contact_method_link',

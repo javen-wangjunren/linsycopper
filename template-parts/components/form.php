@@ -121,7 +121,7 @@
         
         <!-- Field: Name -->
         <div class="flex flex-col">
-            <label for="name" class="lc-mono-kicker mb-2 text-[#1F2937]">
+            <label for="name" class="lc-form-label mb-2 text-[#1F2937]">
                 Name <span class="text-[#F97C30]">*</span>
             </label>
             <input
@@ -136,7 +136,7 @@
 
         <!-- Field: Company -->
         <div class="flex flex-col">
-            <label for="company" class="lc-mono-kicker mb-2 text-[#1F2937]">
+            <label for="company" class="lc-form-label mb-2 text-[#1F2937]">
                 Company
             </label>
             <input
@@ -150,7 +150,7 @@
 
         <!-- Field: Phone -->
         <div class="flex flex-col">
-            <label for="phone" class="lc-mono-kicker mb-2 text-[#1F2937]">
+            <label for="phone" class="lc-form-label mb-2 text-[#1F2937]">
                 Phone <span class="text-[#F97C30]">*</span>
             </label>
             <input
@@ -165,7 +165,7 @@
 
         <!-- Field: Country -->
         <div class="flex flex-col">
-            <label for="country" class="lc-mono-kicker mb-2 text-[#1F2937]">
+            <label for="country" class="lc-form-label mb-2 text-[#1F2937]">
                 Country
             </label>
             <input
@@ -185,7 +185,7 @@
 
     <!-- Field: Message -->
     <div class="mb-6 flex flex-col">
-        <label for="message" class="lc-mono-kicker mb-2 text-[#1F2937]">
+        <label for="message" class="lc-form-label mb-2 text-[#1F2937]">
             Message <span class="text-[#F97C30]">*</span>
         </label>
         <textarea
@@ -200,13 +200,13 @@
 
     <!-- Field: File Upload -->
     <div class="mb-8 flex flex-col">
-        <label class="lc-mono-kicker mb-2 text-[#1F2937]">
-            Attachment <span class="text-[#6B7280] normal-case font-normal">(Optional)</span>
+        <label class="lc-form-label mb-2 text-[#1F2937]">
+            Attachment <span class="lc-form-label-note text-[#6B7280]">(Optional)</span>
         </label>
         <div class="flex items-center gap-3">
             <label class="flex-1 px-4 py-3 border border-dashed border-[#F97C30] rounded-sm bg-[#F97C30]/5 cursor-pointer hover:bg-[#F97C30]/10 transition flex items-center justify-center gap-2 group">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-[#F97C30] group-hover:scale-110 transition-transform"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></svg>
-                <span class="lc-mono-kicker text-[#0B3570]" x-text="fileName ? fileName : 'Click to upload file'"></span>
+                <span class="lc-form-upload-text text-[#0B3570]" x-text="fileName ? fileName : 'Click to upload file'"></span>
                 <input type="file" x-ref="fileInput" @change="handleFile" class="hidden" accept=".pdf,.doc,.docx,.xls,.xlsx,.jpg,.png" />
             </label>
             

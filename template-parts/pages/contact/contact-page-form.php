@@ -71,7 +71,9 @@ if ( $fast_desc ) {
 						<?php endif; ?>
 					</div>
 
-					<?php get_template_part( 'template-parts/components/form' ); ?>
+					<div class="lc-consult-form-scope">
+						<?php get_template_part( 'template-parts/components/form' ); ?>
+					</div>
 				</div>
 			</div>
 

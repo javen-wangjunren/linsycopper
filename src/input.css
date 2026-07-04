@@ -493,6 +493,25 @@
     letter-spacing: 0 !important;
   }
 
+  .lc-consult-form-scope .lc-form-label,
+  .lc-consult-form-scope .lc-form-upload-text,
+  .lc-consult-form-scope .lc-form-label-note {
+    font-family: inherit !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    line-height: 1.4 !important;
+    text-transform: none !important;
+    letter-spacing: 0 !important;
+  }
+
+  .lc-contact-info-scope .lc-mono-meta {
+    font-family: inherit !important;
+    font-size: 15px !important;
+    line-height: 1.55 !important;
+    letter-spacing: 0 !important;
+    text-transform: none !important;
+  }
+
   .lc-consult-form-scope input[type="text"],
   .lc-consult-form-scope input[type="tel"],
   .lc-consult-form-scope textarea {
