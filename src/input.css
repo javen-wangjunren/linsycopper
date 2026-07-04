@@ -2,6 +2,113 @@
 @plugin "@tailwindcss/typography";
 @config "../tailwind.config.js";
 
+/* Product hero is app UI, so it must own its heading rhythm instead of inheriting GeneratePress h1 defaults. */
+body.lc-app .lc-product-hero-scope .lc-h1-product {
+  font-family: "Geist Sans", Geist, system-ui, -apple-system, sans-serif !important;
+  font-size: 1.5rem !important;
+  line-height: 1.15 !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.02em !important;
+  color: #1F2937 !important;
+  margin: 0 !important;
+}
+
+@media (min-width: 640px) {
+  body.lc-app .lc-product-hero-scope .lc-h1-product {
+    font-size: 1.875rem !important;
+  }
+}
+
+@media (min-width: 768px) {
+  body.lc-app .lc-product-hero-scope .lc-h1-product {
+    font-size: 2.25rem !important;
+  }
+}
+
+body.lc-app .lc-product-hero-scope .lc-product-hero-cta-primary,
+body.lc-app .lc-product-hero-scope .lc-product-hero-cta-primary:visited {
+  font-family: inherit !important;
+  font-size: 0.9375rem !important;
+  font-weight: 600 !important;
+  letter-spacing: normal !important;
+  text-transform: none !important;
+  color: #ffffff !important;
+  text-decoration: none !important;
+  text-decoration-line: none !important;
+  background-color: #F97C30 !important;
+  border: 1px solid #F97C30 !important;
+}
+
+body.lc-app .lc-product-hero-scope .lc-product-hero-cta-primary:hover,
+body.lc-app .lc-product-hero-scope .lc-product-hero-cta-primary:focus,
+body.lc-app .lc-product-hero-scope .lc-product-hero-cta-primary:active {
+  color: #ffffff !important;
+  background-color: #e96f1f !important;
+  border-color: #e96f1f !important;
+  text-decoration: none !important;
+  text-decoration-line: none !important;
+}
+
+body.lc-app .lc-product-hero-scope .lc-product-hero-cta-secondary,
+body.lc-app .lc-product-hero-scope .lc-product-hero-cta-secondary:visited {
+  font-family: inherit !important;
+  font-size: 0.9375rem !important;
+  font-weight: 600 !important;
+  letter-spacing: normal !important;
+  text-transform: none !important;
+  color: #0B3570 !important;
+  text-decoration: none !important;
+  text-decoration-line: none !important;
+  background-color: transparent !important;
+  border: 1px solid #0B3570 !important;
+}
+
+body.lc-app .lc-product-hero-scope .lc-product-hero-cta-secondary:hover,
+body.lc-app .lc-product-hero-scope .lc-product-hero-cta-secondary:focus,
+body.lc-app .lc-product-hero-scope .lc-product-hero-cta-secondary:active {
+  color: #ffffff !important;
+  background-color: #0B3570 !important;
+  border-color: #0B3570 !important;
+  text-decoration: none !important;
+  text-decoration-line: none !important;
+}
+
+body.lc-app .lc-product-hero-scope .lc-product-hero-spec-label {
+  font-family: inherit !important;
+  font-size: 0.6875rem !important;
+  line-height: 1.35 !important;
+  font-weight: 600 !important;
+  letter-spacing: 0 !important;
+  text-transform: none !important;
+  color: #6B7280 !important;
+}
+
+@media (min-width: 768px) {
+  body.lc-app .lc-product-hero-scope .lc-product-hero-spec-label {
+    font-size: 0.75rem !important;
+  }
+}
+
+body.lc-app .lc-product-hero-scope .lc-product-hero-desc {
+  max-width: 36rem !important;
+  font-family: inherit !important;
+  font-size: 0.9375rem !important;
+  line-height: 1.8 !important;
+  color: #4B5563 !important;
+}
+
+body.lc-app .lc-product-hero-scope .lc-product-hero-desc br {
+  content: "";
+  display: block;
+  margin-top: 0.75rem;
+}
+
+@media (min-width: 768px) {
+  body.lc-app .lc-product-hero-scope .lc-product-hero-desc {
+    font-size: 1rem !important;
+  }
+}
+
 @layer base {
   [x-cloak] {
     display: none !important;
@@ -426,64 +533,113 @@
   }
 }
 
+/* Shared typography primitives stay unlayered.
+   GeneratePress ships unlayered tag rules like h1/h3/p, which outrank Tailwind v4
+   component-layer classes in the cascade. Keeping these primitives unlayered lets
+   component classes such as .lc-h1-product reliably own typography across the site. */
+body.lc-app .lc-h1-product {
+  @apply font-sans text-2xl sm:text-3xl md:text-4xl font-bold leading-tight;
+}
+
+body.lc-app .lc-h1-page {
+  @apply font-sans text-4xl md:text-5xl font-bold leading-tight tracking-tight;
+}
+
+body.lc-app .lc-h1-display {
+  @apply font-sans text-[42px] sm:text-5xl md:text-7xl lg:text-[88px] font-bold tracking-tight;
+  line-height: 1;
+}
+
+body.lc-app .lc-h2-section {
+  @apply font-sans text-3xl md:text-4xl font-bold leading-tight;
+}
+
+body.lc-app .lc-h2-display {
+  @apply font-sans text-4xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight;
+}
+
+body.lc-app .lc-h3-section {
+  @apply font-sans text-lg font-bold leading-snug;
+}
+
+body.lc-app .lc-h3-feature {
+  @apply font-sans text-xl font-bold leading-tight;
+}
+
+body.lc-app .lc-h3-display {
+  @apply font-sans text-2xl md:text-3xl lg:text-4xl font-bold leading-tight;
+}
+
+body.lc-app .lc-body-section {
+  @apply text-body text-base md:text-lg leading-relaxed;
+}
+
+body.lc-app .lc-body-card {
+  @apply text-body text-sm leading-relaxed;
+}
+
+body.lc-app .lc-body-meta {
+  @apply text-body text-xs leading-relaxed;
+}
+
+body.lc-app .lc-mono-kicker {
+  @apply font-mono text-[11px] font-bold uppercase;
+  letter-spacing: 0.14em;
+}
+
+body.lc-app .lc-mono-meta {
+  @apply font-mono text-[13px];
+}
+
+body.lc-app .lc-mono-value {
+  @apply font-mono font-bold tracking-tight leading-none;
+}
+
+/* Shared button primitives also stay unlayered.
+   They act as site-wide defaults for CTA/card buttons, so they should not sit
+   in Tailwind's components layer where GeneratePress tag/button rules can outrank them. */
+.lc-btn-primary,
+body.lc-app a.button,
+body.lc-app .lc-card-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background-color: #0B3570 !important;
+  border: 1px solid #0B3570 !important;
+  color: #ffffff !important;
+  text-decoration: none !important;
+  text-decoration-line: none !important;
+}
+
+.lc-btn-primary:hover,
+.lc-btn-primary:focus,
+.lc-btn-primary:active,
+body.lc-app a.button:hover,
+body.lc-app a.button:focus,
+body.lc-app a.button:active,
+body.lc-app .lc-card-btn:hover,
+body.lc-app .lc-card-btn:focus,
+body.lc-app .lc-card-btn:active {
+  background-color: #F97C30 !important;
+  border-color: #F97C30 !important;
+  color: #ffffff !important;
+  text-decoration: none !important;
+  text-decoration-line: none !important;
+}
+
+.lc-btn-action,
+.lc-btn-action:visited,
+.lc-btn-action:hover,
+.lc-btn-action:focus,
+.lc-btn-action:active {
+  background-color: #F97C30 !important;
+  border-color: #F97C30 !important;
+  color: #ffffff !important;
+  text-decoration: none !important;
+  text-decoration-line: none !important;
+}
+
 @layer components {
-  body.lc-app .lc-h1-product {
-    @apply font-sans text-2xl sm:text-3xl md:text-4xl font-bold leading-tight;
-  }
-
-  body.lc-app .lc-h1-page {
-    @apply font-sans text-4xl md:text-5xl font-bold leading-tight tracking-tight;
-  }
-
-  body.lc-app .lc-h1-display {
-    @apply font-sans text-[42px] sm:text-5xl md:text-7xl lg:text-[88px] font-bold tracking-tight;
-    line-height: 1;
-  }
-
-  body.lc-app .lc-h2-section {
-    @apply font-sans text-3xl md:text-4xl font-bold leading-tight;
-  }
-
-  body.lc-app .lc-h2-display {
-    @apply font-sans text-4xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight;
-  }
-
-  body.lc-app .lc-h3-section {
-    @apply font-sans text-lg font-bold leading-snug;
-  }
-
-  body.lc-app .lc-h3-feature {
-    @apply font-sans text-xl font-bold leading-tight;
-  }
-
-  body.lc-app .lc-h3-display {
-    @apply font-sans text-2xl md:text-3xl lg:text-4xl font-bold leading-tight;
-  }
-
-  body.lc-app .lc-body-section {
-    @apply text-body text-base md:text-lg leading-relaxed;
-  }
-
-  body.lc-app .lc-body-card {
-    @apply text-body text-sm leading-relaxed;
-  }
-
-  body.lc-app .lc-body-meta {
-    @apply text-body text-xs leading-relaxed;
-  }
-
-  body.lc-app .lc-mono-kicker {
-    @apply font-mono text-[11px] font-bold uppercase;
-    letter-spacing: 0.14em;
-  }
-
-  body.lc-app .lc-mono-meta {
-    @apply font-mono text-[13px];
-  }
-
-  body.lc-app .lc-mono-value {
-    @apply font-mono font-bold tracking-tight leading-none;
-  }
 
   .lc-consult-form-scope .lc-mono-kicker {
     font-family: inherit !important;
@@ -834,47 +990,6 @@
   body.lc-app .lc-mobile-menu-scope button[aria-label="Close menu"] {
     color: #ffffff !important;
     padding: 0.5rem !important;
-  }
-
-  .lc-btn-primary,
-  body.lc-app a.button,
-  body.lc-app .lc-card-btn {
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    background-color: #0B3570 !important;
-    border: 1px solid #0B3570 !important;
-    color: #ffffff !important;
-    text-decoration: none !important;
-    text-decoration-line: none !important;
-  }
-
-  .lc-btn-primary:hover,
-  .lc-btn-primary:focus,
-  .lc-btn-primary:active,
-  body.lc-app a.button:hover,
-  body.lc-app a.button:focus,
-  body.lc-app a.button:active,
-  body.lc-app .lc-card-btn:hover,
-  body.lc-app .lc-card-btn:focus,
-  body.lc-app .lc-card-btn:active {
-    background-color: #F97C30 !important;
-    border-color: #F97C30 !important;
-    color: #ffffff !important;
-    text-decoration: none !important;
-    text-decoration-line: none !important;
-  }
-
-  .lc-btn-action,
-  .lc-btn-action:visited,
-  .lc-btn-action:hover,
-  .lc-btn-action:focus,
-  .lc-btn-action:active {
-    background-color: #F97C30 !important;
-    border-color: #F97C30 !important;
-    color: #ffffff !important;
-    text-decoration: none !important;
-    text-decoration-line: none !important;
   }
 
   .lc-hero > div.absolute.inset-0 img {

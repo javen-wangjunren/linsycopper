@@ -67,7 +67,7 @@ if ( empty( $js_images ) ) {
 	Copper UI: Vertical Rhythm 
 	Rule: pt-[100px] enforced on main section
 -->
-<section class="bg-white border-b border-gray-200 pt-[100px] pb-16">
+<section class="lc-product-hero-scope bg-white border-b border-gray-200 pt-[100px] pb-16">
 	<div class="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
 		
 		<div class="grid gap-8 md:grid-cols-2 lg:gap-12" x-data="{ 
@@ -109,7 +109,11 @@ if ( empty( $js_images ) ) {
 				
 				<!-- 1. Title -->
 				<div>
-					<h1 class="lc-h1-product text-heading">
+					<?php if ( function_exists( 'linsy_render_product_breadcrumbs' ) ) : ?>
+						<?php linsy_render_product_breadcrumbs( $post_id ); ?>
+					<?php endif; ?>
+
+					<h1 class="lc-h1-product">
 						<?php echo esc_html( $title ); ?>
 					</h1>
 				</div>
@@ -123,8 +127,8 @@ if ( empty( $js_images ) ) {
 							<div class="lc-mono-value text-xl text-primary-blue">
 								<?php echo esc_html( $spec['value'] ); ?>
 							</div>
-							<div class="mt-1 text-xs text-gray-500 font-sans tracking-wide">
-								<?php echo esc_html( strtoupper( $spec['label'] ) ); ?>
+							<div class="lc-product-hero-spec-label mt-1">
+								<?php echo esc_html( $spec['label'] ); ?>
 							</div>
 						</div>
 					<?php endforeach; ?>
@@ -133,7 +137,7 @@ if ( empty( $js_images ) ) {
 
 				<!-- 3. Short Description -->
 				<?php if ( $desc ) : ?>
-				<div class="prose prose-sm max-w-none text-gray-600 leading-relaxed font-sans">
+				<div class="lc-product-hero-desc">
 					<?php echo nl2br( esc_html( $desc ) ); ?>
 				</div>
 				<?php endif; ?>
@@ -143,7 +147,7 @@ if ( empty( $js_images ) ) {
 					<!-- Primary Action: Get Quote -->
 					<a 
 						href="<?php echo esc_url( $quote_link ); ?>" 
-						class="flex-1 inline-flex justify-center items-center px-6 py-3.5 bg-action-copper hover:bg-action-copper/90 text-white font-bold rounded-sm transition-colors uppercase tracking-wide text-sm"
+						class="lc-product-hero-cta-primary flex-1 inline-flex justify-center items-center px-6 py-3.5 rounded-sm"
 					>
 						<?php echo esc_html( $quote_text ); ?>
 					</a>
@@ -152,7 +156,7 @@ if ( empty( $js_images ) ) {
 					<?php if ( $datasheet_file ) : ?>
 					<a 
 						href="<?php echo esc_url( $datasheet_file ); ?>" 
-						class="flex-1 inline-flex justify-center items-center px-6 py-3.5 border-2 border-primary-blue text-primary-blue hover:bg-primary-blue hover:text-white font-bold rounded-sm transition-colors uppercase tracking-wide text-sm bg-transparent group"
+						class="lc-product-hero-cta-secondary flex-1 inline-flex justify-center items-center px-6 py-3.5 rounded-sm group"
 					>
 						<svg class="mr-2 h-4 w-4 transition-transform group-hover:-translate-y-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
 						<?php echo esc_html( $datasheet_text ); ?>

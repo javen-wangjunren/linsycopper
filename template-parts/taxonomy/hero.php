@@ -26,6 +26,10 @@ $hero_cta_link = get_field( 'hero_cta_link', $term ) ?: '#contact-form';
 if ( empty( $hero_title ) ) {
 	$hero_title = single_term_title( '', false );
 }
+
+$breadcrumb_items = function_exists( 'linsy_get_taxonomy_breadcrumb_items' )
+	? linsy_get_taxonomy_breadcrumb_items( $term )
+	: array();
 ?>
 
 <!-- Copper UI: Vertical Rhythm (pt-[100px] implied by header spacing) -->
@@ -34,13 +38,32 @@ if ( empty( $hero_title ) ) {
         <!-- Text Content -->
         <div class="z-10 flex flex-col justify-center p-8 text-left md:w-1/2 md:py-16 lg:px-24 lg:py-20">
             <!-- Breadcrumb -->
-            <nav class="lc-mono-meta mb-6 font-semibold text-white uppercase tracking-wider">
-                <a href="<?php echo home_url(); ?>" class="!text-white visited:!text-white transition hover:!text-[#F97C30] focus:!text-[#F97C30] active:!text-[#F97C30]">Home</a>
-                <span class="mx-2">/</span>
-                <a href="<?php echo home_url('/products'); ?>" class="!text-white visited:!text-white transition hover:!text-[#F97C30] focus:!text-[#F97C30] active:!text-[#F97C30]">Catalog</a>
-                <span class="mx-2">/</span>
-                <span class="text-white"><?php echo esc_html( $term->name ); ?></span>
-            </nav>
+            <?php if ( ! empty( $breadcrumb_items ) ) : ?>
+            <div class="lc-breadcrumb-scope lc-breadcrumb-on-dark mb-3">
+                <nav aria-label="Breadcrumb" class="text-sm text-white/80 sm:text-[15px]">
+                    <ol class="flex flex-wrap items-center gap-x-2 gap-y-1">
+                        <?php foreach ( $breadcrumb_items as $index => $item ) : ?>
+                            <?php $is_last = $index === array_key_last( $breadcrumb_items ); ?>
+                            <li class="flex items-center gap-x-2">
+                                <?php if ( ! empty( $item['url'] ) && ! $is_last ) : ?>
+                                    <a href="<?php echo esc_url( $item['url'] ); ?>" class="transition-colors">
+                                        <?php echo esc_html( $item['label'] ); ?>
+                                    </a>
+                                <?php else : ?>
+                                    <span class="<?php echo $is_last ? 'font-medium text-white' : ''; ?>">
+                                        <?php echo esc_html( $item['label'] ); ?>
+                                    </span>
+                                <?php endif; ?>
+
+                                <?php if ( ! $is_last ) : ?>
+                                    <span aria-hidden="true" class="text-white/35">/</span>
+                                <?php endif; ?>
+                            </li>
+                        <?php endforeach; ?>
+                    </ol>
+                </nav>
+            </div>
+            <?php endif; ?>
             
             <!-- Copper UI: Theme Bridge (H1) -->
             <h1 class="lc-h1-page mb-6 text-white">
@@ -57,7 +80,7 @@ if ( empty( $hero_title ) ) {
             <div>
                 <a
                     href="<?php echo esc_url( $hero_cta_link ); ?>"
-                    class="inline-block transform bg-[#F97C30] px-8 py-4 font-mono text-[16px] font-bold !text-white visited:!text-white hover:!text-white focus:!text-white active:!text-white shadow-lg transition hover:-translate-y-1 hover:bg-orange-600 rounded-sm uppercase tracking-wider"
+                    class="lc-btn-action inline-flex items-center justify-center rounded-sm px-6 py-3.5 text-[15px] font-semibold transition-colors"
                 >
                     <?php echo esc_html( $hero_cta_text ); ?>
                 </a>

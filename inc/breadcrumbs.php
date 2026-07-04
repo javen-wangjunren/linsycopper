@@ -223,3 +223,57 @@ function linsy_render_product_breadcrumbs( $post_id = 0 ) {
 	</div>
 	<?php
 }
+
+/**
+ * Build breadcrumb items for a taxonomy archive page.
+ *
+ * Taxonomy rule:
+ * Home > Taxonomy Hub > Term
+ *
+ * @param WP_Term|object|null $term Taxonomy term object. Defaults to current queried term.
+ * @return array<int, array<string, string>>
+ */
+function linsy_get_taxonomy_breadcrumb_items( $term = null ) {
+	if ( ! $term ) {
+		$term = get_queried_object();
+	}
+
+	if ( ! is_object( $term ) || empty( $term->taxonomy ) || empty( $term->name ) ) {
+		return array();
+	}
+
+	$items = array(
+		array(
+			'label' => 'Home',
+			'url'   => home_url( '/' ),
+		),
+	);
+
+	$hub_page = linsy_get_product_taxonomy_hub_page( $term->taxonomy );
+
+	if ( $hub_page && is_object( $hub_page ) ) {
+		$hub_url   = get_permalink( $hub_page );
+		$hub_label = linsy_get_product_taxonomy_hub_label( $hub_page );
+
+		if ( $hub_url && $hub_label ) {
+			$items[] = array(
+				'label' => $hub_label,
+				'url'   => $hub_url,
+			);
+		}
+	}
+
+	$items[] = array(
+		'label' => $term->name,
+		'url'   => '',
+	);
+
+	return array_values(
+		array_filter(
+			$items,
+			static function ( $item ) {
+				return ! empty( $item['label'] );
+			}
+		)
+	);
+}
