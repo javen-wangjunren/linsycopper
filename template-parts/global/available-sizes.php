@@ -67,7 +67,13 @@ if ( ! $has_columns ) {
 								<?php $header_val = isset( $header_row[ 'col_' . $i ] ) ? $header_row[ 'col_' . $i ] : ''; ?>
 								<?php if ( ! empty( $header_val ) ) : ?>
 									<?php $cell_val = isset( $row[ 'col_' . $i ] ) ? $row[ 'col_' . $i ] : ''; ?>
-									<td class="lc-mono-meta px-6 py-4 text-gray-700">
+									<?php
+									$cell_class = 'text-[#64748B]';
+									if ( 1 === $i ) {
+										$cell_class = 'text-[#1F2937] font-semibold';
+									}
+									?>
+									<td class="px-6 py-3 text-sm font-sans whitespace-nowrap <?php echo esc_attr( $cell_class ); ?>">
 										<?php echo esc_html( $cell_val ); ?>
 									</td>
 								<?php endif; ?>
