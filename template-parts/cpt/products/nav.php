@@ -20,6 +20,7 @@
 		activeTab: 'description', 
 		tabs: [
 			{ id: 'description', label: 'Description' },
+			{ id: 'available-sizes', label: 'Available Sizes' },
 			{ id: 'specifications', label: 'Specifications' },
 			{ id: 'applications', label: 'Applications' },
 			{ id: 'manufacturing', label: 'Manufacturing' }

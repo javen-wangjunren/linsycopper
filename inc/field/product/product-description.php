@@ -6,7 +6,6 @@
  * Defines fields for:
  * 1. Product Overview (Title & Content)
  * 2. Key Features (Repeater)
- * 3. Available Sizes Matrix (Repeater with fixed 5 columns)
  *
  * @package GeneratePress_Child
  */
@@ -82,66 +81,6 @@ if ( function_exists( 'acf_add_local_field_group' ) ) {
 						'name' => 'text',
 						'type' => 'text',
 						'placeholder' => 'Manufactured to ASTM B152 standards',
-					),
-				),
-			),
-
-			// 3. Size Matrix
-			array(
-				'key' => 'field_product_desc_tab_sizes',
-				'label' => 'Sizes Matrix',
-				'type' => 'tab',
-			),
-			array(
-				'key' => 'field_product_desc_size_title',
-				'label' => 'Table Title',
-				'name' => 'product_desc_size_title',
-				'type' => 'text',
-				'default_value' => 'Available Sizes',
-			),
-			array(
-				'key' => 'field_product_desc_size_matrix',
-				'label' => 'Size Data Matrix',
-				'name' => 'product_desc_size_matrix',
-				'type' => 'repeater',
-				'layout' => 'table',
-				'button_label' => 'Add Row',
-				'instructions' => 'IMPORTANT: The FIRST ROW will be used as the Table Header (THEAD). Subsequent rows are data (TBODY).',
-				'sub_fields' => array(
-					array(
-						'key' => 'field_product_desc_col_1',
-						'label' => 'Col 1',
-						'name' => 'col_1',
-						'type' => 'text',
-						'wrapper' => array('width' => '20'),
-					),
-					array(
-						'key' => 'field_product_desc_col_2',
-						'label' => 'Col 2',
-						'name' => 'col_2',
-						'type' => 'text',
-						'wrapper' => array('width' => '20'),
-					),
-					array(
-						'key' => 'field_product_desc_col_3',
-						'label' => 'Col 3',
-						'name' => 'col_3',
-						'type' => 'text',
-						'wrapper' => array('width' => '20'),
-					),
-					array(
-						'key' => 'field_product_desc_col_4',
-						'label' => 'Col 4',
-						'name' => 'col_4',
-						'type' => 'text',
-						'wrapper' => array('width' => '20'),
-					),
-					array(
-						'key' => 'field_product_desc_col_5',
-						'label' => 'Col 5',
-						'name' => 'col_5',
-						'type' => 'text',
-						'wrapper' => array('width' => '20'),
 					),
 				),
 			),

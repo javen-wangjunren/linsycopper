@@ -10,10 +10,12 @@
  * Structure:
  * 1. Hero Section (template-parts/products/hero.php)
  * 2. Product Tabs (Description, Specs, etc.)
- * 3. Product Specifications
- * 4. Trust Gallery
- * 5. Applications Slider
- * 6. Consult Form
+ * 3. Product Description
+ * 4. Global Available Sizes
+ * 5. Product Specifications
+ * 6. Trust Gallery
+ * 7. Applications Slider
+ * 8. Consult Form
  * 
  * @package GeneratePress_Child
  */
@@ -38,31 +40,37 @@ get_template_part( 'template-parts/cpt/products/hero' );
 get_template_part( 'template-parts/cpt/products/nav' );
 
 // ==========================================
-// 3. Product Description (Overview, Features, Sizes)
+// 3. Product Description (Overview, Features)
 // ==========================================
 // Data Source: ACF Group 'group_product_description' (cloned)
 get_template_part( 'template-parts/cpt/products/description' );
 
 // ==========================================
-// 4. Product Specifications
+// 4. Global Module: Available Sizes
+// ==========================================
+// Data Source: ACF Options Page (Global Modules)
+get_template_part( 'template-parts/global/available-sizes' );
+
+// ==========================================
+// 5. Product Specifications
 // ==========================================
 // Data Source: ACF Group 'group_product_specifications' (cloned)
 get_template_part( 'template-parts/cpt/products/specifications' );
 
 // ==========================================
-// 5. Global Module: Why Choose Us
+// 6. Global Module: Why Choose Us
 // ==========================================
 // Data Source: ACF Options Page (Global Modules)
 get_template_part( 'template-parts/global/why-choose-us' );
 
 // ==========================================
-// 6. Product Applications
+// 7. Product Applications
 // ==========================================
 // Data Source: ACF Group 'group_product_applications' (cloned)
 get_template_part( 'template-parts/cpt/products/applications' );
 
 // ==========================================
-// 7. Consult Form
+// 8. Consult Form
 // ==========================================
 // Data Source: None (Functional Form)
 get_template_part( 'template-parts/global/consult-form' );

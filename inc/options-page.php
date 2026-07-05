@@ -230,6 +230,27 @@ if ( function_exists( 'acf_add_local_field_group' ) ) {
 				'prefix_name' => 0,
 			),
 			array(
+				'key' => 'field_acc_global_available_sizes_wrapper',
+				'label' => 'Available Sizes',
+				'type' => 'accordion',
+				'open' => 0,
+				'multi_expand' => 1,
+				'endpoint' => 0,
+			),
+			array(
+				'key' => 'field_options_global_available_sizes_clone',
+				'label' => 'Available Sizes Fields',
+				'name' => 'global_available_sizes_section',
+				'type' => 'clone',
+				'clone' => array(
+					0 => 'group_global_available_sizes',
+				),
+				'display' => 'seamless',
+				'layout' => 'block',
+				'prefix_label' => 0,
+				'prefix_name' => 0,
+			),
+			array(
 				'key' => 'field_acc_global_contact_wrapper',
 				'label' => 'Global Contact',
 				'type' => 'accordion',
