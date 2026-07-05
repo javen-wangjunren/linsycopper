@@ -251,6 +251,27 @@ if ( function_exists( 'acf_add_local_field_group' ) ) {
 				'prefix_name' => 0,
 			),
 			array(
+				'key' => 'field_acc_global_consult_form_wrapper',
+				'label' => 'Consult Form',
+				'type' => 'accordion',
+				'open' => 0,
+				'multi_expand' => 1,
+				'endpoint' => 0,
+			),
+			array(
+				'key' => 'field_options_global_consult_form_clone',
+				'label' => 'Consult Form Fields',
+				'name' => 'global_consult_form_section',
+				'type' => 'clone',
+				'clone' => array(
+					0 => 'group_global_consult_form',
+				),
+				'display' => 'seamless',
+				'layout' => 'block',
+				'prefix_label' => 0,
+				'prefix_name' => 0,
+			),
+			array(
 				'key' => 'field_acc_global_contact_wrapper',
 				'label' => 'Global Contact',
 				'type' => 'accordion',

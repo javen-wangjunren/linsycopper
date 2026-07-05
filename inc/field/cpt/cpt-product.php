@@ -113,30 +113,6 @@ if ( function_exists( 'acf_add_local_field_group' ) ) {
 				'prefix_name' => 0,
 			),
 
-			// 5. Consult Form Section (Custom Background)
-			array(
-				'key' => 'field_tab_product_consult',
-				'label' => 'Consult Form',
-				'type' => 'tab',
-			),
-			array(
-				'key' => 'field_consult_form_bg',
-				'label' => 'Form Section Background',
-				'name' => 'consult_form_bg',
-				'type' => 'image',
-				'instructions' => 'Upload a high-res image (e.g., copper texture) to replace the default blue stripes.',
-				'required' => 0,
-				'conditional_logic' => 0,
-				'wrapper' => array(
-					'width' => '',
-					'class' => '',
-					'id' => '',
-				),
-				'return_format' => 'id',
-				'preview_size' => 'medium',
-				'library' => 'all',
-			),
-
 			// Future modules can be cloned here...
 			// e.g., Specs, Applications, Downloads
 			

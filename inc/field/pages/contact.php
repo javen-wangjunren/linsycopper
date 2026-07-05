@@ -60,34 +60,6 @@ add_action( 'acf/init', function () {
 			),
 
 			// =================================================================
-			// Tab: Consult Form
-			// =================================================================
-			array(
-				'key' => 'field_tab_contact_consult',
-				'label' => 'Consult Form',
-				'type' => 'tab',
-				'placement' => 'top',
-				'endpoint' => 0,
-			),
-			array(
-				'key' => 'field_contact_consult_form_bg',
-				'label' => 'Form Section Background',
-				'name' => 'consult_form_bg',
-				'type' => 'image',
-				'instructions' => 'Upload a high-res image (e.g., copper texture) to replace the default blue stripes.',
-				'required' => 0,
-				'conditional_logic' => 0,
-				'wrapper' => array(
-					'width' => '',
-					'class' => '',
-					'id' => '',
-				),
-				'return_format' => 'id',
-				'preview_size' => 'medium',
-				'library' => 'all',
-			),
-
-			// =================================================================
 			// Accordion: FAQ
 			// =================================================================
 			array(

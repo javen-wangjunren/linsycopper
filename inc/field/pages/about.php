@@ -133,43 +133,6 @@ add_action( 'acf/init', function () {
 				'endpoint' => 1,
 			),
 
-			// =================================================================
-			// Accordion: Consult Form
-			// =================================================================
-			array(
-				'key' => 'field_acc_about_consult_wrapper',
-				'label' => 'Consult Form',
-				'type' => 'accordion',
-				'open' => 0,
-				'multi_expand' => 1,
-				'endpoint' => 0,
-			),
-			array(
-				'key' => 'field_about_consult_form_bg',
-				'label' => 'Form Section Background',
-				'name' => 'consult_form_bg',
-				'type' => 'image',
-				'instructions' => 'Upload a high-res image (e.g., copper texture) to replace the default blue stripes.',
-				'required' => 0,
-				'conditional_logic' => 0,
-				'wrapper' => array(
-					'width' => '',
-					'class' => '',
-					'id' => '',
-				),
-				'return_format' => 'id',
-				'preview_size' => 'medium',
-				'library' => 'all',
-			),
-
-			// Close consult form accordion.
-			array(
-				'key' => 'field_acc_about_end',
-				'label' => 'End',
-				'type' => 'accordion',
-				'endpoint' => 1,
-			),
-
 		),
 		'location' => array(
 			array(

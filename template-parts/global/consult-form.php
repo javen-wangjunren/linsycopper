@@ -11,8 +11,8 @@
  * @package GeneratePress_Child
  */
 
-// 1. Get Custom Background
-$bg_id = get_flat_field( 'consult_form_bg' );
+// 1. Get Global Background
+$bg_id = get_field( 'consult_form_bg', 'option' );
 $bg_url = $bg_id ? wp_get_attachment_image_url( $bg_id, 'full' ) : '';
 
 ?>
