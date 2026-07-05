@@ -677,6 +677,14 @@ body.lc-app .lc-global-contact .lc-global-contact__links {
   gap: 1rem;
 }
 
+body.lc-app .lc-global-contact .lc-global-contact__links-intro {
+  font-family: "Geist Sans", Geist, system-ui, -apple-system, sans-serif;
+  font-size: 16px;
+  line-height: 1.55;
+  font-weight: 500;
+  color: #ffffff;
+}
+
 body.lc-app .lc-global-contact .lc-global-contact__link-item,
 body.lc-app .lc-global-contact .lc-global-contact__link-item:visited {
   display: flex;

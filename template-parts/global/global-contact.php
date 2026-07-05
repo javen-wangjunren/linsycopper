@@ -102,6 +102,9 @@ if ( empty( $desc ) ) $desc   = 'Give us a call at <a href="tel:3462305191" clas
             </div>
 
             <div class="lc-global-contact__links mb-10">
+                <div class="lc-global-contact__links-intro">
+                    Prefer direct contact?
+                </div>
                 <?php foreach ( array( 'whatsapp', 'email' ) as $method_key ) : ?>
                     <?php
                     $method = isset( $contact_methods[ $method_key ] ) ? $contact_methods[ $method_key ] : null;
