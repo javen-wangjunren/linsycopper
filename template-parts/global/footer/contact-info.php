@@ -9,6 +9,7 @@
  */
 
 $contact_list = get_field( 'footer_contact_list', 'option' );
+$whatsapp_icon_svg = '<path d="M20.5 11.5a8.5 8.5 0 0 1-12.5 7.5L3 20l1.2-4.6A8.5 8.5 0 1 1 20.5 11.5Z"/><path d="M8.6 8.9c.2-.5.4-.5.7-.5h.6c.2 0 .4 0 .5.4l.7 1.7c.1.2.1.4 0 .6l-.3.5c-.1.2-.2.3 0 .5.4.7 1 1.4 1.8 1.9.2.1.4.1.5 0l.5-.6c.2-.2.4-.2.6-.1l1.6.8c.3.1.4.2.4.4v.6c0 .3-.1.6-.5.8-.4.2-1 .3-1.5.2-1.2-.3-2.4-1-3.4-2-1-1-1.7-2.1-2-3.3-.1-.5 0-1.1.2-1.5Z"/>';
 
 // Default fallback content if no items added
 if ( empty( $contact_list ) ) {
@@ -40,9 +41,14 @@ if ( empty( $contact_list ) ) {
 		$content  = isset( $item['content'] ) ? $item['content'] : '';
 		$icon_svg = isset( $item['icon_svg'] ) ? $item['icon_svg'] : '';
 		$link_url = isset( $item['link_url'] ) ? $item['link_url'] : '';
+		$link_url_lower = strtolower( (string) $link_url );
 		
 		// Skip empty items
 		if ( ! $content ) continue;
+
+		if ( false !== strpos( $link_url_lower, 'whatsapp' ) || false !== strpos( $link_url_lower, 'wa.me' ) ) {
+			$icon_svg = $whatsapp_icon_svg;
+		}
 	?>
 	<li class="flex items-start gap-3">
 		<?php if ( $icon_svg ) : ?>

@@ -663,6 +663,69 @@ body.lc-app .lc-home-industry-immersive .lc-home-industry-desc {
   color: rgb(255 255 255 / 0.8) !important;
 }
 
+body.lc-app .lc-global-contact .lc-global-contact__desc {
+  color: rgb(255 255 255 / 0.82);
+}
+
+body.lc-app .lc-global-contact .lc-global-contact__desc :where(a),
+body.lc-app .lc-global-contact .lc-global-contact__desc :where(a:visited) {
+  color: #ffffff;
+}
+
+body.lc-app .lc-global-contact .lc-global-contact__links {
+  display: grid;
+  gap: 1rem;
+}
+
+body.lc-app .lc-global-contact .lc-global-contact__link-item,
+body.lc-app .lc-global-contact .lc-global-contact__link-item:visited {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.875rem;
+  color: #ffffff;
+  text-decoration: none !important;
+}
+
+body.lc-app .lc-global-contact .lc-global-contact__link-item:hover,
+body.lc-app .lc-global-contact .lc-global-contact__link-item:focus,
+body.lc-app .lc-global-contact .lc-global-contact__link-item:active {
+  color: #ffffff;
+  text-decoration: none !important;
+}
+
+body.lc-app .lc-global-contact .lc-global-contact__link-icon {
+  flex: 0 0 20px;
+  width: 20px;
+  height: 20px;
+  margin-top: 0.25rem;
+  color: #F97C30;
+}
+
+body.lc-app .lc-global-contact .lc-global-contact__link-text {
+  font-family: "Geist Sans", Geist, system-ui, -apple-system, sans-serif;
+  font-size: 16px;
+  line-height: 1.55;
+  font-weight: 500;
+  color: #ffffff;
+  word-break: break-word;
+}
+
+body.lc-app .lc-global-contact .lc-global-contact__stat-value {
+  font-family: "Geist Sans", Geist, system-ui, -apple-system, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+body.lc-app .lc-global-contact .lc-global-contact__stat-label {
+  font-family: "Geist Sans", Geist, system-ui, -apple-system, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  font-weight: 600;
+  letter-spacing: 0;
+  text-transform: none;
+  color: rgb(255 255 255 / 0.8);
+}
+
 body.lc-app .lc-about-hero .lc-about-hero-stat-title {
   margin: 0 0 0.5rem;
   font-family: "Geist Sans", Geist, system-ui, -apple-system, sans-serif;
