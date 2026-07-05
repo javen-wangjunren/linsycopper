@@ -550,6 +550,33 @@ body.lc-app .lc-h1-display {
   line-height: 1;
 }
 
+body.lc-app .lc-hero .lc-home-hero-title {
+  font-family: "Geist Sans", Geist, system-ui, -apple-system, sans-serif;
+  font-size: 2.625rem;
+  line-height: 1.02;
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  color: #ffffff;
+}
+
+@media (min-width: 640px) {
+  body.lc-app .lc-hero .lc-home-hero-title {
+    font-size: 3.25rem;
+  }
+}
+
+@media (min-width: 768px) {
+  body.lc-app .lc-hero .lc-home-hero-title {
+    font-size: 4rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  body.lc-app .lc-hero .lc-home-hero-title {
+    font-size: 4.75rem;
+  }
+}
+
 body.lc-app .lc-h2-section {
   @apply font-sans text-3xl md:text-4xl font-bold leading-tight;
 }
@@ -572,6 +599,10 @@ body.lc-app .lc-h3-display {
 
 body.lc-app .lc-body-section {
   @apply text-body text-base md:text-lg leading-relaxed;
+}
+
+body.lc-app .lc-home-industry-immersive .lc-home-industry-desc {
+  color: rgb(255 255 255 / 0.8) !important;
 }
 
 body.lc-app .lc-body-card {

@@ -1,15 +1,25 @@
+# OS / IDE
 .DS_Store
 .idea/
 .vscode/
+
+# Local tooling / generated dependencies
 .trae/
 node_modules/
+vendor/
+
+# Local environment
 .env
 .env.*
+
+# Logs
+*.log
 npm-debug.log*
 pnpm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-*.log
+
+# Local docs / references / starter workspace
 docs/
 _starter/
 reference/
@@ -17,4 +27,3 @@ design-preview/
 设计稿/
 scripts/
 速度优化/
-vendor/

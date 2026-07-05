@@ -82,7 +82,7 @@ if ( $bg_image_id ) {
 		
 		<div class="mx-auto max-w-4xl text-center">
 			<!-- 1. Headline (Machined Impact) -->
-			<h1 class="lc-h1-display text-white text-balance mb-8">
+			<h1 class="lc-home-hero-title text-white text-balance mb-8">
 				<?php if ( '' !== trim( (string) $headline ) ) : ?>
 					<?php echo esc_html( $headline ); ?>
 				<?php else : ?>

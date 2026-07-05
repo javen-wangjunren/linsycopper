@@ -84,7 +84,7 @@ window.<?php echo esc_attr( $instance_var ); ?> = <?php echo $slides_json; ?>;
 		<div class="max-w-2xl text-white" x-show="slides && slides.length">
 			<h3 class="text-heading lc-home-industry-title mb-6" x-text="slides[currentIndex] ? slides[currentIndex].title : ''"></h3>
 
-			<p class="lc-body-section mb-10 text-white/80 md:text-xl" x-text="slides[currentIndex] ? slides[currentIndex].desc : ''"></p>
+			<p class="lc-body-section lc-home-industry-desc mb-10 text-white/80 md:text-xl" x-text="slides[currentIndex] ? slides[currentIndex].desc : ''"></p>
 
 			<div class="flex flex-col sm:flex-row gap-4">
 				<a class="lc-home-industry-btn" :href="(slides[currentIndex] && slides[currentIndex].cta_url) ? slides[currentIndex].cta_url : '#'" :target="(slides[currentIndex] && slides[currentIndex].cta_target) ? slides[currentIndex].cta_target : '_self'">
