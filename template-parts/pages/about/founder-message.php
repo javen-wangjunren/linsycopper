@@ -20,6 +20,7 @@ $body = get_flat_field(
 	"From the very beginning, I believed that supplying industrial materials should be more than completing an order. It should mean helping customers move forward with confidence, whether they need stable stock, precise processing, or a partner who responds clearly when timelines and specifications matter.\n\nWhat we continue to build at Linsy Copper is not only production capability, but also a way of working rooted in reliability, practical communication, and long-term trust. That is the standard I expect from our team, and the promise I hope every customer can feel in each cooperation."
 );
 $portrait_id = (int) get_flat_field( 'founder_message_portrait', [], 0 );
+$signature_image_id = (int) get_flat_field( 'founder_signature_image', [], 0 );
 $founder_name = get_flat_field( 'founder_name', [], 'Jack Zhang' );
 $founder_role = get_flat_field( 'founder_role', [], 'Founder, Linsy Copper' );
 
@@ -81,7 +82,25 @@ if ( empty( $body_paragraphs ) ) {
 				</div>
 
 				<div class="lc-founder-message__signature">
-					<p class="lc-founder-message__name"><?php echo esc_html( $founder_name ); ?></p>
+					<div class="lc-founder-message__signature-mark">
+						<?php if ( $signature_image_id ) : ?>
+							<?php
+							echo wp_get_attachment_image(
+								$signature_image_id,
+								'large',
+								false,
+								array(
+									'class'    => 'lc-founder-message__signature-image',
+									'loading'  => 'lazy',
+									'decoding' => 'async',
+									'alt'      => $founder_name ? sprintf( '%s signature', $founder_name ) : 'Founder signature',
+								)
+							);
+							?>
+						<?php else : ?>
+							<p class="lc-founder-message__name"><?php echo esc_html( $founder_name ); ?></p>
+						<?php endif; ?>
+					</div>
 					<p class="lc-founder-message__role"><?php echo esc_html( $founder_role ); ?></p>
 				</div>
 			</div>

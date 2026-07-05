@@ -25,27 +25,22 @@ $advantages = get_flat_field( 'about_hero_advantages', [], [] );
 if ( empty( $advantages ) || ! is_array( $advantages ) ) {
 	$advantages = array(
 		array(
-			'item_number'      => '01',
 			'item_title'       => 'Reliable material sourcing',
 			'item_description' => 'Stable sourcing support for copper and alloy programs across repeat orders, specification updates, and project schedules.',
 		),
 		array(
-			'item_number'      => '02',
 			'item_title'       => 'Processing flexibility',
 			'item_description' => 'Cut-to-size, packaging coordination, and order handling that reduce extra conversion steps for buyers and factories.',
 		),
 		array(
-			'item_number'      => '03',
 			'item_title'       => 'Traceable quality control',
 			'item_description' => 'Material records, inspection alignment, and clearer batch communication help teams purchase with more confidence.',
 		),
 		array(
-			'item_number'      => '04',
 			'item_title'       => 'Responsive technical support',
 			'item_description' => 'Faster quote discussion and practical spec review help bridge the gap between purchasing needs and production reality.',
 		),
 		array(
-			'item_number'      => '05',
 			'item_title'       => 'Global shipment readiness',
 			'item_description' => 'Export-friendly packing and delivery coordination support international buyers who need steadier execution after order confirmation.',
 		),
@@ -104,11 +99,8 @@ $band_bg_url = $band_bg_id ? wp_get_attachment_image_url( $band_bg_id, 'full' ) 
 
 			<div class="relative mx-auto max-w-[1280px] px-4 py-10 sm:px-6 lg:px-8 lg:py-12">
 				<div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
-					<?php foreach ( $advantages as $index => $item ) : ?>
+					<?php foreach ( $advantages as $item ) : ?>
 						<?php
-						$number = isset( $item['item_number'] ) && $item['item_number'] !== ''
-							? (string) $item['item_number']
-							: sprintf( '%02d', $index + 1 );
 						$item_title = isset( $item['item_title'] ) ? (string) $item['item_title'] : '';
 						$item_desc  = isset( $item['item_description'] ) ? (string) $item['item_description'] : '';
 
@@ -117,14 +109,11 @@ $band_bg_url = $band_bg_id ? wp_get_attachment_image_url( $band_bg_id, 'full' ) 
 						}
 						?>
 						<article class="bg-black/5 px-5 py-5 text-white">
-							<div class="mb-3 font-mono text-4xl font-bold leading-none tracking-tight text-white md:text-[46px]">
-								<?php echo esc_html( $number ); ?>
-							</div>
-							<h3 class="mb-2 text-lg font-semibold leading-snug text-white">
+							<h3 class="lc-about-hero-stat-title mb-2 text-white">
 								<?php echo esc_html( $item_title ); ?>
 							</h3>
 							<?php if ( $item_desc ) : ?>
-								<p class="text-sm leading-6 text-white/74">
+								<p class="lc-about-hero-stat-desc text-white/74">
 									<?php echo esc_html( $item_desc ); ?>
 								</p>
 							<?php endif; ?>

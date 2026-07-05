@@ -68,20 +68,12 @@ add_action( 'acf/init', function() {
                 'collapsed'    => 'field_about_hero_advantage_title',
                 'sub_fields'   => array(
                     array(
-                        'key'      => 'field_about_hero_advantage_number',
-                        'label'    => 'Number',
-                        'name'     => 'item_number',
-                        'type'     => 'text',
-                        'required' => 1,
-                        'wrapper'  => array( 'width' => '20' ),
-                    ),
-                    array(
                         'key'      => 'field_about_hero_advantage_title',
                         'label'    => 'Title',
                         'name'     => 'item_title',
                         'type'     => 'text',
                         'required' => 1,
-                        'wrapper'  => array( 'width' => '80' ),
+                        'wrapper'  => array( 'width' => '100' ),
                     ),
                     array(
                         'key'      => 'field_about_hero_advantage_desc',
