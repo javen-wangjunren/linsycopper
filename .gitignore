@@ -11,5 +11,10 @@ yarn-debug.log*
 yarn-error.log*
 *.log
 docs/
-父主题样式参考/
-简易版CMS开发参考/
+_starter/
+reference/
+design-preview/
+设计稿/
+scripts/
+速度优化/
+vendor/
