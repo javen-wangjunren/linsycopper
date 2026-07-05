@@ -30,6 +30,11 @@ get_header();
         <main class="pt-[100px] pb-[100px]">
             <div class="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+
+                    <!-- Mobile: Table of Contents above article body -->
+                    <div class="lg:hidden">
+                        <?php get_template_part( 'template-parts/single-blog/toc' ); ?>
+                    </div>
                     
                     <!-- Left: Main Article Content (8 columns) -->
                     <div class="lg:col-span-8">
@@ -37,7 +42,7 @@ get_header();
                     </div>
 
                     <!-- Right: Sticky Sidebar (4 columns) -->
-                    <aside class="lg:col-span-4 sticky top-24">
+                    <aside class="lg:col-span-4 lg:sticky lg:top-24">
                         <?php get_template_part( 'template-parts/single-blog/sidebar' ); ?>
                     </aside>
 

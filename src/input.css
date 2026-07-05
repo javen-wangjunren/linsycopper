@@ -608,6 +608,23 @@ body.lc-app .lc-h1-display {
   line-height: 1;
 }
 
+body.lc-app .lc-blog-header__title {
+  font-family: "Geist Sans", Geist, system-ui, -apple-system, sans-serif;
+  font-size: clamp(1.875rem, 5.2vw, 3.5rem);
+  line-height: 1.06;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  margin: 0;
+}
+
+@media (max-width: 639px) {
+  body.lc-app .lc-blog-header__title {
+    font-size: 1.875rem;
+    line-height: 1.04;
+    letter-spacing: -0.025em;
+  }
+}
+
 body.lc-app .lc-hero .lc-home-hero-title {
   font-family: "Geist Sans", Geist, system-ui, -apple-system, sans-serif;
   font-size: 2.625rem;

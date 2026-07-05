@@ -50,7 +50,7 @@ $text_column_classes = has_post_thumbnail() ? 'lg:col-span-7' : 'lg:col-span-12'
 
         <div class="mt-8 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
             <div class="<?php echo esc_attr( $text_column_classes ); ?>">
-                <h1 class="text-[#1F2937] text-4xl md:text-5xl lg:text-[56px] font-bold leading-[1.08] tracking-tight">
+                <h1 class="lc-blog-header__title text-[#1F2937]">
                     <?php the_title(); ?>
                 </h1>
 
