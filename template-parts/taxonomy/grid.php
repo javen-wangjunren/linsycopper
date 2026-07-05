@@ -6,21 +6,15 @@
  * 
  * Logic:
  * 1. Iterates through the Main Query (controlled by inc/query-filters.php).
- * 2. Splits current page's products into 'Material' and 'Feature' arrays.
- * 3. Renders Tabs + Product Cards.
+ * 2. Collects current page's products for rendering.
+ * 3. Renders Product Cards.
  * 4. Displays Pagination.
  * 
  * @package GeneratePress_Child
  */
 
-// Get current term context
-$term = get_queried_object();
-$current_term_id  = $term->term_id;
-$current_taxonomy = $term->taxonomy;
-
-// Prepare Arrays for Tab Logic
-$material_products = array();
-$feature_products  = array();
+// Prepare product array for rendering.
+$products = array();
 
 // Iterate Main Query
 if ( have_posts() ) {
@@ -28,21 +22,7 @@ if ( have_posts() ) {
 		the_post();
 		$pid = get_the_ID();
 		
-		// Check 'product_tag' taxonomy for 'feature' slug
-		$tags = get_the_terms( $pid, 'product_tag' );
-		$is_feature = false;
-		
-		if ( ! empty( $tags ) && ! is_wp_error( $tags ) ) {
-			foreach ( $tags as $t ) {
-				if ( strpos( $t->slug, 'feature' ) !== false ) { 
-					$is_feature = true;
-					break;
-				}
-			}
-		}
-		
-		// Clone post object or ID for rendering later
-		// (We need to store data because we iterate first, render later)
+		// Clone the product data for rendering after the loop.
 		$p_data = array(
 			'id'        => $pid,
 			'title'     => get_the_title(),
@@ -50,11 +30,7 @@ if ( have_posts() ) {
 			'thumb_id'  => linsy_get_product_primary_image_id( $pid ),
 		);
 
-		if ( $is_feature ) {
-			$feature_products[] = $p_data;
-		} else {
-			$material_products[] = $p_data;
-		}
+		$products[] = $p_data;
 	}
 	// Do not wp_reset_postdata() here as we are in the main loop
 }
@@ -99,7 +75,7 @@ $render_card_html = function( $product ) {
 };
 
 // If no posts found
-if ( empty( $material_products ) && empty( $feature_products ) ) :
+if ( empty( $products ) ) :
 	?>
 	<div class="py-12 text-center text-gray-500">
 		<p>No products found in this category.</p>
@@ -107,60 +83,9 @@ if ( empty( $material_products ) && empty( $feature_products ) ) :
 	<?php
 else :
 ?>
-
-<!-- Alpine.js Tabs Context -->
-<div x-data="{ activeTab: 'material' }" class="flex-1">
-    
-    <!-- Tab Controls -->
-    <div class="mb-8 flex border-b border-gray-200">
-        <button 
-            type="button"
-            @click="activeTab = 'material'"
-            :class="activeTab === 'material' ? 'nav_tab--active' : ''"
-            class="nav_tab"
-        >
-            By Material
-            <span class="ml-2 text-xs opacity-60 bg-gray-100 px-2 py-0.5 rounded-full"><?php echo count( $material_products ); ?></span>
-        </button>
-        
-        <button 
-            type="button"
-            @click="activeTab = 'feature'"
-            :class="activeTab === 'feature' ? 'nav_tab--active' : ''"
-            class="nav_tab"
-        >
-            By Feature
-            <span class="ml-2 text-xs opacity-60 bg-gray-100 px-2 py-0.5 rounded-full"><?php echo count( $feature_products ); ?></span>
-        </button>
-    </div>
-
-    <!-- Tab Panels -->
-    <div>
-        <!-- Material Panel -->
-        <div x-show="activeTab === 'material'" x-transition.opacity.duration.300ms>
-            <?php if ( ! empty( $material_products ) ) : ?>
-                <div class="grid grid-cols-2 gap-4 sm:grid-cols-2 sm:gap-8 lg:grid-cols-3">
-                    <?php foreach ( $material_products as $product ) { $render_card_html( $product ); } ?>
-                </div>
-            <?php else : ?>
-                <div class="py-12 text-center text-gray-400 italic bg-gray-50 rounded-sm">
-                    No material-specific products on this page.
-                </div>
-            <?php endif; ?>
-        </div>
-
-        <!-- Feature Panel -->
-        <div x-show="activeTab === 'feature'" x-transition.opacity.duration.300ms style="display: none;">
-            <?php if ( ! empty( $feature_products ) ) : ?>
-                <div class="grid grid-cols-2 gap-4 sm:grid-cols-2 sm:gap-8 lg:grid-cols-3">
-                    <?php foreach ( $feature_products as $product ) { $render_card_html( $product ); } ?>
-                </div>
-            <?php else : ?>
-                <div class="py-12 text-center text-gray-400 italic bg-gray-50 rounded-sm">
-                    No feature-specific products on this page.
-                </div>
-            <?php endif; ?>
-        </div>
+<div class="flex-1">
+    <div class="grid grid-cols-2 gap-4 sm:grid-cols-2 sm:gap-8 lg:grid-cols-3">
+        <?php foreach ( $products as $product ) { $render_card_html( $product ); } ?>
     </div>
 
     <!-- Pagination -->

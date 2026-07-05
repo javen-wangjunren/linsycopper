@@ -108,36 +108,5 @@ function linsy_register_product_taxonomies() {
 		'show_in_rest'      => true,
 	) );
 
-	/**
-	 * Taxonomy: Product Tag (Secondary Filter)
-	 * Slug: /product-tag/
-	 * Used for: "By Material" vs "By Feature" Tabs
-	 */
-	$labels_tag = array(
-		'name'              => _x( 'Product Tags', 'taxonomy general name', 'generatepress-child' ),
-		'singular_name'     => _x( 'Product Tag', 'taxonomy singular name', 'generatepress-child' ),
-		'search_items'      => __( 'Search Tags', 'generatepress-child' ),
-		'all_items'         => __( 'All Tags', 'generatepress-child' ),
-		'parent_item'       => __( 'Parent Tag', 'generatepress-child' ),
-		'parent_item_colon' => __( 'Parent Tag:', 'generatepress-child' ),
-		'edit_item'         => __( 'Edit Tag', 'generatepress-child' ),
-		'update_item'       => __( 'Update Tag', 'generatepress-child' ),
-		'add_new_item'      => __( 'Add New Tag', 'generatepress-child' ),
-		'new_item_name'     => __( 'New Tag Name', 'generatepress-child' ),
-		'menu_name'         => __( 'Product Tags', 'generatepress-child' ),
-	);
-
-	register_taxonomy( 'product_tag', array( 'product' ), array(
-		'hierarchical'      => true, // Hierarchical allows Parent (Group) -> Child (Tag) structure
-		'labels'            => $labels_tag,
-		'show_ui'           => true,
-		'show_admin_column' => true,
-		'query_var'         => true,
-		'rewrite'           => array(
-			'slug'       => 'product-tag',
-			'with_front' => false,
-		),
-		'show_in_rest'      => true,
-	) );
 }
 add_action( 'init', 'linsy_register_product_taxonomies' );
