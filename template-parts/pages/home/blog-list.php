@@ -83,7 +83,10 @@ $post_ids = array_values( array_slice( $post_ids, 0, 3 ) );
                     <a href="<?php echo esc_url( $permalink ); ?>" class="relative block w-full aspect-[4/3] overflow-hidden bg-gray-200">
                         <?php if ( $thumbnail_id ) : ?>
                             <?php echo wp_get_attachment_image( $thumbnail_id, 'medium_large', false, [
-                                'class' => 'block h-full w-full object-cover transition-transform duration-500 group-hover:scale-105'
+                                'class' => 'block h-full w-full object-cover transition-transform duration-500 group-hover:scale-105',
+                                'loading' => 'lazy',
+                                'decoding' => 'async',
+                                'fetchpriority' => 'low',
                             ] ); ?>
                         <?php else : ?>
                             <div class="flex h-full w-full items-center justify-center bg-slate-200 text-slate-400">

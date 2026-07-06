@@ -73,9 +73,14 @@ $badge_title   = get_flat_field( 'why_badge_title', [], '100% Traceable' );
                     <!-- Image Container with "Machined" Border -->
                     <div class="relative overflow-hidden rounded-lg shadow-xl aspect-square ring-1 ring-black/5">
                         <?php if ( $img_id ) : ?>
-                            <?php echo wp_get_attachment_image( $img_id, 'large', false, array( 'class' => 'h-full w-full object-cover grayscale-[0.3] contrast-[1.1] transition-transform duration-700 group-hover:scale-105' ) ); ?>
+                            <?php echo wp_get_attachment_image( $img_id, 'large', false, array(
+                                'class' => 'h-full w-full object-cover grayscale-[0.3] contrast-[1.1] transition-transform duration-700 group-hover:scale-105',
+                                'loading' => 'lazy',
+                                'decoding' => 'async',
+                                'fetchpriority' => 'low',
+                            ) ); ?>
                         <?php else : ?>
-                            <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=2070" alt="Fallback Industrial Scene" class="h-full w-full object-cover grayscale-[0.3] contrast-[1.1]">
+                            <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=2070" alt="Fallback Industrial Scene" class="h-full w-full object-cover grayscale-[0.3] contrast-[1.1]" loading="lazy" decoding="async" fetchpriority="low">
                         <?php endif; ?>
                         
                         <!-- Industrial Overlay -->

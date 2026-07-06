@@ -60,6 +60,8 @@ if ( empty( $cert_items ) ) {
 						$img_attrs = array(
 							'class' => 'w-full h-full object-contain',
 							'loading' => 'lazy',
+							'decoding' => 'async',
+							'fetchpriority' => 'low',
 						);
 						echo wp_get_attachment_image( $image_id, 'large', false, $img_attrs );
 						?>

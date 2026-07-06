@@ -70,6 +70,9 @@ if ( empty( $terms ) && current_user_can( 'manage_options' ) ) {
 								src="<?php echo esc_url( $img_url ); ?>"
 								alt="<?php echo esc_attr( $term_name ); ?>"
 								class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+								loading="lazy"
+								decoding="async"
+								fetchpriority="low"
 							/>
 						</div>
 

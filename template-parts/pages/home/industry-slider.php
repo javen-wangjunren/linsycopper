@@ -75,7 +75,7 @@ window.<?php echo esc_attr( $instance_var ); ?> = <?php echo $slides_json; ?>;
 <section class="lc-home-industry-immersive relative flex w-full items-center overflow-hidden bg-[#0B3570] pt-[100px] pb-[100px] min-h-[850px] md:min-h-[750px]" x-data="lcHomeIndustryImmersive(window.<?php echo esc_attr( $instance_var ); ?>)" x-init="init()">
 	<div class="absolute inset-0 overflow-hidden">
 		<template x-for="(slide, idx) in slides" :key="idx">
-			<div class="lc-home-industry-bg absolute inset-0" :style="(idx === currentIndex && slide.bg_lg) ? { backgroundImage: 'url(' + ((isMobile && slide.bg_sm) ? slide.bg_sm : slide.bg_lg) + ')' } : {}" x-show="idx === currentIndex" x-transition.opacity.duration.700ms></div>
+			<div class="lc-home-industry-bg absolute inset-0" :style="(isVisible && idx === currentIndex && slide.bg_lg) ? { backgroundImage: 'url(' + ((isMobile && slide.bg_sm) ? slide.bg_sm : slide.bg_lg) + ')' } : {}" x-show="idx === currentIndex" x-transition.opacity.duration.700ms></div>
 		</template>
 	</div>
 	<div class="absolute inset-0 bg-gradient-to-r from-[#0B3570] via-[#0B3570]/60 to-transparent pointer-events-none"></div>
@@ -111,7 +111,9 @@ function lcHomeIndustryImmersive(slides) {
 		currentIndex: 0,
 		timer: null,
 		isMobile: false,
+		isVisible: false,
 		mediaQuery: null,
+		observer: null,
 
 		init() {
 			if (!this.slides.length) return;
@@ -128,9 +130,34 @@ function lcHomeIndustryImmersive(slides) {
 					mq.addListener(apply);
 				}
 			}
-			this.start();
+
+			const activate = () => {
+				if (this.isVisible) return;
+				this.isVisible = true;
+				this.start();
+			};
+
+			if ('IntersectionObserver' in window) {
+				this.observer = new IntersectionObserver((entries) => {
+					entries.forEach((entry) => {
+						if (!entry.isIntersecting) return;
+						activate();
+						if (this.observer) {
+							this.observer.disconnect();
+							this.observer = null;
+						}
+					});
+				}, { rootMargin: '240px 0px' });
+
+				this.observer.observe(this.$el);
+			} else {
+				activate();
+			}
+
 			this.$el.addEventListener('mouseenter', () => this.stop());
-			this.$el.addEventListener('mouseleave', () => this.start());
+			this.$el.addEventListener('mouseleave', () => {
+				if (this.isVisible) this.start();
+			});
 		},
 
 		start() {
