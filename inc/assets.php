@@ -132,7 +132,7 @@ add_action( 'wp_enqueue_scripts', function() {
         wp_enqueue_style(
             'starter-tailwind', // Handle Name
             $tailwind_css_uri,
-            array( 'generatepress-style' ), // 依赖: 确保在 GP 样式之后加载，以便覆盖
+            array( 'generate-style' ), // 依赖: 确保在 GP 主样式之后加载，以便覆盖
             filemtime( $tailwind_css_path ) // 版本号: 自动缓存清除 (Cache Busting)
         );
     } else {

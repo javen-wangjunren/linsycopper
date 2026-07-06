@@ -83,24 +83,13 @@ foreach ( $inc_files as $file ) {
 
 /**
  * ==================================================
- * III. 样式与资源加载 (Styles)
+ * III. 样式加载策略 (Styles)
  * ==================================================
+ * 目的:
+ * 1. 让 GeneratePress 只加载真正的主样式 `assets/css/main.min.css`
+ * 2. 禁止父/子主题根目录下仅用于主题声明的 `style.css` 进入关键渲染路径
  */
-add_action( 'wp_enqueue_scripts', function () {
-
-    // 加载父主题样式 (GeneratePress)
-    // 子主题的 Tailwind 样式由 inc/assets.php 负责加载
-    $parent_theme = wp_get_theme()->parent();
-    $parent_version = $parent_theme ? $parent_theme->get( 'Version' ) : wp_get_theme()->get( 'Version' );
-
-    wp_enqueue_style(
-        'generatepress-style',
-        get_template_directory_uri() . '/style.css',
-        [],
-        $parent_version
-    );
-    
-}, 10 );
+add_filter( 'generate_load_child_theme_stylesheet', '__return_false' );
 
 /**
  * Load Cloudflare Turnstile Script
