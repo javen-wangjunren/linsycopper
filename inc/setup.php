@@ -111,6 +111,42 @@ add_action( 'init', function() {
 	// 注意: 'post' (博客) 保留 'editor' 支持以配合古腾堡使用
 }, 100 );
 
+/**
+ * ==================================================
+ * IV. Feed / RSS 全局关闭
+ * ==================================================
+ * 目的: 当前站点不提供 RSS/Atom 订阅能力。
+ * 1. 移除 wp_head 中的 feed 暴露链接。
+ * 2. 拦截所有 feed endpoint，统一返回 410 Gone。
+ */
+
+add_action( 'init', function() {
+	remove_action( 'wp_head', 'feed_links', 2 );
+	remove_action( 'wp_head', 'feed_links_extra', 3 );
+}, 20 );
+
+$gpb2b_disable_feed = function() {
+	if ( ! is_feed() ) {
+		return;
+	}
+
+	status_header( 410 );
+	nocache_headers();
+	header( 'X-Robots-Tag: noindex, nofollow', true );
+	header( 'Content-Type: text/plain; charset=' . get_option( 'blog_charset' ), true );
+
+	echo 'Feed is disabled.';
+	exit;
+};
+
+add_action( 'do_feed', $gpb2b_disable_feed, 1 );
+add_action( 'do_feed_rdf', $gpb2b_disable_feed, 1 );
+add_action( 'do_feed_rss', $gpb2b_disable_feed, 1 );
+add_action( 'do_feed_rss2', $gpb2b_disable_feed, 1 );
+add_action( 'do_feed_atom', $gpb2b_disable_feed, 1 );
+add_action( 'do_feed_rss2_comments', $gpb2b_disable_feed, 1 );
+add_action( 'do_feed_atom_comments', $gpb2b_disable_feed, 1 );
+
 add_action( 'enqueue_block_editor_assets', function() {
 	$editor_layout_css = '
 		.editor-visual-editor__post-title-wrapper,

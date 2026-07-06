@@ -68,7 +68,7 @@ if ( is_array( $title_tokens ) && count( $title_tokens ) >= 2 ) {
 			<?php endif; ?>
 		</div>
 
-		<div class="grid grid-cols-2 gap-4 md:gap-6 lg:grid-cols-4">
+		<div class="mx-auto grid max-w-5xl grid-cols-2 gap-4 md:gap-6 lg:grid-cols-3">
 			<?php foreach ( $methods as $method ) : ?>
 				<?php
 				$label   = isset( $method['label'] ) ? (string) $method['label'] : '';
