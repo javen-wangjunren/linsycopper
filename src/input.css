@@ -2,6 +2,38 @@
 @plugin "@tailwindcss/typography";
 @config "../tailwind.config.js";
 
+@font-face {
+  font-family: "Geist Sans";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../fonts/geist-sans/Geist-Regular.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Geist Sans";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("../fonts/geist-sans/Geist-Medium.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Geist Sans";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("../fonts/geist-sans/Geist-SemiBold.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Geist Sans";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("../fonts/geist-sans/Geist-Bold.woff2") format("woff2");
+}
+
 /* Product hero is app UI, so it must own its heading rhythm instead of inheriting GeneratePress h1 defaults. */
 body.lc-app .lc-product-hero-scope .lc-h1-product {
   font-family: "Geist Sans", Geist, system-ui, -apple-system, sans-serif !important;

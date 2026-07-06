@@ -47,19 +47,6 @@ add_action( 'wp_enqueue_scripts', function() {
         return $html;
     }, 10, 4 );
 
-    $fonts_css_file = 'assets/css/fonts.css';
-    $fonts_css_path = get_stylesheet_directory() . '/' . $fonts_css_file;
-    $fonts_css_uri  = get_stylesheet_directory_uri() . '/' . $fonts_css_file;
-
-    if ( file_exists( $fonts_css_path ) ) {
-        wp_enqueue_style(
-            'lc-fonts',
-            $fonts_css_uri,
-            array(),
-            filemtime( $fonts_css_path )
-        );
-    }
-
     // 2. Alpine.js (Lightweight Reactivity) [默认开启]
     // 现代 Web 开发标配，用于处理 Header, Menu, Modal 等交互
     // 使用 defer 策略避免阻塞渲染
@@ -88,7 +75,7 @@ add_action( 'wp_enqueue_scripts', function() {
     );
 
     // 3. Swiper Slider [按需开启]
-    if ( is_front_page() || is_page_template( 'templates/page-about.php' ) ) {
+    if ( is_page_template( 'templates/page-about.php' ) ) {
         $swiper_css_file = 'assets/vendor/swiper/swiper-bundle.min.css';
         $swiper_css_path = get_stylesheet_directory() . '/' . $swiper_css_file;
         $swiper_css_uri  = get_stylesheet_directory_uri() . '/' . $swiper_css_file;
