@@ -12,6 +12,7 @@
  * 2. Founder Message (inc/field/pages/about/founder-message.php)
  * 3. Factory Advantages (inc/field/pages/about/factory-advantages.php)
  * 4. Factory Slider (inc/field/pages/about/factory-slider.php)
+ * 5. Brand Trust (inc/field/pages/about/brand-trust.php)
  * 
  * @package GeneratePress_Child
  */
@@ -125,10 +126,34 @@ add_action( 'acf/init', function () {
 				'prefix_name' => 0,
 			),
 
-			// Close previous accordion before opening consult form section.
+			// =================================================================
+			// Accordion: Brand Trust
+			// =================================================================
 			array(
-				'key' => 'field_acc_about_factory_slider_end',
-				'label' => 'End Factory Slider',
+				'key' => 'field_acc_about_brand_trust_wrapper',
+				'label' => 'Brand Trust',
+				'type' => 'accordion',
+				'open' => 0,
+				'multi_expand' => 1,
+				'endpoint' => 0,
+			),
+			array(
+				'key' => 'field_about_brand_trust_clone',
+				'label' => 'Brand Trust Fields',
+				'name' => 'brand_trust_section',
+				'type' => 'clone',
+				'clone' => array(
+					0 => 'group_about_brand_trust',
+				),
+				'display' => 'seamless',
+				'layout' => 'block',
+				'prefix_label' => 0,
+				'prefix_name' => 0,
+			),
+
+			array(
+				'key' => 'field_acc_about_brand_trust_end',
+				'label' => 'End Brand Trust',
 				'type' => 'accordion',
 				'endpoint' => 1,
 			),

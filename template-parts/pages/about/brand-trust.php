@@ -11,6 +11,37 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+$title = get_flat_field( 'brand_trust_title', [], 'Trusted by Global Manufacturers' );
+$logo_items = get_flat_field( 'brand_trust_logos', [], [] );
+
+$uploaded_brands = array();
+if ( is_array( $logo_items ) ) {
+	foreach ( $logo_items as $item ) {
+		if ( ! is_array( $item ) ) {
+			continue;
+		}
+
+		$img_id = isset( $item['logo_image'] ) ? (int) $item['logo_image'] : 0;
+		if ( ! $img_id ) {
+			continue;
+		}
+
+		$img_url = wp_get_attachment_image_url( $img_id, 'full' );
+		if ( ! $img_url ) {
+			continue;
+		}
+
+		$logo_name = isset( $item['logo_name'] ) ? (string) $item['logo_name'] : '';
+		$img_alt = (string) get_post_meta( $img_id, '_wp_attachment_image_alt', true );
+		$alt = $img_alt ? $img_alt : $logo_name;
+
+		$uploaded_brands[] = array(
+			'name' => $alt,
+			'url'  => $img_url,
+		);
+	}
+}
+
 $brand_assets = array(
 	array(
 		'name' => 'ABB',
@@ -56,20 +87,22 @@ $brand_assets = array(
 
 $brand_base_dir = trailingslashit( get_stylesheet_directory() ) . 'assets/image/about/';
 $brand_base_url = trailingslashit( get_stylesheet_directory_uri() ) . 'assets/image/about/';
-$brands         = array();
+$brands         = $uploaded_brands;
 
-foreach ( $brand_assets as $brand ) {
-	$file_name = isset( $brand['file'] ) ? (string) $brand['file'] : '';
-	$file_path = $brand_base_dir . $file_name;
+if ( empty( $brands ) ) {
+	foreach ( $brand_assets as $brand ) {
+		$file_name = isset( $brand['file'] ) ? (string) $brand['file'] : '';
+		$file_path = $brand_base_dir . $file_name;
 
-	if ( $file_name === '' || ! file_exists( $file_path ) ) {
-		continue;
+		if ( $file_name === '' || ! file_exists( $file_path ) ) {
+			continue;
+		}
+
+		$brands[] = array(
+			'name' => isset( $brand['name'] ) ? (string) $brand['name'] : '',
+			'url'  => $brand_base_url . rawurlencode( $file_name ),
+		);
 	}
-
-	$brands[] = array(
-		'name' => isset( $brand['name'] ) ? (string) $brand['name'] : '',
-		'url'  => $brand_base_url . rawurlencode( $file_name ),
-	);
 }
 
 if ( empty( $brands ) ) {
@@ -80,7 +113,7 @@ if ( empty( $brands ) ) {
 <section class="bg-white pt-20 pb-24">
 	<div class="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
 		<div class="mb-10 text-center">
-			<h2 class="lc-h2-section text-heading">Trusted by Global Manufacturers</h2>
+			<h2 class="lc-h2-section text-heading"><?php echo esc_html( $title ); ?></h2>
 		</div>
 
 		<div class="grid grid-cols-2 gap-4 sm:gap-5 md:grid-cols-3 lg:grid-cols-5 lg:gap-6">

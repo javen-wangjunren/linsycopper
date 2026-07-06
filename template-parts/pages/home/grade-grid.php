@@ -48,7 +48,7 @@ if ( empty( $items ) ) {
                 </p>
             </div>
             
-            <a href="/all-grades/" class="lc-home-viewall-btn group flex items-center justify-center rounded-sm border-2 px-6 py-2.5 font-bold transition-all">
+            <a href="https://www.linsycopper.com/copper-grade/" class="lc-home-viewall-btn group flex items-center justify-center rounded-sm border-2 px-6 py-2.5 font-bold transition-all">
                 View All Grades
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ml-2 transition-transform group-hover:translate-x-1"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
             </a>

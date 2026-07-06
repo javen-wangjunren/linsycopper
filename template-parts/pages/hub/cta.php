@@ -28,7 +28,7 @@ $btn_link     = get_field( 'hub_bottom_cta_btn_link' ) ?: '/contact';
             </h3>
             
             <?php if ( $cta_desc ) : ?>
-            <p class="lc-body-section mb-8 max-w-2xl mx-auto text-pretty text-white/90 md:text-base" style="text-align:center !important;">
+            <p class="lc-hub-cta__desc mx-auto mb-8 max-w-2xl text-pretty text-center text-sm leading-relaxed text-white/90 md:text-base">
                 <?php echo wp_kses_post( $cta_desc ); ?>
             </p>
             <?php endif; ?>

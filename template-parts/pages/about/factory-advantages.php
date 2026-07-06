@@ -14,25 +14,20 @@ $title = get_flat_field(
 	[],
 	'Why industrial buyers choose Linsy Copper for long-term supply and processing support'
 );
-$desc = get_flat_field(
-	'factory_advantages_desc',
-	[],
-	'This section highlights the operational strengths behind our factory, quality system, and customer delivery process without overloading the page with dense text or oversized visuals.'
-);
 $items = get_flat_field( 'factory_advantages_items', [], [] );
 $cta_text = get_flat_field( 'factory_advantages_cta_text', [], 'Discuss Your Copper Requirement' );
 $cta_url = get_flat_field( 'factory_advantages_cta_url', [], '/contact-us/' );
 
 if ( empty( $items ) || ! is_array( $items ) ) {
 	$items = array(
-		array( 'item_icon_key' => 'quality', 'item_title' => 'Stable quality control', 'item_description' => 'Inspection routines and material traceability help buyers maintain consistency across repeat production.' ),
-		array( 'item_icon_key' => 'cut_to_size', 'item_title' => 'Flexible cut-to-size support', 'item_description' => 'Processing coordination reduces extra conversion steps and helps customers receive usable material faster.' ),
-		array( 'item_icon_key' => 'stock', 'item_title' => 'Reliable stock planning', 'item_description' => 'Material readiness and clearer replenishment planning support projects with recurring copper demand.' ),
-		array( 'item_icon_key' => 'spec', 'item_title' => 'Specification alignment', 'item_description' => 'Practical communication on dimensions, tolerances, and packing details helps reduce execution gaps.' ),
-		array( 'item_icon_key' => 'support', 'item_title' => 'Responsive project support', 'item_description' => 'Faster replies on quotations and order details help buyers keep procurement aligned with real timelines.' ),
-		array( 'item_icon_key' => 'delivery', 'item_title' => 'Export-ready delivery flow', 'item_description' => 'Packing coordination and shipping preparation support smoother handoff for regional and overseas orders.' ),
-		array( 'item_icon_key' => 'supply', 'item_title' => 'Long-term supply mindset', 'item_description' => 'We focus on repeatable cooperation, not one-off transactions, which helps customers plan with more confidence.' ),
-		array( 'item_icon_key' => 'improvement', 'item_title' => 'Continuous process improvement', 'item_description' => 'Ongoing refinement in workflow and service execution helps the factory respond more steadily over time.' ),
+		array( 'item_icon_key' => 'quality', 'item_title' => 'Stable quality control' ),
+		array( 'item_icon_key' => 'cut_to_size', 'item_title' => 'Flexible cut-to-size support' ),
+		array( 'item_icon_key' => 'stock', 'item_title' => 'Reliable stock planning' ),
+		array( 'item_icon_key' => 'spec', 'item_title' => 'Specification alignment' ),
+		array( 'item_icon_key' => 'support', 'item_title' => 'Responsive project support' ),
+		array( 'item_icon_key' => 'delivery', 'item_title' => 'Export-ready delivery flow' ),
+		array( 'item_icon_key' => 'supply', 'item_title' => 'Long-term supply mindset' ),
+		array( 'item_icon_key' => 'improvement', 'item_title' => 'Continuous process improvement' ),
 	);
 }
 
@@ -120,12 +115,6 @@ if ( ! function_exists( 'linsy_render_about_factory_advantage_icon' ) ) {
 			<h2 class="text-3xl font-bold leading-tight tracking-tight text-heading md:text-[40px] lg:text-[46px]">
 				<?php echo esc_html( $title ); ?>
 			</h2>
-
-			<?php if ( $desc ) : ?>
-				<p class="mx-auto mt-5 max-w-[620px] text-base leading-8 text-body md:text-lg">
-					<?php echo esc_html( $desc ); ?>
-				</p>
-			<?php endif; ?>
 		</div>
 
 		<div class="mt-14 grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
@@ -133,9 +122,8 @@ if ( ! function_exists( 'linsy_render_about_factory_advantage_icon' ) ) {
 				<?php
 				$icon_key = isset( $item['item_icon_key'] ) ? (string) $item['item_icon_key'] : 'quality';
 				$item_title = isset( $item['item_title'] ) ? (string) $item['item_title'] : '';
-				$item_desc = isset( $item['item_description'] ) ? (string) $item['item_description'] : '';
 
-				if ( $item_title === '' && $item_desc === '' ) {
+				if ( $item_title === '' ) {
 					continue;
 				}
 				?>
@@ -146,11 +134,6 @@ if ( ! function_exists( 'linsy_render_about_factory_advantage_icon' ) ) {
 					<h3 class="text-xl font-semibold leading-snug text-heading">
 						<?php echo esc_html( $item_title ); ?>
 					</h3>
-					<?php if ( $item_desc ) : ?>
-						<p class="mt-3 text-[15px] leading-7 text-body">
-							<?php echo esc_html( $item_desc ); ?>
-						</p>
-					<?php endif; ?>
 				</article>
 			<?php endforeach; ?>
 		</div>

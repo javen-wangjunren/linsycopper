@@ -30,9 +30,9 @@ get_template_part( 'template-parts/pages/about/about-hero' );
 get_template_part( 'template-parts/pages/about/founder-message' );
 
 /**
- * 3. Factory Advantages
+ * 3. Certifications (Global)
  */
-get_template_part( 'template-parts/pages/about/factory-advantages' );
+get_template_part( 'template-parts/global/certifications' );
 
 /**
  * 4. Factory And Workshop Environment
@@ -40,14 +40,15 @@ get_template_part( 'template-parts/pages/about/factory-advantages' );
 get_template_part( 'template-parts/pages/about/factory-slider' );
 
 /**
- * 5. Certifications (Global)
- */
-get_template_part( 'template-parts/global/certifications' );
-
-/**
- * 6. Brand Trust
+ * 5. Brand Trust
  */
 get_template_part( 'template-parts/pages/about/brand-trust' );
+
+
+/**
+ * 6. Factory Advantages
+ */
+get_template_part( 'template-parts/pages/about/factory-advantages' );
 
 /**
  * 7. Consult Form (Global)

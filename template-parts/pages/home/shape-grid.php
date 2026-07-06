@@ -12,7 +12,7 @@ $title    = get_flat_field( 'home_shape_grid_title' ) ?: 'Find Copper Materials 
 $desc     = get_flat_field( 'home_shape_grid_desc' );
 $items    = get_flat_field( 'home_shape_grid_items' ); // Returns array of WP_Term objects
 $cta_text = get_flat_field( 'home_shape_grid_cta_text' ) ?: 'View All Shapes';
-$cta_link = get_flat_field( 'home_shape_grid_cta_link' ) ?: '#';
+$cta_link = 'https://www.linsycopper.com/copper-shapes/';
 
 // 2. Preprocess (Fallbacks)
 if ( empty( $items ) ) {
