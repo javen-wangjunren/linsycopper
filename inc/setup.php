@@ -147,6 +147,49 @@ add_action( 'do_feed_atom', $gpb2b_disable_feed, 1 );
 add_action( 'do_feed_rss2_comments', $gpb2b_disable_feed, 1 );
 add_action( 'do_feed_atom_comments', $gpb2b_disable_feed, 1 );
 
+/**
+ * ==================================================
+ * V. Product Archive 强制下线
+ * ==================================================
+ * 目的: 站点不再提供 /products/ 归档入口，统一由 taxonomy 聚合页承接。
+ * 规则:
+ * 1. /products/
+ * 2. /products/page/{n}/
+ * 上述历史 URL 统一返回 410 Gone，帮助搜索引擎尽快清理索引。
+ * 注意:
+ * - 不影响 /products/{single-product-slug}/ 单品详情页
+ * - 不影响 /shape/... 等真正使用中的 taxonomy 聚合页
+ */
+add_action( 'template_redirect', function() {
+	if ( is_admin() ) {
+		return;
+	}
+
+	$request_uri = isset( $_SERVER['REQUEST_URI'] ) ? (string) $_SERVER['REQUEST_URI'] : '';
+	$request_path = trim( (string) wp_parse_url( $request_uri, PHP_URL_PATH ), '/' );
+
+	if ( '' === $request_path ) {
+		return;
+	}
+
+	$home_path = trim( (string) wp_parse_url( home_url( '/' ), PHP_URL_PATH ), '/' );
+	if ( '' !== $home_path && str_starts_with( $request_path, $home_path . '/' ) ) {
+		$request_path = substr( $request_path, strlen( $home_path ) + 1 );
+	}
+
+	if ( ! preg_match( '#^products(?:/page/[0-9]+)?$#', $request_path ) ) {
+		return;
+	}
+
+	status_header( 410 );
+	nocache_headers();
+	header( 'X-Robots-Tag: noindex, nofollow', true );
+	header( 'Content-Type: text/plain; charset=' . get_option( 'blog_charset' ), true );
+
+	echo 'Product archive is gone.';
+	exit;
+}, 0 );
+
 add_action( 'enqueue_block_editor_assets', function() {
 	$editor_layout_css = '
 		.editor-visual-editor__post-title-wrapper,
