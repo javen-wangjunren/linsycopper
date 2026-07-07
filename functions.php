@@ -61,7 +61,7 @@ $inc_files = [
     'api/product-search.php',
     'query-filters.php',     // 查询过滤器 (pre_get_posts)
     'blog-template-functions.php', // Blog 专用逻辑 (TOC等)
-    // 'seo.php',               // SEO 逻辑
+    'seo.php',
 ];
 
 
