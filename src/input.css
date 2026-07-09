@@ -656,6 +656,7 @@ body.lc-app .lc-h1-display {
   line-height: 1;
 }
 
+.lc-blog-header .lc-blog-header__title,
 body.lc-app .lc-blog-header__title {
   font-family: "Geist Sans", Geist, system-ui, -apple-system, sans-serif;
   font-size: clamp(1.875rem, 5.2vw, 3.5rem);
@@ -665,9 +666,22 @@ body.lc-app .lc-blog-header__title {
   margin: 0;
 }
 
+.lc-blog-toc .lc-blog-toc__link {
+  text-decoration: none !important;
+  color: inherit;
+}
+
+.lc-blog-toc .lc-blog-toc__link:hover,
+.lc-blog-toc .lc-blog-toc__link:focus,
+.lc-blog-toc .lc-blog-toc__link:active,
+.lc-blog-toc .lc-blog-toc__link:visited {
+  text-decoration: none !important;
+}
+
 @media (max-width: 639px) {
+  .lc-blog-header .lc-blog-header__title,
   body.lc-app .lc-blog-header__title {
-    font-size: 1.875rem;
+    font-size: 2rem;
     line-height: 1.04;
     letter-spacing: -0.025em;
   }

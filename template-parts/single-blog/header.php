@@ -18,7 +18,7 @@ $author_avatar  = function_exists( 'linsy_get_blog_author_avatar_html' )
 $text_column_classes = has_post_thumbnail() ? 'lg:col-span-7' : 'lg:col-span-12';
 ?>
 
-<header class="relative bg-[#F8F9FA] border-b border-[#E5E7EB] overflow-hidden">
+<header class="lc-blog-header relative bg-[#F8F9FA] border-b border-[#E5E7EB] overflow-hidden">
     <!-- Copper UI: Industrial Grid Background -->
     <div class="absolute inset-0 opacity-[0.03] pointer-events-none" 
          style="background-image: radial-gradient(#0B3570 1px, transparent 1px); background-size: 24px 24px;"></div>
