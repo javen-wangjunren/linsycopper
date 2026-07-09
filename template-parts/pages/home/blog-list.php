@@ -38,7 +38,7 @@ $post_ids = array_values( array_slice( $post_ids, 0, 3 ) );
         
         <!-- Header Section -->
         <div class="mb-16 text-center">
-            <h2 class="lc-h2-display text-balance text-heading">
+            <h2 class="lc-h2-section text-balance text-heading">
                 <?php echo esc_html( $title ); ?>
             </h2>
         </div>
