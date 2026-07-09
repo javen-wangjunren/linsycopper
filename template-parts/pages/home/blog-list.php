@@ -38,7 +38,7 @@ $post_ids = array_values( array_slice( $post_ids, 0, 3 ) );
         
         <!-- Header Section -->
         <div class="mb-16 text-center">
-            <h2 class="text-heading text-balance text-3xl font-bold text-[#1F2937] md:text-4xl lg:text-5xl">
+            <h2 class="lc-h2-display text-balance text-heading">
                 <?php echo esc_html( $title ); ?>
             </h2>
         </div>
@@ -46,19 +46,19 @@ $post_ids = array_values( array_slice( $post_ids, 0, 3 ) );
         <div x-data class="relative">
             <button
                 type="button"
-                class="lc-btn-reset md:hidden absolute left-2 top-1/2 -translate-y-1/2 z-10 h-11 w-11 rounded-full border border-gray-200 bg-white/90 text-[#0B3570] shadow-sm backdrop-blur-sm"
+                class="lc-btn-reset lc-blog-list__nav lc-blog-list__nav--prev md:hidden"
                 aria-label="Scroll left"
                 @click="$refs.track.scrollBy({ left: -($refs.track.clientWidth * 0.85), behavior: 'smooth' })"
             >
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+                <svg class="lc-blog-list__nav-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
             </button>
             <button
                 type="button"
-                class="lc-btn-reset md:hidden absolute right-2 top-1/2 -translate-y-1/2 z-10 h-11 w-11 rounded-full border border-gray-200 bg-white/90 text-[#0B3570] shadow-sm backdrop-blur-sm"
+                class="lc-btn-reset lc-blog-list__nav lc-blog-list__nav--next md:hidden"
                 aria-label="Scroll right"
                 @click="$refs.track.scrollBy({ left: ($refs.track.clientWidth * 0.85), behavior: 'smooth' })"
             >
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+                <svg class="lc-blog-list__nav-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
             </button>
 
             <div x-ref="track" class="flex md:grid gap-6 md:gap-8 md:grid-cols-2 lg:grid-cols-3 overflow-x-auto md:overflow-visible snap-x snap-mandatory no-scrollbar pb-8 md:pb-0 -mx-4 px-4 md:mx-0 md:px-0 scroll-px-4">
@@ -77,13 +77,13 @@ $post_ids = array_values( array_slice( $post_ids, 0, 3 ) );
                 $author_img_id  = get_field( 'user_author_image', 'user_' . $author_id );
                 $author_img_url = $author_img_id ? wp_get_attachment_image_url( $author_img_id, 'thumbnail' ) : get_avatar_url( $author_id );
             ?>
-                <article class="group flex flex-col shrink-0 min-w-[72%] sm:min-w-[52%] md:min-w-0 snap-start overflow-hidden rounded-sm border border-[#E5E7EB] bg-white transition-all hover:border-[#0B3570] hover:shadow-xl">
+                <article class="lc-blog-list__card group flex flex-col snap-start overflow-hidden rounded-sm border border-[#E5E7EB] bg-white transition-all hover:border-[#0B3570] hover:shadow-xl">
                     
                     <!-- Featured Image (Machined Edge) -->
-                    <a href="<?php echo esc_url( $permalink ); ?>" class="relative block w-full aspect-[4/3] overflow-hidden bg-gray-200">
+                    <a href="<?php echo esc_url( $permalink ); ?>" class="lc-blog-list__media relative block w-full aspect-[3/2] sm:aspect-[4/3] overflow-hidden bg-gray-200">
                         <?php if ( $thumbnail_id ) : ?>
                             <?php echo wp_get_attachment_image( $thumbnail_id, 'medium_large', false, [
-                                'class' => 'block h-full w-full object-cover transition-transform duration-500 group-hover:scale-105',
+                                'class' => 'lc-blog-list__media-image block h-full w-full object-cover transition-transform duration-500 group-hover:scale-105',
                                 'loading' => 'lazy',
                                 'decoding' => 'async',
                                 'fetchpriority' => 'low',
@@ -136,6 +136,77 @@ $post_ids = array_values( array_slice( $post_ids, 0, 3 ) );
 <style>
 .no-scrollbar::-webkit-scrollbar { display: none; }
 .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+.lc-blog-list .lc-blog-list__nav{
+    position:absolute;
+    top:50%;
+    z-index:10;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:44px;
+    height:44px;
+    padding:0 !important;
+    border:1px solid #e5e7eb !important;
+    border-radius:9999px;
+    background:rgba(255,255,255,.92) !important;
+    color:#0B3570 !important;
+    box-shadow:0 1px 3px rgba(0,0,0,.1),0 1px 2px rgba(0,0,0,.06);
+    transform:translateY(-50%);
+    backdrop-filter:blur(8px);
+    -webkit-backdrop-filter:blur(8px);
+}
+.lc-blog-list .lc-blog-list__nav--prev{
+    left:.5rem;
+    right:auto;
+}
+.lc-blog-list .lc-blog-list__nav--next{
+    right:.5rem;
+    left:auto;
+}
+.lc-blog-list .lc-blog-list__nav-icon{
+    display:block;
+    flex:0 0 auto;
+    width:18px;
+    height:18px;
+}
+.lc-blog-list .lc-blog-list__nav:hover,
+.lc-blog-list .lc-blog-list__nav:focus-visible{
+    border-color:#0B3570 !important;
+    background:#ffffff !important;
+    color:#0B3570 !important;
+}
+@media (min-width:768px){
+    .lc-blog-list .lc-blog-list__nav{
+        display:none;
+    }
+}
+.lc-blog-list .lc-blog-list__card{
+    flex:0 0 82%;
+    width:82%;
+}
+@media (min-width:640px){
+    .lc-blog-list .lc-blog-list__card{
+        flex-basis:52%;
+        width:52%;
+    }
+}
+@media (min-width:768px){
+    .lc-blog-list .lc-blog-list__card{
+        flex:1 1 0%;
+        width:auto;
+    }
+}
+.lc-blog-list .lc-blog-list__media{
+    position:relative;
+}
+.lc-blog-list .lc-blog-list__media-image{
+    position:absolute;
+    inset:0;
+    width:100% !important;
+    height:100% !important;
+    max-width:none !important;
+    object-fit:cover;
+}
 .lc-blog-list .lc-blog-list__cta{
     display:inline-block;
     border-radius:0.5rem;

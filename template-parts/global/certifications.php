@@ -49,7 +49,7 @@ if ( empty( $cert_items ) ) {
 	</div>
 
 	<div class="w-full px-4 sm:px-6 lg:px-12 xl:px-16 2xl:px-20">
-		<div class="grid grid-cols-2 gap-4 md:gap-6 xl:grid-cols-4">
+		<div class="grid grid-cols-2 gap-x-4 gap-y-6 md:gap-6 xl:grid-cols-4">
 			<?php foreach ( $cert_items as $cert ) : ?>
 				<?php
 				$image_id = isset( $cert['cert_image'] ) ? (int) $cert['cert_image'] : 0;

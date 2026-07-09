@@ -117,8 +117,8 @@ $product_search_api = function_exists( 'rest_url' ) ? rest_url( 'linsy/v1/produc
 	></div>
 
 	<aside
-		:class="drawerOpen ? 'translate-x-0 shadow-2xl' : ''"
-		class="lc-taxonomy-filter-drawer fixed inset-y-0 left-0 z-50 w-72 -translate-x-full overflow-y-auto bg-white transition-transform lg:static lg:z-auto lg:w-full lg:translate-x-0 lg:bg-transparent lg:shadow-none lg:overflow-visible"
+		:class="drawerOpen ? 'is-open' : ''"
+		class="lc-taxonomy-filter-drawer fixed inset-y-0 left-0 z-50 w-72 overflow-y-auto bg-white transition-transform lg:static lg:z-auto lg:w-full lg:translate-x-0 lg:bg-transparent lg:shadow-none lg:overflow-visible"
 		role="dialog"
 		aria-modal="true"
 	>

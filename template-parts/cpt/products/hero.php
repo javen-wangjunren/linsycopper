@@ -120,11 +120,11 @@ if ( empty( $js_images ) ) {
 
 				<!-- 2. Key Specs (The 3 Boxes) -->
 				<?php if ( ! empty( $specs ) ) : ?>
-				<div class="grid grid-cols-3 gap-0 border border-gray-200 rounded-sm bg-gray-50/50 divide-x divide-gray-200">
+				<div class="lc-product-hero-specs grid grid-cols-3 gap-0 border border-gray-200 rounded-sm bg-gray-50/50 divide-x divide-gray-200">
 					<?php foreach ( $specs as $spec ) : ?>
-						<div class="p-4 text-center">
+						<div class="lc-product-hero-spec-item min-w-0 p-4 text-center">
 							<!-- Copper UI: Font Logic - Technical Data uses font-mono -->
-							<div class="lc-mono-value text-xl text-primary-blue">
+							<div class="lc-mono-value lc-product-hero-spec-value text-xl text-primary-blue">
 								<?php echo esc_html( $spec['value'] ); ?>
 							</div>
 							<div class="lc-product-hero-spec-label mt-1">

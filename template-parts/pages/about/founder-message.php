@@ -39,7 +39,7 @@ if ( empty( $body_paragraphs ) ) {
 <section class="lc-founder-message">
 	<div class="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
 		<div class="lc-founder-message__grid">
-			<div class="lc-founder-message__media">
+			<div class="lc-founder-message__media lc-founder-message__media--desktop">
 				<figure class="lc-founder-message__figure">
 					<div class="lc-founder-message__image-wrap">
 						<?php if ( $portrait_id ) : ?>
@@ -69,6 +69,32 @@ if ( empty( $body_paragraphs ) ) {
 				<div class="lc-founder-message__kicker">
 					<span class="lc-founder-message__kicker-line"></span>
 					<p class="lc-founder-message__kicker-text">Founder message</p>
+				</div>
+
+				<div class="lc-founder-message__media lc-founder-message__media--mobile">
+					<figure class="lc-founder-message__figure">
+						<div class="lc-founder-message__image-wrap">
+							<?php if ( $portrait_id ) : ?>
+								<?php
+								echo wp_get_attachment_image(
+									$portrait_id,
+									'large',
+									false,
+									array(
+										'class'   => 'lc-founder-message__image',
+										'loading' => 'lazy',
+									)
+								);
+								?>
+							<?php else : ?>
+								<div class="lc-founder-message__image-placeholder">
+									<svg class="h-24 w-24 text-[#0B3570]/10" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+										<path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+									</svg>
+								</div>
+							<?php endif; ?>
+						</div>
+					</figure>
 				</div>
 
 				<h2 class="lc-founder-message__title">

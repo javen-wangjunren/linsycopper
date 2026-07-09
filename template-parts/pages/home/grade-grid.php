@@ -38,7 +38,7 @@ if ( empty( $items ) ) {
     <div class="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
         
         <!-- Section Header -->
-        <div class="mb-12 flex flex-col items-center justify-between gap-4 md:flex-row">
+        <div class="mb-12">
             <div>
                 <h2 class="lc-h2-section text-balance text-heading">
                     <?php echo esc_html( $title ); ?>
@@ -47,11 +47,6 @@ if ( empty( $items ) ) {
                     <?php echo esc_html( $subtitle ); ?>
                 </p>
             </div>
-            
-            <a href="https://www.linsycopper.com/copper-grade/" class="lc-home-viewall-btn group flex items-center justify-center rounded-sm border-2 px-6 py-2.5 font-bold transition-all">
-                View All Grades
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ml-2 transition-transform group-hover:translate-x-1"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-            </a>
         </div>
 
         <!-- Grades Grid -->
@@ -119,6 +114,13 @@ if ( empty( $items ) ) {
                     <div class="h-1 w-0 bg-gradient-to-r from-[#F97C30] to-[#F4BD5D] transition-all duration-300 group-hover:w-full"></div>
                 </a>
             <?php endforeach; ?>
+        </div>
+
+        <div class="mt-10 flex justify-center md:mt-12">
+            <a href="https://www.linsycopper.com/copper-grade/" class="lc-home-viewall-btn group flex items-center justify-center rounded-sm border-2 px-6 py-2.5 font-bold transition-all">
+                View All Grades
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ml-2 transition-transform group-hover:translate-x-1"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </a>
         </div>
     </div>
 </section>

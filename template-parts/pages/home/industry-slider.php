@@ -72,21 +72,21 @@ $instance_var = 'LC_HOME_INDUSTRY_IMMERSIVE_' . uniqid();
 window.<?php echo esc_attr( $instance_var ); ?> = <?php echo $slides_json; ?>;
 </script>
 
-<section class="lc-home-industry-immersive relative flex w-full items-center overflow-hidden bg-[#0B3570] pt-[100px] pb-[100px] min-h-[850px] md:min-h-[750px]" x-data="lcHomeIndustryImmersive(window.<?php echo esc_attr( $instance_var ); ?>)" x-init="init()">
+<section class="lc-home-industry-immersive relative flex w-full items-center overflow-hidden bg-[#0B3570]" x-data="lcHomeIndustryImmersive(window.<?php echo esc_attr( $instance_var ); ?>)" x-init="init()">
 	<div class="absolute inset-0 overflow-hidden">
 		<template x-for="(slide, idx) in slides" :key="idx">
 			<div class="lc-home-industry-bg absolute inset-0" :style="(isVisible && idx === currentIndex && slide.bg_lg) ? { backgroundImage: 'url(' + ((isMobile && slide.bg_sm) ? slide.bg_sm : slide.bg_lg) + ')' } : {}" x-show="idx === currentIndex" x-transition.opacity.duration.700ms></div>
 		</template>
 	</div>
-	<div class="absolute inset-0 bg-gradient-to-r from-[#0B3570] via-[#0B3570]/60 to-transparent pointer-events-none"></div>
+	<div class="lc-home-industry-overlay absolute inset-0 pointer-events-none"></div>
 
 	<div class="relative z-10 mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-8">
-		<div class="max-w-2xl text-white" x-show="slides && slides.length">
-			<h3 class="text-heading lc-home-industry-title mb-6" x-text="slides[currentIndex] ? slides[currentIndex].title : ''"></h3>
+		<div class="lc-home-industry-copy text-white" x-show="slides && slides.length">
+			<h3 class="text-heading lc-home-industry-title" x-text="slides[currentIndex] ? slides[currentIndex].title : ''"></h3>
 
-			<p class="lc-body-section lc-home-industry-desc mb-10 text-white/80 md:text-xl" x-text="slides[currentIndex] ? slides[currentIndex].desc : ''"></p>
+			<p class="lc-body-section lc-home-industry-desc" x-text="slides[currentIndex] ? slides[currentIndex].desc : ''"></p>
 
-			<div class="flex flex-col sm:flex-row gap-4">
+			<div class="lc-home-industry-actions flex flex-col sm:flex-row gap-4">
 				<a class="lc-home-industry-btn" :href="(slides[currentIndex] && slides[currentIndex].cta_url) ? slides[currentIndex].cta_url : '#'" :target="(slides[currentIndex] && slides[currentIndex].cta_target) ? slides[currentIndex].cta_target : '_self'">
 					<span x-text="(slides[currentIndex] && slides[currentIndex].cta_label) ? slides[currentIndex].cta_label : 'Get a Specific Quote'"></span>
 				</a>

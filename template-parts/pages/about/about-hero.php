@@ -98,7 +98,7 @@ $band_bg_url = $band_bg_id ? wp_get_attachment_image_url( $band_bg_id, 'full' ) 
 			<?php endif; ?>
 
 			<div class="relative mx-auto max-w-[1280px] px-4 py-10 sm:px-6 lg:px-8 lg:py-12">
-				<div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+				<div class="grid grid-cols-2 gap-4 lg:grid-cols-3 lg:gap-6 xl:grid-cols-5">
 					<?php foreach ( $advantages as $item ) : ?>
 						<?php
 						$item_title = isset( $item['item_title'] ) ? (string) $item['item_title'] : '';
@@ -108,7 +108,7 @@ $band_bg_url = $band_bg_id ? wp_get_attachment_image_url( $band_bg_id, 'full' ) 
 							continue;
 						}
 						?>
-						<article class="bg-black/5 px-5 py-5 text-white">
+						<article class="lc-about-hero-stat-card min-w-0 bg-black/5 px-4 py-4 text-white sm:px-5 sm:py-5">
 							<h3 class="lc-about-hero-stat-title mb-2 text-white">
 								<?php echo esc_html( $item_title ); ?>
 							</h3>

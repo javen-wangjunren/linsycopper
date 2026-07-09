@@ -27,7 +27,7 @@ $badge_kicker  = get_flat_field( 'why_badge_kicker', [], 'Quality Assurance' );
 $badge_title   = get_flat_field( 'why_badge_title', [], '100% Traceable' );
 ?>
 
-<section class="relative overflow-hidden bg-[#F8FAFC] pt-[100px] pb-24">
+<section class="lc-home-why relative overflow-hidden bg-[#F8FAFC] pt-[100px] pb-0 md:pb-20">
     <!-- Background Technical Grid -->
     <div class="absolute inset-0 opacity-[0.02] pointer-events-none" 
          style="background-image: radial-gradient(#0B3570 1px, transparent 1px); background-size: 24px 24px;">
@@ -36,7 +36,7 @@ $badge_title   = get_flat_field( 'why_badge_title', [], '100% Traceable' );
     <div class="relative mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
 
         <!-- Top Section: Split Layout -->
-        <div class="flex flex-col gap-12 lg:flex-row lg:items-start mb-20">
+        <div class="flex flex-col gap-12 mb-0 md:mb-20 lg:flex-row lg:items-start">
 
             <!-- Left: Content Area -->
             <div class="flex flex-col gap-8 lg:w-1/2">
@@ -71,16 +71,16 @@ $badge_title   = get_flat_field( 'why_badge_title', [], '100% Traceable' );
             <div class="lg:w-1/2">
                 <div class="relative group">
                     <!-- Image Container with "Machined" Border -->
-                    <div class="relative overflow-hidden rounded-lg shadow-xl aspect-square ring-1 ring-black/5">
+                    <div class="lc-home-why__media relative overflow-hidden rounded-lg shadow-xl aspect-square ring-1 ring-black/5">
                         <?php if ( $img_id ) : ?>
                             <?php echo wp_get_attachment_image( $img_id, 'large', false, array(
-                                'class' => 'h-full w-full object-cover grayscale-[0.3] contrast-[1.1] transition-transform duration-700 group-hover:scale-105',
+                                'class' => 'lc-home-why__media-image h-full w-full object-cover grayscale-[0.3] contrast-[1.1] transition-transform duration-700 group-hover:scale-105',
                                 'loading' => 'lazy',
                                 'decoding' => 'async',
                                 'fetchpriority' => 'low',
                             ) ); ?>
                         <?php else : ?>
-                            <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=2070" alt="Fallback Industrial Scene" class="h-full w-full object-cover grayscale-[0.3] contrast-[1.1]" loading="lazy" decoding="async" fetchpriority="low">
+                            <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=2070" alt="Fallback Industrial Scene" class="lc-home-why__media-image h-full w-full object-cover grayscale-[0.3] contrast-[1.1]" loading="lazy" decoding="async" fetchpriority="low">
                         <?php endif; ?>
                         
                         <!-- Industrial Overlay -->
