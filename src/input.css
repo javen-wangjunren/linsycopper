@@ -1228,6 +1228,7 @@ body.lc-app #available-sizes tbody td:first-child * {
     text-decoration-line: none !important;
   }
 
+  .lc-header-scope .lc-mobile-menu-scope button,
   body.lc-app .lc-mobile-menu-scope button {
     background: transparent !important;
     border: 0 !important;
@@ -1237,6 +1238,10 @@ body.lc-app #available-sizes tbody td:first-child * {
     appearance: none;
   }
 
+  .lc-header-scope .lc-mobile-menu-scope .lc-mobile-nav-trigger,
+  .lc-header-scope .lc-mobile-menu-scope .lc-mobile-nav-link,
+  .lc-header-scope .lc-mobile-menu-scope .lc-mobile-nav-trigger:visited,
+  .lc-header-scope .lc-mobile-menu-scope .lc-mobile-nav-link:visited,
   body.lc-app .lc-mobile-menu-scope .lc-mobile-nav-trigger,
   body.lc-app .lc-mobile-menu-scope .lc-mobile-nav-link,
   body.lc-app .lc-mobile-menu-scope .lc-mobile-nav-trigger:visited,
@@ -1246,6 +1251,8 @@ body.lc-app #available-sizes tbody td:first-child * {
     text-decoration-line: none !important;
   }
 
+  .lc-header-scope .lc-mobile-menu-scope .lc-mobile-nav-trigger,
+  .lc-header-scope .lc-mobile-menu-scope .lc-mobile-nav-link,
   body.lc-app .lc-mobile-menu-scope .lc-mobile-nav-trigger,
   body.lc-app .lc-mobile-menu-scope .lc-mobile-nav-link {
     font-size: 14px !important;
@@ -1256,6 +1263,8 @@ body.lc-app #available-sizes tbody td:first-child * {
     padding-right: 0 !important;
   }
 
+  .lc-header-scope .lc-mobile-menu-scope .lc-mobile-nav-l2,
+  .lc-header-scope .lc-mobile-menu-scope .lc-mobile-nav-l2:visited,
   body.lc-app .lc-mobile-menu-scope .lc-mobile-nav-l2,
   body.lc-app .lc-mobile-menu-scope .lc-mobile-nav-l2:visited {
     color: #F4BD5D !important;
@@ -1263,6 +1272,8 @@ body.lc-app #available-sizes tbody td:first-child * {
     text-decoration-line: none !important;
   }
 
+  .lc-header-scope .lc-mobile-menu-scope .lc-mobile-nav-l3,
+  .lc-header-scope .lc-mobile-menu-scope .lc-mobile-nav-l3:visited,
   body.lc-app .lc-mobile-menu-scope .lc-mobile-nav-l3,
   body.lc-app .lc-mobile-menu-scope .lc-mobile-nav-l3:visited {
     color: rgba(255, 255, 255, 0.65) !important;
@@ -1270,6 +1281,8 @@ body.lc-app #available-sizes tbody td:first-child * {
     text-decoration-line: none !important;
   }
 
+  .lc-header-scope .lc-mobile-menu-scope .lc-mobile-nav-viewall,
+  .lc-header-scope .lc-mobile-menu-scope .lc-mobile-nav-viewall:visited,
   body.lc-app .lc-mobile-menu-scope .lc-mobile-nav-viewall,
   body.lc-app .lc-mobile-menu-scope .lc-mobile-nav-viewall:visited {
     color: #F97C30 !important;
@@ -1277,6 +1290,7 @@ body.lc-app #available-sizes tbody td:first-child * {
     text-decoration-line: none !important;
   }
 
+  .lc-header-scope .lc-mobile-menu-scope button[aria-label="Close menu"],
   body.lc-app .lc-mobile-menu-scope button[aria-label="Close menu"] {
     color: #ffffff !important;
     padding: 0.5rem !important;

@@ -61,16 +61,7 @@ function handle_consult_form_submission( $request ) {
 		return new WP_REST_Response( array( 'success' => true, 'message' => 'Message sent.' ), 200 );
 	}
 
-	// B. Rate Limiting (10 minutes per IP)
-	$ip = $_SERVER['REMOTE_ADDR'];
-	// Use a hashed IP for the transient key to be safe
-	$lock_key = 'consult_limit_' . md5( $ip );
-
-	if ( get_transient( $lock_key ) ) {
-		return new WP_Error( 'rate_limit_exceeded', 'Too many requests. Please try again in 10 minutes.', array( 'status' => 429 ) );
-	}
-	
-	// C. Cloudflare Turnstile Check
+	// B. Cloudflare Turnstile Check
 	$turnstile_token = $params['cf-turnstile-response'] ?? '';
 	if ( empty( $turnstile_token ) ) {
 		return new WP_Error( 'turnstile_missing', 'Security check failed. Please refresh the page.', array( 'status' => 403 ) );
@@ -176,9 +167,6 @@ function handle_consult_form_submission( $request ) {
 
 		$result = $resend->emails->send( $email_params );
 		
-		// Set rate limit transient for 10 minutes (600 seconds)
-		set_transient( $lock_key, true, 600 );
-
 		return new WP_REST_Response( array( 'success' => true, 'message' => 'Email sent successfully.', 'id' => $result->id ), 200 );
 
 	} catch ( \Exception $e ) {

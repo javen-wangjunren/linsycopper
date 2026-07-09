@@ -68,7 +68,7 @@ if ( is_array( $title_tokens ) && count( $title_tokens ) >= 2 ) {
 			<?php endif; ?>
 		</div>
 
-		<div class="mx-auto grid max-w-5xl grid-cols-2 gap-4 md:gap-6 lg:grid-cols-3">
+		<div class="mx-auto flex max-w-5xl flex-wrap justify-center gap-4 md:gap-6">
 			<?php foreach ( $methods as $method ) : ?>
 				<?php
 				$label   = isset( $method['label'] ) ? (string) $method['label'] : '';
@@ -79,7 +79,7 @@ if ( is_array( $title_tokens ) && count( $title_tokens ) >= 2 ) {
 					continue;
 				}
 				?>
-				<div class="group flex flex-col items-center rounded-sm border border-[#E5E7EB] bg-white p-6 text-center transition-all hover:border-[#F97C30] hover:shadow-lg">
+				<div class="group w-full max-w-[320px] flex-[1_1_280px] flex flex-col items-center rounded-sm border border-[#E5E7EB] bg-white p-6 text-center transition-all hover:border-[#F97C30] hover:shadow-lg">
 					<div class="mb-4 flex h-12 w-12 items-center justify-center rounded-sm bg-[#0B3570]/10 text-[#0B3570] transition-colors group-hover:bg-[#F97C30] group-hover:text-white">
 						<?php echo linsy_contact_info_icon_markup( $label ); ?>
 					</div>

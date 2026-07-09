@@ -29,11 +29,10 @@ $commit_list  = is_array( $commit_list_page ) ? $commit_list_page : get_flat_fie
 	array( 'contact_sidebar_commitment_item' => 'Competitive pricing' ),
 ), true );
 
-$review_quote_page   = get_flat_field( 'contact_sidebar_review_quote', [], '' );
 $review_name_page    = get_flat_field( 'contact_sidebar_review_name', [], '' );
 $review_company_page = get_flat_field( 'contact_sidebar_review_company', [], '' );
 
-$review_quote   = $review_quote_page ? $review_quote_page : get_flat_field( 'contact_sidebar_review_quote', [], '"Reliable supplier with excellent customer service. Highly recommended for bulk copper orders."', true );
+$review_quote   = '"They maintain abundant copper inventory, support small orders with low MOQ, and offer very competitive rates for bulk purchases. Strongly recommended!"';
 $review_name    = $review_name_page ? $review_name_page : get_flat_field( 'contact_sidebar_review_name', [], 'David Morrison', true );
 $review_company = $review_company_page ? $review_company_page : get_flat_field( 'contact_sidebar_review_company', [], 'AeroTech Manufacturing', true );
 
