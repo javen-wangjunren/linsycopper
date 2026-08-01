@@ -70,7 +70,14 @@ get_template_part( 'template-parts/global/why-choose-us' );
 get_template_part( 'template-parts/cpt/products/applications' );
 
 // ==========================================
-// 8. Consult Form
+// 8. Product FAQ
+// ==========================================
+// Data Source: ACF Group 'group_global_faq' (cloned)
+// Outputs FAQPage schema for SEO.
+get_template_part( 'template-parts/global/faq' );
+
+// ==========================================
+// 9. Consult Form
 // ==========================================
 // Data Source: None (Functional Form)
 get_template_part( 'template-parts/global/consult-form' );

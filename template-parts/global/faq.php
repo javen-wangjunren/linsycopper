@@ -17,7 +17,34 @@ if ( empty( $faqs ) ) {
 if ( empty( $faqs ) ) {
 	return;
 }
+
+// Build FAQPage schema for SEO.
+$faq_schema = array(
+	'@context'   => 'https://schema.org',
+	'@type'      => 'FAQPage',
+	'mainEntity' => array(),
+);
+foreach ( $faqs as $item ) {
+	$question = isset( $item['contact_faq_question'] ) ? trim( (string) $item['contact_faq_question'] ) : '';
+	$answer   = isset( $item['contact_faq_answer'] ) ? trim( (string) $item['contact_faq_answer'] ) : '';
+	if ( $question && $answer ) {
+		$faq_schema['mainEntity'][] = array(
+			'@type'          => 'Question',
+			'name'           => $question,
+			'acceptedAnswer' => array(
+				'@type' => 'Answer',
+				'text'  => $answer,
+			),
+		);
+	}
+}
 ?>
+
+<?php if ( ! empty( $faq_schema['mainEntity'] ) ) : ?>
+<script type="application/ld+json">
+<?php echo wp_json_encode( $faq_schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES ); ?>
+</script>
+<?php endif; ?>
 
 <section class="lc-faq-scope bg-[#F8F9FA] pt-[100px] pb-[100px] font-sans">
 	<div class="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
