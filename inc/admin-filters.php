@@ -205,3 +205,169 @@ function linsy_print_product_admin_filter_script() {
 	<?php
 }
 add_action( 'admin_footer-edit.php', 'linsy_print_product_admin_filter_script' );
+
+/**
+ * Register "Export as JSON" bulk action on the Product list page.
+ */
+add_filter( 'bulk_actions-edit-product', 'linsy_add_product_export_bulk_action' );
+
+function linsy_add_product_export_bulk_action( $bulk_actions ) {
+	$bulk_actions['export_json']        = __( 'Export as JSON', 'generatepress_child' );
+	$bulk_actions['export_json_minimal'] = __( 'Export as JSON (Minimal)', 'generatepress_child' );
+	return $bulk_actions;
+}
+
+/**
+ * Handle the "Export as JSON" bulk action.
+ */
+add_filter( 'handle_bulk_actions-edit-product', 'linsy_handle_product_export_bulk_action', 10, 3 );
+
+function linsy_handle_product_export_bulk_action( $redirect_to, $action, $post_ids ) {
+	if ( 'export_json' !== $action && 'export_json_minimal' !== $action ) {
+		return $redirect_to;
+	}
+
+	if ( empty( $post_ids ) ) {
+		return $redirect_to;
+	}
+
+	$minimal   = ( 'export_json_minimal' === $action );
+	$products  = array();
+
+	foreach ( $post_ids as $post_id ) {
+		$post = get_post( (int) $post_id );
+		if ( ! $post || 'product' !== $post->post_type ) {
+			continue;
+		}
+
+		$product = array(
+			'post_id'    => $post->ID,
+			'post_title' => $post->post_title,
+		);
+
+		if ( ! $minimal ) {
+			$product['post_status'] = $post->post_status;
+
+			// Hero
+			$hero_desc  = get_field( 'product_hero_desc', $post->ID );
+			$hero_specs = get_field( 'product_hero_specs', $post->ID );
+			if ( $hero_desc || $hero_specs ) {
+				$product['hero'] = array();
+				if ( $hero_desc ) {
+					$product['hero']['short_desc'] = $hero_desc;
+				}
+				if ( $hero_specs && is_array( $hero_specs ) ) {
+					$product['hero']['specs'] = array_map(
+						function ( $s ) {
+							return array(
+								'value' => $s['value'] ?? '',
+								'label' => $s['label'] ?? '',
+							);
+						},
+						$hero_specs
+					);
+				}
+			}
+
+			// Description
+			$desc_content  = get_field( 'product_desc_content', $post->ID );
+			$desc_features = get_field( 'product_desc_features', $post->ID );
+			if ( $desc_content || $desc_features ) {
+				$product['description'] = array();
+				if ( $desc_content ) {
+					$product['description']['content'] = $desc_content;
+				}
+				if ( $desc_features && is_array( $desc_features ) ) {
+					$product['description']['features'] = array_map(
+						function ( $f ) {
+							return $f['text'] ?? '';
+						},
+						$desc_features
+					);
+				}
+			}
+
+			// Applications
+			$apps = get_field( 'product_application_list', $post->ID );
+			if ( $apps && is_array( $apps ) ) {
+				$product['applications'] = array_map(
+					function ( $a ) {
+						return array(
+							'name'       => $a['application_name'] ?? '',
+							'short_desc' => $a['application_shortdesc'] ?? '',
+						);
+					},
+					$apps
+				);
+			}
+
+			// Specifications
+			$tables = get_field( 'product_spec_tables', $post->ID );
+			if ( $tables && is_array( $tables ) ) {
+				$product['specifications'] = array_map(
+					function ( $t ) {
+						$data = array();
+						if ( isset( $t['spec_table_data'] ) && is_array( $t['spec_table_data'] ) ) {
+							$data = array_map(
+								function ( $row ) {
+									return array(
+										$row['col_1'] ?? '',
+										$row['col_2'] ?? '',
+										$row['col_3'] ?? '',
+										$row['col_4'] ?? '',
+									);
+								},
+								$t['spec_table_data']
+							);
+						}
+						return array(
+							'table_name' => $t['spec_table_name'] ?? '',
+							'table_data' => $data,
+						);
+					},
+					$tables
+				);
+			}
+
+			// FAQ
+			$faq_title = get_field( 'contact_faq_title', $post->ID );
+			$faq_desc  = get_field( 'contact_faq_desc', $post->ID );
+			$faq_list  = get_field( 'contact_faq_list', $post->ID );
+			if ( $faq_title || $faq_desc || $faq_list ) {
+				$product['faq'] = array(
+					'title'       => $faq_title ?: '',
+					'description' => $faq_desc ?: '',
+				);
+				if ( $faq_list && is_array( $faq_list ) ) {
+					$product['faq']['list'] = array_map(
+						function ( $f ) {
+							return array(
+								'question' => $f['contact_faq_question'] ?? '',
+								'answer'   => $f['contact_faq_answer'] ?? '',
+							);
+						},
+						$faq_list
+					);
+				}
+			}
+		}
+
+		$products[] = $product;
+	}
+
+	if ( empty( $products ) ) {
+		return $redirect_to;
+	}
+
+	// Force JSON download
+	$json = wp_json_encode( $products, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES );
+	$prefix = $minimal ? 'products-minimal' : 'products-export';
+
+	header( 'Content-Type: application/json; charset=utf-8' );
+	header( 'Content-Disposition: attachment; filename="' . $prefix . '-' . gmdate( 'Y-m-d' ) . '.json"' );
+	header( 'Content-Length: ' . strlen( $json ) );
+
+	// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+	echo $json;
+	exit;
+}
