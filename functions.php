@@ -62,8 +62,7 @@ $inc_files = [
     'query-filters.php',     // 查询过滤器 (pre_get_posts)
     'blog-template-functions.php', // Blog 专用逻辑 (TOC等)
     'seo.php',
-    'product-import-metabox.php',  // 方案 A: Product 编辑页 AI JSON 导入
-    'product-import-admin.php',    // 方案 B: Tools > Product Import 批量导入
+    'product-import-admin.php',    // 方案 B: Tools > Product Import 批量导入（JSON/ZIP 文件上传）
 ];
 
 
