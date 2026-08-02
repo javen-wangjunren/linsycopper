@@ -111,6 +111,7 @@ function linsy_render_product_import_admin_page() {
 
 			$form.on('submit', function(e) {
 				e.preventDefault();
+				console.log('[Product Import] Form submitted, update_existing=' + $('#linsy-update-existing').is(':checked'));
 
 				var file = $file[0].files[0];
 				if (!file) {
@@ -141,6 +142,7 @@ function linsy_render_product_import_admin_page() {
 					processData: false,
 					contentType: false,
 					success: function(res) {
+						console.log('[Product Import] Response:', res);
 						if (res.success) {
 							var html = '<div class="notice notice-success"><p><strong>' +
 								'<?php echo esc_js( __( 'Import Complete!', 'generatepress_child' ) ); ?>' +
@@ -165,7 +167,8 @@ function linsy_render_product_import_admin_page() {
 							$result.html('<div class="notice notice-error"><p>' + msg + '</p></div>');
 						}
 					},
-					error: function(xhr) {
+					error: function(xhr, status, error) {
+						console.log('[Product Import] Error:', status, error, xhr);
 						var msg = '<?php echo esc_js( __( 'Upload error.', 'generatepress_child' ) ); ?>';
 						if (xhr.responseJSON && xhr.responseJSON.data && xhr.responseJSON.data.message) {
 							msg = xhr.responseJSON.data.message;
@@ -316,7 +319,11 @@ function linsy_process_product_json_import( $post_id, $data ) {
 			update_field( 'contact_faq_list', $list, $post_id );
 			++$fields_updated;
 		}
+
+		error_log( '[Product Import] FAQ written for post_id=' . $post_id . ', faq_items=' . count( $faq['list'] ?? array() ) );
 	}
+
+	error_log( '[Product Import] Done post_id=' . $post_id . ', fields_updated=' . $fields_updated );
 
 	return array(
 		'fields_updated' => $fields_updated,
@@ -552,6 +559,8 @@ function linsy_handle_batch_product_import() {
 
 		$all_products = $data;
 
+		error_log( '[Product Import] JSON parsed: ' . count( $all_products ) . ' products' );
+
 	} elseif ( 'zip' === $ext ) {
 		// Extract ZIP and read all .json files
 		if ( ! class_exists( 'ZipArchive' ) ) {
@@ -618,6 +627,7 @@ function linsy_handle_batch_product_import() {
 
 	// ── Import All Products ──
 	$update_existing = ! empty( $_POST['update_existing'] );
+	error_log( '[Product Import] update_existing=' . ( $update_existing ? '1' : '0' ) . ', total=' . count( $all_products ) );
 	$created = 0;
 	$updated = 0;
 	$skipped = 0;
