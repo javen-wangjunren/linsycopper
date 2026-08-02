@@ -49,13 +49,11 @@ function linsy_render_product_import_admin_page() {
 		<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
 
 		<div class="notice notice-info">
-			<p>
-				<strong><?php esc_html_e( 'Quick Guide', 'generatepress_child' ); ?></strong>
-			</p>
+			<p><strong><?php esc_html_e( 'Quick Guide', 'generatepress_child' ); ?></strong></p>
 			<ul style="list-style:disc;padding-left:20px;">
-				<li><?php esc_html_e( 'Upload a .json file for a single product (or an array of products).', 'generatepress_child' ); ?></li>
-				<li><?php esc_html_e( 'Upload a .zip file containing multiple .json files for batch import. Each .json file = one product.', 'generatepress_child' ); ?></li>
-				<li><?php esc_html_e( 'All products will be created as Drafts for your review.', 'generatepress_child' ); ?></li>
+				<li><?php esc_html_e( 'Upload .json / .zip to create new products (Draft).', 'generatepress_child' ); ?></li>
+				<li><?php esc_html_e( 'Check "Update existing" to match products by post_id and append/update fields without creating new posts.', 'generatepress_child' ); ?></li>
+				<li><?php esc_html_e( 'Use "Export All Products" to download a JSON snapshot for editing or AI processing.', 'generatepress_child' ); ?></li>
 			</ul>
 		</div>
 
@@ -80,12 +78,15 @@ function linsy_render_product_import_admin_page() {
 						<p class="description">
 							<?php
 							printf(
-								/* translators: %s: max upload size */
 								esc_html__( 'Accepted: .json (single/batch) or .zip (multiple .json files). Max size: %s.', 'generatepress_child' ),
 								esc_html( $max_upload )
 							);
 							?>
 						</p>
+						<label style="display:block;margin-top:8px;">
+							<input type="checkbox" id="linsy-update-existing" name="update_existing" value="1" />
+							<?php esc_html_e( 'Update existing products (match by post_id in JSON)', 'generatepress_child' ); ?>
+						</label>
 					</td>
 				</tr>
 			</table>
@@ -93,6 +94,9 @@ function linsy_render_product_import_admin_page() {
 			<p class="submit">
 				<button type="submit" class="button button-primary" id="linsy-import-submit">
 					<?php esc_html_e( 'Upload & Import', 'generatepress_child' ); ?>
+				</button>
+				<button type="button" class="button" id="linsy-export-btn">
+					<?php esc_html_e( 'Export All Products', 'generatepress_child' ); ?>
 				</button>
 			</p>
 		</form>
@@ -130,6 +134,7 @@ function linsy_render_product_import_admin_page() {
 				formData.append('action', 'linsy_batch_import_products');
 				formData.append('nonce', $form.find('[name="linsy_batch_import_nonce"]').val());
 				formData.append('import_file', file);
+				formData.append('update_existing', $('#linsy-update-existing').is(':checked') ? '1' : '0');
 
 				$.ajax({
 					url: ajaxurl,
@@ -143,9 +148,10 @@ function linsy_render_product_import_admin_page() {
 							var html = '<div class="notice notice-success"><p><strong>' +
 								'<?php echo esc_js( __( 'Import Complete!', 'generatepress_child' ) ); ?>' +
 								'</strong></p><ul>';
-							html += '<li><?php echo esc_js( __( 'Created:', 'generatepress_child' ) ); ?> ' + (res.data.created || 0) + '</li>';
-							html += '<li><?php echo esc_js( __( 'Skipped:', 'generatepress_child' ) ); ?> ' + (res.data.skipped || 0) + '</li>';
-							html += '<li><?php echo esc_js( __( 'Failed:', 'generatepress_child' ) ); ?> ' + (res.data.failed || 0) + '</li>';
+							if (res.data.created) html += '<li><?php echo esc_js( __( 'Created:', 'generatepress_child' ) ); ?> ' + res.data.created + '</li>';
+							if (res.data.updated) html += '<li><?php echo esc_js( __( 'Updated:', 'generatepress_child' ) ); ?> ' + res.data.updated + '</li>';
+							if (res.data.skipped) html += '<li><?php echo esc_js( __( 'Skipped:', 'generatepress_child' ) ); ?> ' + res.data.skipped + '</li>';
+							if (res.data.failed) html += '<li><?php echo esc_js( __( 'Failed:', 'generatepress_child' ) ); ?> ' + res.data.failed + '</li>';
 							html += '</ul>';
 							if (res.data.links && res.data.links.length) {
 								html += '<p><?php echo esc_js( __( 'Created products:', 'generatepress_child' ) ); ?></p><ul>';
@@ -171,6 +177,45 @@ function linsy_render_product_import_admin_page() {
 					},
 					complete: function() {
 						$btn.prop('disabled', false).text('<?php echo esc_js( __( 'Upload & Import', 'generatepress_child' ) ); ?>');
+					}
+				});
+			});
+		// Export button
+			$('#linsy-export-btn').on('click', function(e) {
+				e.preventDefault();
+				var $exportBtn = $(this);
+				$exportBtn.prop('disabled', true).text('<?php echo esc_js( __( 'Exporting...', 'generatepress_child' ) ); ?>');
+
+				$.ajax({
+					url: ajaxurl,
+					type: 'POST',
+					dataType: 'json',
+					data: {
+						action: 'linsy_export_products',
+						nonce: $form.find('[name="linsy_batch_import_nonce"]').val()
+					},
+					success: function(res) {
+						if (res.success) {
+							var jsonStr = JSON.stringify(res.data.products, null, 2);
+							var blob = new Blob([jsonStr], {type: 'application/json'});
+							var url = URL.createObjectURL(blob);
+							var a = document.createElement('a');
+							a.href = url;
+							a.download = 'products-export-' + new Date().toISOString().slice(0,10) + '.json';
+							document.body.appendChild(a);
+							a.click();
+							document.body.removeChild(a);
+							URL.revokeObjectURL(url);
+							$result.html('<div class="notice notice-success"><p><?php echo esc_js( __( 'Exported', 'generatepress_child' ) ); ?> ' + (res.data.count || 0) + ' <?php echo esc_js( __( 'products.', 'generatepress_child' ) ); ?></p></div>');
+						} else {
+							$result.html('<div class="notice notice-error"><p>' + (res.data && res.data.message ? res.data.message : '<?php echo esc_js( __( 'Export failed.', 'generatepress_child' ) ); ?>') + '</p></div>');
+						}
+					},
+					error: function() {
+						$result.html('<div class="notice notice-error"><p><?php echo esc_js( __( 'Export error.', 'generatepress_child' ) ); ?></p></div>');
+					},
+					complete: function() {
+						$exportBtn.prop('disabled', false).text('<?php echo esc_js( __( 'Export All Products', 'generatepress_child' ) ); ?>');
 					}
 				});
 			});
@@ -323,7 +368,155 @@ function linsy_process_product_json_import( $post_id, $data ) {
 }
 
 // ============================================================
-// 4. AJAX Handler — File Upload
+// 4. Export AJAX Handler
+// ============================================================
+
+add_action( 'wp_ajax_linsy_export_products', 'linsy_handle_export_products' );
+
+function linsy_handle_export_products() {
+	if ( ! wp_verify_nonce( $_POST['nonce'] ?? '', 'linsy_batch_import_action' ) ) {
+		wp_send_json_error( array( 'message' => __( 'Security check failed.', 'generatepress_child' ) ) );
+	}
+
+	if ( ! current_user_can( 'edit_posts' ) ) {
+		wp_send_json_error( array( 'message' => __( 'Permission denied.', 'generatepress_child' ) ) );
+	}
+
+	$posts = get_posts(
+		array(
+			'post_type'      => 'product',
+			'post_status'    => array( 'publish', 'draft', 'pending' ),
+			'posts_per_page' => -1,
+			'orderby'        => 'ID',
+			'order'          => 'ASC',
+		)
+	);
+
+	$products = array();
+
+	foreach ( $posts as $post ) {
+		$product = array(
+			'post_id'          => $post->ID,
+			'post_title'       => $post->post_title,
+			'post_status'      => $post->post_status,
+		);
+
+		// Hero
+		$hero_desc  = get_field( 'product_hero_desc', $post->ID );
+		$hero_specs = get_field( 'product_hero_specs', $post->ID );
+		if ( $hero_desc || $hero_specs ) {
+			$product['hero'] = array();
+			if ( $hero_desc ) {
+				$product['hero']['short_desc'] = $hero_desc;
+			}
+			if ( $hero_specs && is_array( $hero_specs ) ) {
+				$product['hero']['specs'] = array_map(
+					function ( $s ) {
+						return array(
+							'value' => $s['value'] ?? '',
+							'label' => $s['label'] ?? '',
+						);
+					},
+					$hero_specs
+				);
+			}
+		}
+
+		// Description
+		$desc_content  = get_field( 'product_desc_content', $post->ID );
+		$desc_features = get_field( 'product_desc_features', $post->ID );
+		if ( $desc_content || $desc_features ) {
+			$product['description'] = array();
+			if ( $desc_content ) {
+				$product['description']['content'] = $desc_content;
+			}
+			if ( $desc_features && is_array( $desc_features ) ) {
+				$product['description']['features'] = array_map(
+					function ( $f ) {
+						return $f['text'] ?? '';
+					},
+					$desc_features
+				);
+			}
+		}
+
+		// Applications
+		$apps = get_field( 'product_application_list', $post->ID );
+		if ( $apps && is_array( $apps ) ) {
+			$product['applications'] = array_map(
+				function ( $a ) {
+					return array(
+						'name'       => $a['application_name'] ?? '',
+						'short_desc' => $a['application_shortdesc'] ?? '',
+					);
+				},
+				$apps
+			);
+		}
+
+		// Specifications
+		$tables = get_field( 'product_spec_tables', $post->ID );
+		if ( $tables && is_array( $tables ) ) {
+			$product['specifications'] = array_map(
+				function ( $t ) {
+					$data = array();
+					if ( isset( $t['spec_table_data'] ) && is_array( $t['spec_table_data'] ) ) {
+						$data = array_map(
+							function ( $row ) {
+								return array(
+									$row['col_1'] ?? '',
+									$row['col_2'] ?? '',
+									$row['col_3'] ?? '',
+									$row['col_4'] ?? '',
+								);
+							},
+							$t['spec_table_data']
+						);
+					}
+					return array(
+						'table_name' => $t['spec_table_name'] ?? '',
+						'table_data' => $data,
+					);
+				},
+				$tables
+			);
+		}
+
+		// FAQ
+		$faq_title = get_field( 'contact_faq_title', $post->ID );
+		$faq_desc  = get_field( 'contact_faq_desc', $post->ID );
+		$faq_list  = get_field( 'contact_faq_list', $post->ID );
+		if ( $faq_title || $faq_desc || $faq_list ) {
+			$product['faq'] = array(
+				'title'       => $faq_title ?: '',
+				'description' => $faq_desc ?: '',
+			);
+			if ( $faq_list && is_array( $faq_list ) ) {
+				$product['faq']['list'] = array_map(
+					function ( $f ) {
+						return array(
+							'question' => $f['contact_faq_question'] ?? '',
+							'answer'   => $f['contact_faq_answer'] ?? '',
+						);
+					},
+					$faq_list
+				);
+			}
+		}
+
+		$products[] = $product;
+	}
+
+	wp_send_json_success(
+		array(
+			'count'    => count( $products ),
+			'products' => $products,
+		)
+	);
+}
+
+// ============================================================
+// 5. AJAX Handler — File Upload & Import
 // ============================================================
 
 add_action( 'wp_ajax_linsy_batch_import_products', 'linsy_handle_batch_product_import' );
@@ -459,47 +652,72 @@ function linsy_handle_batch_product_import() {
 	}
 
 	// ── Import All Products ──
+	$update_existing = ! empty( $_POST['update_existing'] );
 	$created = 0;
+	$updated = 0;
 	$skipped = 0;
 	$failed  = 0;
 	$links   = array();
 
 	foreach ( $all_products as $product_data ) {
-		if ( ! is_array( $product_data ) || empty( $product_data['post_title'] ) ) {
+		if ( ! is_array( $product_data ) ) {
 			++$skipped;
 			continue;
 		}
 
-		$post_id = wp_insert_post(
-			array(
-				'post_title'   => sanitize_text_field( $product_data['post_title'] ),
-				'post_type'    => 'product',
-				'post_status'  => 'draft',
-				'post_content' => '',
-			),
-			true
-		);
-
-		if ( is_wp_error( $post_id ) ) {
-			++$failed;
-			continue;
+		// Check if this is an update to an existing product
+		$post_id = null;
+		if ( $update_existing && ! empty( $product_data['post_id'] ) ) {
+			$existing = get_post( (int) $product_data['post_id'] );
+			if ( $existing && 'product' === $existing->post_type ) {
+				$post_id = $existing->ID;
+			}
 		}
 
-		// Import ACF fields
-		if ( function_exists( 'linsy_process_product_json_import' ) ) {
+		if ( $post_id ) {
+			// Update existing product
 			linsy_process_product_json_import( $post_id, $product_data );
-		}
+			++$updated;
+			$links[] = array(
+				'title' => get_the_title( $post_id ),
+				'edit'  => get_edit_post_link( $post_id, 'raw' ),
+			);
+		} else {
+			// Create new product
+			if ( empty( $product_data['post_title'] ) ) {
+				++$skipped;
+				continue;
+			}
 
-		++$created;
-		$links[] = array(
-			'title' => sanitize_text_field( $product_data['post_title'] ),
-			'edit'  => get_edit_post_link( $post_id, 'raw' ),
-		);
+			$post_id = wp_insert_post(
+				array(
+					'post_title'   => sanitize_text_field( $product_data['post_title'] ),
+					'post_type'    => 'product',
+					'post_status'  => 'draft',
+					'post_content' => '',
+				),
+				true
+			);
+
+			if ( is_wp_error( $post_id ) ) {
+				++$failed;
+				continue;
+			}
+
+			linsy_process_product_json_import( $post_id, $product_data );
+
+			++$created;
+			$links[] = array(
+				'title' => sanitize_text_field( $product_data['post_title'] ),
+				'edit'  => get_edit_post_link( $post_id, 'raw' ),
+			);
+		}
 	}
 
 	wp_send_json_success(
 		array(
 			'created' => $created,
+			'updated' => $updated,
 			'skipped' => $skipped,
 			'failed'  => $failed,
 			'links'   => $links,
