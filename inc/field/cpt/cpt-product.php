@@ -115,6 +115,14 @@ if ( function_exists( 'acf_add_local_field_group' ) ) {
 
 			// 5. Product FAQ (Cloned from Global Module)
 			array(
+				'key' => 'field_acc_product_faq_wrapper',
+				'label' => 'FAQ',
+				'type' => 'accordion',
+				'open' => 0,
+				'multi_expand' => 1,
+				'endpoint' => 0,
+			),
+			array(
 				'key' => 'field_cpt_product_faq_clone',
 				'label' => 'Product FAQ',
 				'name' => 'faq_section',
@@ -134,6 +142,12 @@ if ( function_exists( 'acf_add_local_field_group' ) ) {
 				'layout' => 'block',
 				'prefix_label' => 0,
 				'prefix_name' => 0,
+			),
+			array(
+				'key' => 'field_acc_product_faq_end',
+				'label' => 'End',
+				'type' => 'accordion',
+				'endpoint' => 1,
 			),
 
 			// Future modules can be cloned here...
