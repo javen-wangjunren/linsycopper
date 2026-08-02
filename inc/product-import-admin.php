@@ -126,7 +126,7 @@ function linsy_render_product_import_admin_page() {
 				}
 
 				$result.html('<p><?php echo esc_js( __( 'Uploading and processing...', 'generatepress_child' ) ); ?></p>');
-				$btn.prop('disabled', true).text('<?php echo esc_js( __( 'Processing...', 'generatepress_child' ) ); ?>');
+				$btn.prop('disabled', true).text(<?php echo wp_json_encode( __( 'Processing...', 'generatepress_child' ) ); ?>);
 
 				var formData = new FormData();
 				formData.append('action', 'linsy_batch_import_products');
@@ -176,7 +176,7 @@ function linsy_render_product_import_admin_page() {
 						$result.html('<div class="notice notice-error"><p>' + msg + '</p></div>');
 					},
 					complete: function() {
-						$btn.prop('disabled', false).text('<?php echo esc_js( __( 'Upload & Import', 'generatepress_child' ) ); ?>');
+						$btn.prop('disabled', false).text(<?php echo wp_json_encode( __( 'Upload & Import', 'generatepress_child' ) ); ?>);
 					}
 				});
 			});
