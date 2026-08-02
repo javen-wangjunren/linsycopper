@@ -180,6 +180,7 @@ function linsy_render_product_import_admin_page() {
 					}
 				});
 			});
+		});
 	})(jQuery);
 	</script>
 	<?php
