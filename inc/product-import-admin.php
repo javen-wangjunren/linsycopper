@@ -96,8 +96,14 @@ function linsy_render_product_import_admin_page() {
 					<?php esc_html_e( 'Upload & Import', 'generatepress_child' ); ?>
 				</button>
 				<button type="button" class="button" id="linsy-export-btn">
-					<?php esc_html_e( 'Export All Products', 'generatepress_child' ); ?>
+					<?php esc_html_e( 'Export All', 'generatepress_child' ); ?>
 				</button>
+				<button type="button" class="button" id="linsy-export-minimal-btn">
+					<?php esc_html_e( 'Export Minimal (ID + Title)', 'generatepress_child' ); ?>
+				</button>
+				<p class="description" style="margin-top:4px;">
+					<?php esc_html_e( '"Export All" downloads full product data for backup or full editing. "Export Minimal" only exports post_id + post_title, safe for AI to add partial fields (e.g. FAQ) without touching existing content.', 'generatepress_child' ); ?>
+				</p>
 			</p>
 		</form>
 
@@ -180,11 +186,20 @@ function linsy_render_product_import_admin_page() {
 					}
 				});
 			});
-		// Export button
+		// Export button (full)
 			$('#linsy-export-btn').on('click', function(e) {
-				e.preventDefault();
-				var $exportBtn = $(this);
-				$exportBtn.prop('disabled', true).text('<?php echo esc_js( __( 'Exporting...', 'generatepress_child' ) ); ?>');
+				linsyDoExport(0);
+			});
+
+			// Export button (minimal)
+			$('#linsy-export-minimal-btn').on('click', function(e) {
+				linsyDoExport(1);
+			});
+
+			function linsyDoExport(minimal) {
+				var $exportBtn = minimal ? $('#linsy-export-minimal-btn') : $('#linsy-export-btn');
+				$('#linsy-export-btn, #linsy-export-minimal-btn').prop('disabled', true);
+				$exportBtn.text('<?php echo esc_js( __( 'Exporting...', 'generatepress_child' ) ); ?>');
 
 				$.ajax({
 					url: ajaxurl,
@@ -192,7 +207,8 @@ function linsy_render_product_import_admin_page() {
 					dataType: 'json',
 					data: {
 						action: 'linsy_export_products',
-						nonce: $form.find('[name="linsy_batch_import_nonce"]').val()
+						nonce: $form.find('[name="linsy_batch_import_nonce"]').val(),
+						minimal: minimal
 					},
 					success: function(res) {
 						if (res.success) {
@@ -201,7 +217,8 @@ function linsy_render_product_import_admin_page() {
 							var url = URL.createObjectURL(blob);
 							var a = document.createElement('a');
 							a.href = url;
-							a.download = 'products-export-' + new Date().toISOString().slice(0,10) + '.json';
+							var prefix = minimal ? 'products-minimal-' : 'products-export-';
+							a.download = prefix + new Date().toISOString().slice(0,10) + '.json';
 							document.body.appendChild(a);
 							a.click();
 							document.body.removeChild(a);
@@ -215,10 +232,11 @@ function linsy_render_product_import_admin_page() {
 						$result.html('<div class="notice notice-error"><p><?php echo esc_js( __( 'Export error.', 'generatepress_child' ) ); ?></p></div>');
 					},
 					complete: function() {
-						$exportBtn.prop('disabled', false).text('<?php echo esc_js( __( 'Export All Products', 'generatepress_child' ) ); ?>');
+						$('#linsy-export-btn').prop('disabled', false).text('<?php echo esc_js( __( 'Export All', 'generatepress_child' ) ); ?>');
+						$('#linsy-export-minimal-btn').prop('disabled', false).text('<?php echo esc_js( __( 'Export Minimal (ID + Title)', 'generatepress_child' ) ); ?>');
 					}
 				});
-			});
+			}
 		});
 	})(jQuery);
 	</script>
@@ -392,14 +410,22 @@ function linsy_handle_export_products() {
 		)
 	);
 
+	$minimal = ! empty( $_POST['minimal'] );
 	$products = array();
 
 	foreach ( $posts as $post ) {
 		$product = array(
-			'post_id'          => $post->ID,
-			'post_title'       => $post->post_title,
-			'post_status'      => $post->post_status,
+			'post_id'    => $post->ID,
+			'post_title' => $post->post_title,
 		);
+
+		if ( $minimal ) {
+			// Minimal export: only ID + title, for AI to add partial fields
+			$products[] = $product;
+			continue;
+		}
+
+		$product['post_status'] = $post->post_status;
 
 		// Hero
 		$hero_desc  = get_field( 'product_hero_desc', $post->ID );
