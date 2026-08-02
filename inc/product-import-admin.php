@@ -181,7 +181,149 @@ function linsy_render_product_import_admin_page() {
 }
 
 // ============================================================
-// 3. AJAX Handler — File Upload
+// 3. Core Import Logic — Write ACF Fields
+// ============================================================
+
+/**
+ * Process JSON data and write to ACF fields.
+ *
+ * @param int   $post_id Post ID.
+ * @param array $data    Decoded JSON data.
+ * @return array Result with fields_updated count.
+ */
+function linsy_process_product_json_import( $post_id, $data ) {
+	$fields_updated = 0;
+
+	// ── Hero Section ──
+	if ( isset( $data['hero'] ) && is_array( $data['hero'] ) ) {
+		$hero = $data['hero'];
+
+		if ( isset( $hero['short_desc'] ) ) {
+			update_field( 'product_hero_desc', sanitize_textarea_field( $hero['short_desc'] ), $post_id );
+			++$fields_updated;
+		}
+
+		if ( isset( $hero['specs'] ) && is_array( $hero['specs'] ) ) {
+			$specs = array_map(
+				function ( $item ) {
+					return array(
+						'value' => isset( $item['value'] ) ? sanitize_text_field( $item['value'] ) : '',
+						'label' => isset( $item['label'] ) ? sanitize_text_field( $item['label'] ) : '',
+					);
+				},
+				$hero['specs']
+			);
+			update_field( 'product_hero_specs', $specs, $post_id );
+			++$fields_updated;
+		}
+	}
+
+	// ── Description Section ──
+	if ( isset( $data['description'] ) && is_array( $data['description'] ) ) {
+		$desc = $data['description'];
+
+		if ( isset( $desc['content'] ) ) {
+			update_field( 'product_desc_content', wp_kses_post( $desc['content'] ), $post_id );
+			++$fields_updated;
+		}
+
+		if ( isset( $desc['features'] ) && is_array( $desc['features'] ) ) {
+			$features = array_map(
+				function ( $item ) {
+					$text = is_array( $item ) ? ( $item['text'] ?? '' ) : (string) $item;
+					return array( 'text' => sanitize_text_field( $text ) );
+				},
+				$desc['features']
+			);
+			update_field( 'product_desc_features', $features, $post_id );
+			++$fields_updated;
+		}
+	}
+
+	// ── Applications Section ──
+	if ( isset( $data['applications'] ) && is_array( $data['applications'] ) ) {
+		$apps = array_map(
+			function ( $item ) {
+				return array(
+					'application_name'      => isset( $item['name'] ) ? sanitize_text_field( $item['name'] ) : '',
+					'application_shortdesc' => isset( $item['short_desc'] ) ? sanitize_textarea_field( $item['short_desc'] ) : '',
+				);
+			},
+			$data['applications']
+		);
+		update_field( 'product_application_list', $apps, $post_id );
+		++$fields_updated;
+	}
+
+	// ── Specifications Section ──
+	if ( isset( $data['specifications'] ) && is_array( $data['specifications'] ) ) {
+		$tables = array_map(
+			function ( $item ) {
+				$table_data = array();
+				if ( isset( $item['table_data'] ) && is_array( $item['table_data'] ) ) {
+					$table_data = array_map(
+						function ( $row ) {
+							if ( ! is_array( $row ) ) {
+								$row = array( (string) $row );
+							}
+							return array(
+								'col_1' => isset( $row[0] ) ? sanitize_text_field( $row[0] ) : '',
+								'col_2' => isset( $row[1] ) ? sanitize_text_field( $row[1] ) : '',
+								'col_3' => isset( $row[2] ) ? sanitize_text_field( $row[2] ) : '',
+								'col_4' => isset( $row[3] ) ? sanitize_text_field( $row[3] ) : '',
+							);
+						},
+						$item['table_data']
+					);
+				}
+				return array(
+					'spec_table_name' => isset( $item['table_name'] ) ? sanitize_text_field( $item['table_name'] ) : '',
+					'spec_table_data' => $table_data,
+				);
+			},
+			$data['specifications']
+		);
+		update_field( 'product_spec_tables', $tables, $post_id );
+		++$fields_updated;
+	}
+
+	// ── FAQ Section ──
+	if ( isset( $data['faq'] ) && is_array( $data['faq'] ) ) {
+		$faq = $data['faq'];
+
+		if ( isset( $faq['title'] ) ) {
+			update_field( 'contact_faq_title', sanitize_text_field( $faq['title'] ), $post_id );
+			++$fields_updated;
+		}
+
+		if ( isset( $faq['description'] ) ) {
+			update_field( 'contact_faq_desc', sanitize_textarea_field( $faq['description'] ), $post_id );
+			++$fields_updated;
+		}
+
+		if ( isset( $faq['list'] ) && is_array( $faq['list'] ) ) {
+			$list = array_map(
+				function ( $item ) {
+					return array(
+						'contact_faq_question' => isset( $item['question'] ) ? sanitize_text_field( $item['question'] ) : '',
+						'contact_faq_answer'   => isset( $item['answer'] ) ? sanitize_textarea_field( $item['answer'] ) : '',
+					);
+				},
+				$faq['list']
+			);
+			update_field( 'contact_faq_list', $list, $post_id );
+			++$fields_updated;
+		}
+	}
+
+	return array(
+		'fields_updated' => $fields_updated,
+		'post_id'        => $post_id,
+	);
+}
+
+// ============================================================
+// 4. AJAX Handler — File Upload
 // ============================================================
 
 add_action( 'wp_ajax_linsy_batch_import_products', 'linsy_handle_batch_product_import' );
