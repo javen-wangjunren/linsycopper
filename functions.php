@@ -63,6 +63,7 @@ $inc_files = [
     'blog-template-functions.php', // Blog 专用逻辑 (TOC等)
     'seo.php',
     'product-import-admin.php',    // 方案 B: Tools > Product Import 批量导入（JSON/ZIP 文件上传）
+    'media-alt-sync.php',        // 媒体库 Alt Text 自动同步 Title
 ];
 
 
