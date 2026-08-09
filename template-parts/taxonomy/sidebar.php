@@ -45,6 +45,48 @@ foreach ( $grades as $g ) {
 	);
 }
 
+// 3a. 服务端组装两级树 + 直接输出用的渲染数据（彻底规避 Alpine 未激活导致并排展示）。
+// 规则：
+//   - roots: parent===0
+//   - children: parent===root.id
+//   - 最后一个 child 用 "└──" 图标，其余用 "├──" 图标
+$grade_tree = array();
+if ( ! empty( $grades ) ) {
+	$by_id = array();
+	foreach ( $grades as $g ) {
+		$by_id[ (int) $g->term_id ] = $g;
+	}
+	$roots = array();
+	$kids  = array();
+	foreach ( $grades as $g ) {
+		$pid = (int) $g->parent;
+		if ( 0 === $pid ) {
+			$roots[] = $g;
+		} else {
+			if ( ! isset( $kids[ $pid ] ) ) {
+				$kids[ $pid ] = array();
+			}
+			$kids[ $pid ][] = $g;
+		}
+	}
+	foreach ( $roots as $r ) {
+		$child_terms = isset( $kids[ (int) $r->term_id ] ) ? $kids[ (int) $r->term_id ] : array();
+		$children    = array();
+		$total       = count( $child_terms );
+		foreach ( array_values( $child_terms ) as $i => $c ) {
+			$children[] = array(
+				'term' => $c,
+				'last' => ( $i === $total - 1 ),
+			);
+		}
+		$grade_tree[] = array(
+			'parent'   => $r,
+			'children' => $children,
+		);
+	}
+	unset( $by_id, $roots, $kids, $child_terms, $children );
+}
+
 $product_search_api = function_exists( 'rest_url' ) ? rest_url( 'linsy/v1/product-search' ) : '';
 ?>
 <?php
@@ -54,6 +96,39 @@ $grade_active_context = array(
 	'is_grade' => ( 'product_grade' === $current_taxonomy ),
 	'term_id'  => (int) $current_term_id,
 );
+
+/**
+ * Helper: 输出一条 grade 链接的 class（父级/子级 + 是否 active）
+ *
+ * 约定（和 Shapes / Materials 完全一致的 active 样式）：
+ * - inactive:  text-sm / text-gray-500 / hover:bg-gray-50 hover:text-[#0B3570]
+ * - active:    border-l-2 border-[#F97C30] + bg-slate-50 + font-bold + text-[#0B3570]
+ * 层级区分 ONLY by:
+ *   - padding-left 绝对差值（父级 pl-[1.5rem] / 子级 pl-[3rem]）
+ *   - 子级 ::before 的 "├──" / "└──" 树形导引线（SVG data-uri，画在 padding 空白里）
+ *   不用 font-weight / 语义色区分层级
+ *
+ * @param WP_Term $grade     分类项
+ * @param bool    $is_child  是否子级
+ * @param int     $current_term_id 当前浏览的 grade 分类项 ID
+ * @param string  $current_taxonomy 当前浏览的 taxonomy slug
+ * @return string  class 字符串
+ */
+function linsy_grade_sidebar_item_class( $grade, $is_child, $current_term_id, $current_taxonomy ) {
+	$tid       = (int) $grade->term_id;
+	$is_active = ( 'product_grade' === $current_taxonomy && (int) $current_term_id === $tid );
+
+	$base = 'block border-l border-transparent pr-4 py-2 text-sm transition relative ';
+	// 层级缩进：父 1.5rem (24px) / 子 3rem (48px)
+	// 子级多出来的 1.5rem 空间刚好放 ├── / └── 图标
+	$indent = $is_child ? 'lc-grade-nav-child pl-[3rem]' : 'lc-grade-nav-parent pl-[1.5rem]';
+
+	if ( $is_active ) {
+		return $base . 'border-l-2 border-[#F97C30] bg-slate-50 font-bold text-[#0B3570] ' . $indent;
+	}
+
+	return $base . 'text-gray-500 hover:bg-gray-50 hover:text-[#0B3570] ' . $indent;
+}
 ?>
 
 <div
@@ -69,27 +144,16 @@ $grade_active_context = array(
 		get searching() {
 			return (this.searchQuery || '').trim() !== '';
 		},
-		get gradeTree() {
-			const nodes = new Map(this.grades.map((g) => [g.id, { ...g, children: [] }]));
-			const roots = [];
-			for (const g of nodes.values()) {
-				const parent = nodes.get(g.parent);
-				if (parent) parent.children.push(g);
-				else roots.push(g);
-			}
-			return roots;
-		},
 		isActiveGrade(id) {
 			return this.gradeActive && this.gradeActive.is_grade && (this.gradeActive.term_id === id);
 		},
-		gradeClass(id, isChild) {
+		gradeSearchClass(id) {
 			const active = this.isActiveGrade(id);
-			const indent = isChild ? 'pl-10' : 'pl-4';
-			const base = 'block pr-4 py-2 text-sm transition border-l border-transparent ';
+			const base   = 'block border-l border-transparent pr-4 py-2 text-sm transition relative pl-[1.5rem] ';
 			if (active) {
-				return base + 'border-l-2 border-[#F97C30] bg-slate-50 font-bold text-[#0B3570] ' + indent;
+				return base + 'border-l-2 border-[#F97C30] bg-slate-50 font-bold text-[#0B3570] ';
 			}
-			return base + 'text-gray-500 hover:bg-gray-50 hover:text-[#0B3570] ' + indent;
+			return base + 'text-gray-500 hover:bg-gray-50 hover:text-[#0B3570] ';
 		},
 		get filteredGrades() {
 			const q = (this.searchQuery || '').trim().toLowerCase();
@@ -231,42 +295,78 @@ $grade_active_context = array(
 
 				<div x-show="loading" class="lc-mono-meta px-4 py-2 text-gray-400">Searching...</div>
 
-				<nav x-show="productResults.length > 0" class="lc-mono-meta mb-3 flex flex-col border-l border-gray-100">
+				<nav x-show="productResults.length > 0" class="lc-mono-meta mb-3 flex flex-col border-l border-gray-100" style="display: none;">
 					<template x-for="item in productResults" :key="item.url">
-						<a :href="item.url" class="border-l border-transparent px-4 py-2 text-gray-500 transition hover:bg-gray-50 hover:text-[#0B3570]" x-text="item.name"></a>
+						<a :href="item.url" class="border-l border-transparent pl-[1.5rem] pr-4 py-2 text-sm text-gray-500 transition hover:bg-gray-50 hover:text-[#0B3570]" x-text="item.name"></a>
 					</template>
 				</nav>
 
 				<nav class="lc-mono-meta flex flex-col border-l border-gray-100">
-					<!-- 搜索模式: 扁平筛选结果（不分级，避免被父分组漏掉） -->
-					<template x-if="searching">
-						<div>
-							<template x-for="grade in filteredGrades" :key="grade.url">
-								<a :href="grade.url" :class="gradeClass(grade.id, false)" x-text="grade.name"></a>
-							</template>
-						</div>
-					</template>
+					<style>
+						/* 层级区分：纯靠缩进 + ├──/└── 树形导引线，不用 font-weight / 语义色。
+						   SVG 线宽 1.5px，颜色 gray-300；对齐基线（文字行高中点）。
+						   ├── 竖线到底、横线连文字；└── 竖线只到横线处（最后一项）。 */
+						.lc-grade-nav-child::before {
+							content: '';
+							position: absolute;
+							left: 1.25rem;        /* 刚好在父级 1.5rem padding 起始处，缩进视觉差 1.75rem */
+							top: 0;
+							bottom: 0;
+							width: 1px;
+							background-color: transparent;
+							background-repeat: no-repeat;
+							background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="36" viewBox="0 0 20 36" preserveAspectRatio="none"><path d="M1 0 V36" stroke="%23D1D5DB" stroke-width="1.5" fill="none"/><path d="M1 18 H19" stroke="%23D1D5DB" stroke-width="1.5" fill="none"/></svg>');
+							background-size: 100% 100%;
+						}
+						.lc-grade-nav-child.is-grade-last::before {
+							background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="36" viewBox="0 0 20 36" preserveAspectRatio="none"><path d="M1 0 V18 H19" stroke="%23D1D5DB" stroke-width="1.5" fill="none"/></svg>');
+						}
+					</style>
 
-					<!-- 浏览模式: 纯缩进层级树（父级 pl-4 / 子级 pl-10，步长 24px）。
-					     不用 font-weight、不用语义色区分级；全部同字号同颜色，只靠左边线 + 缩进分级。 -->
-					<template x-if="!searching">
-						<div>
-							<template x-for="group in gradeTree" :key="group.url">
-								<div>
-									<a :href="group.url" :class="gradeClass(group.id, false)" x-text="group.name"></a>
-									<template x-if="group.children.length > 0">
-										<div>
-											<template x-for="child in group.children" :key="child.url">
-												<a :href="child.url" :class="gradeClass(child.id, true)" x-text="child.name"></a>
-											</template>
-										</div>
-									</template>
-								</div>
-							</template>
-						</div>
-					</template>
+					<!-- 搜索模式：扁平列表（Alpine x-for），不分层，避免分组漏搜 -->
+					<div x-show="searching" style="display: none;">
+						<template x-for="grade in filteredGrades" :key="grade.url">
+							<a :href="grade.url" :class="gradeSearchClass(grade.id)" x-text="grade.name"></a>
+						</template>
+					</div>
 
-					<div x-show="!loading && searching && productResults.length === 0 && filteredGrades.length === 0" class="px-4 py-4 text-center text-gray-400">
+					<!-- 浏览模式：PHP 服务端直接渲染两级树。
+					     x-show="!searching"：搜索时隐藏；Alpine 即使未激活也不影响（默认 display 正常展示）。
+					     ├── / └── 导引线条通过 <span class="lc-grade-nav-child" data-last=1> 来区分。
+					     不用字体粗细、不用语义色区分层级，只靠缩进 + 导引线。 -->
+					<div x-show="!searching">
+						<?php
+						foreach ( $grade_tree as $node ) :
+							$parent = $node['parent'];
+							?>
+							<a
+								href="<?php echo esc_url( get_term_link( $parent ) ); ?>"
+								class="<?php echo esc_attr( linsy_grade_sidebar_item_class( $parent, false, $current_term_id, $current_taxonomy ) ); ?>"
+							>
+								<?php echo esc_html( $parent->name ); ?>
+							</a>
+							<?php
+							if ( ! empty( $node['children'] ) ) :
+								foreach ( $node['children'] as $ck => $child_node ) :
+									$c        = $child_node['term'];
+									$is_last  = (bool) $child_node['last'];
+									$classes  = linsy_grade_sidebar_item_class( $c, true, $current_term_id, $current_taxonomy );
+									$classes .= $is_last ? ' is-grade-last' : '';
+									?>
+									<a
+										href="<?php echo esc_url( get_term_link( $c ) ); ?>"
+										class="<?php echo esc_attr( $classes ); ?>"
+									>
+										<?php echo esc_html( $c->name ); ?>
+									</a>
+									<?php
+								endforeach;
+							endif;
+						endforeach;
+						?>
+					</div>
+
+					<div x-show="!loading && searching && productResults.length === 0 && filteredGrades.length === 0" class="px-4 py-4 text-center text-gray-400" style="display: none;">
 						<p class="mb-2">No match found</p>
 						<a href="/contact-us" class="text-[#F97C30] transition hover:text-[#0B3570]">
 							Request Custom Quote &rarr;
