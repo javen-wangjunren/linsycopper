@@ -93,84 +93,105 @@ function linsy_grade_order_column_output( $content, $column_name, $term_id ) {
 /**
  * 2b. 后台 Grades 列表: "Order" 列可排序
  *
+ * 注意: orderby 值写成 "order_custom" —— 纯字符串标记给 PHP 层 usort 用，
+ * 不再交给 WP 去解析 SQL。避免和 ACF / TranslatePress 等插件在 terms_clauses
+ * 上打架导致列表返回 0 行。
+ *
  * @param array $columns Sortable columns.
  * @return array
  */
 add_filter( 'manage_edit-product_grade_sortable_columns', 'linsy_grade_order_sortable_columns' );
 
 function linsy_grade_order_sortable_columns( $columns ) {
-	$columns[ LINSY_GRADE_ORDER_META ] = LINSY_GRADE_ORDER_META;
+	$columns[ LINSY_GRADE_ORDER_META ] = 'order_custom';
 	return $columns;
 }
 
 /**
- * 2c. 后台 Grades 列表: 默认按 Order 排序（未点表头时也生效）
+ * 2c. 后台 Grades 列表: 按 Order 做 PHP 层 usort 排序（零 SQL 改动）
  *
- * 仅在 Grades 列表页（edit-tags.php?taxonomy=product_grade）且用户未显式
- * 选择排序列时接管，避免影响其它查询。
+ * 触发条件（必须同时满足）：
+ *   (1) is_admin()
+ *   (2) 当前请求是 edit-tags.php?taxonomy=product_grade
+ *   (3) (a) 未显式指定 orderby（默认进入列表页），或
+ *       (b) orderby === "order_custom"（点 Order 表头），或
+ *       (c) orderby === LINSY_GRADE_ORDER_META（兼容老 URL）
  *
- * @param array $args       Term query args.
- * @param array $taxonomies Taxonomies being queried.
+ * 为什么用 `get_terms` filter（数组级 usort）而不是 terms_clauses：
+ *   - SQL JOIN/ORDER 钩子极易和 ACF / TranslatePress / 翻译插件 / 自定义分类法
+ *     扩展冲突，典型结果是「列表 header 显示 N items，但表格 No categories found」。
+ *   - PHP 层排序只调顺序，不改 SQL，查询返回条数永远等于 SQL 返回条数，
+ *     不会出现 0 行。Grade 数量 < 200，usort 性能开销可忽略。
+ *
+ * @param array        $terms      Term objects (or their IDs, if fields != all).
+ * @param string[]     $taxonomies Taxonomies being queried.
+ * @param array        $query_args Raw term query arguments (contains orderby/order etc.).
  * @return array
  */
-add_filter( 'get_terms_args', 'linsy_grade_order_get_terms_args', 10, 2 );
+add_filter( 'get_terms', 'linsy_grade_order_php_sort', 10, 3 );
 
-function linsy_grade_order_get_terms_args( $args, $taxonomies ) {
+function linsy_grade_order_php_sort( $terms, $taxonomies, $query_args ) {
+	// 0. 只接管 product_grade taxonomy 的 is_admin 查询。
 	if ( ! is_admin() || ! in_array( 'product_grade', (array) $taxonomies, true ) ) {
-		return $args;
+		return $terms;
 	}
 
-	// 仅接管 Grades 列表页。
-	if ( empty( $_GET['taxonomy'] ) || 'product_grade' !== $_GET['taxonomy'] ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-		return $args;
+	// 1. 只接管后台 Grades 列表页的查询（避免影响菜单、Widgets 等其它 product_grade 查询）。
+	global $pagenow;
+	if ( ! ( 'edit-tags.php' === $pagenow && ! empty( $_GET['taxonomy'] ) && 'product_grade' === $_GET['taxonomy'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		return $terms;
 	}
 
-	// 用户已显式选择排序列（Name / Order / ...）时不接管。
-	if ( ! empty( $_GET['orderby'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-		return $args;
+	// 2. 如果是 fields != all（ids / names / tt_ids / slugs），不做排序（需要 term_id/name 属性才能排序，或者性能没意义）。
+	if ( empty( $terms ) || ! is_object( reset( $terms ) ) ) {
+		return $terms;
 	}
 
-	$args['orderby'] = LINSY_GRADE_ORDER_META;
-	$args['order']   = 'ASC';
+	// 3. 判定当前是在做 Order 排序（默认 Order 升序；或点 Order 表头升序/降序）。
+	//    $query_args['orderby'] 是 WP 解析后的最终 orderby（字符串或数组）。
+	$orderby = isset( $query_args['orderby'] ) ? $query_args['orderby'] : '';
+	$direction = ( isset( $query_args['order'] ) && 'DESC' === strtoupper( $query_args['order'] ) ) ? -1 : 1;
 
-	return $args;
-}
-
-/**
- * 2d. 按 Order term meta 排序的 SQL 处理
- *
- * 通过 LEFT JOIN termmeta 实现：
- * - 有 Order 的 term 按数值升序排列；
- * - 无 Order 的 term 视为 9999，按名称升序排在最后（列表稳定、可预测）。
- *
- * @param array $clauses    Term query SQL clauses.
- * @param array $taxonomies Taxonomies being queried.
- * @param array $args       Term query args.
- * @return array
- */
-add_filter( 'terms_clauses', 'linsy_grade_order_terms_clauses', 10, 3 );
-
-function linsy_grade_order_terms_clauses( $clauses, $taxonomies, $args ) {
-	if ( empty( $args['orderby'] ) || LINSY_GRADE_ORDER_META !== $args['orderby'] ) {
-		return $clauses;
+	$should_sort_by_order = false;
+	if ( is_string( $orderby ) ) {
+		if ( 'order_custom' === $orderby || LINSY_GRADE_ORDER_META === $orderby ) {
+			$should_sort_by_order = true;
+		}
+		if ( '' === $orderby && empty( $_GET['orderby'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			// 默认进入列表、用户没选 orderby → 按 Order 升序。
+			$should_sort_by_order = true;
+			$direction = 1;
+		}
 	}
 
-	global $wpdb;
+	if ( ! $should_sort_by_order ) {
+		return $terms;
+	}
 
-	$order = ( isset( $args['order'] ) && 'DESC' === strtoupper( $args['order'] ) ) ? 'DESC' : 'ASC';
+	// 4. PHP 层 usort（完全同构 linsy_get_ordered_grades() 的规则，前后台一致）。
+	usort(
+		$terms,
+		static function ( $a, $b ) use ( $direction ) {
+			$oa = (int) get_term_meta( $a->term_id, LINSY_GRADE_ORDER_META, true );
+			$ob = (int) get_term_meta( $b->term_id, LINSY_GRADE_ORDER_META, true );
 
-	$clauses['join'] .= $wpdb->prepare(
-		" LEFT JOIN {$wpdb->termmeta} AS linsy_grade_order_mo ON (t.term_id = linsy_grade_order_mo.term_id AND linsy_grade_order_mo.meta_key = %s)",
-		LINSY_GRADE_ORDER_META
+			if ( $oa <= 0 ) {
+				$oa = LINSY_GRADE_ORDER_DEFAULT;
+			}
+			if ( $ob <= 0 ) {
+				$ob = LINSY_GRADE_ORDER_DEFAULT;
+			}
+
+			if ( $oa !== $ob ) {
+				return $direction * ( $oa <=> $ob );
+			}
+
+			// 同 Order 值按名称升序，保证确定性（点击 Order 表头切换 DESC 时也同样用 name 升序当 tie-breaker，符合直觉）。
+			return $direction * ( strcasecmp( $a->name, $b->name ) );
+		}
 	);
-	$clauses['orderby'] = sprintf(
-		'ORDER BY CAST(COALESCE(linsy_grade_order_mo.meta_value, %d) AS UNSIGNED) %s, t.name %s',
-		LINSY_GRADE_ORDER_DEFAULT,
-		$order,
-		$order
-	);
 
-	return $clauses;
+	return $terms;
 }
 
 /**
