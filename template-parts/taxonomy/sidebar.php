@@ -267,10 +267,16 @@ function linsy_grade_sidebar_item_style( $is_child ) {
 				   即使 Tailwind utility 没生成，这些规则照样生效。
 				*/
 				.lc-tax-sidebar-nav         { display:flex; flex-direction:column; gap:2px; }
+                                .lc-tax-sidebar-heading     {
+                                        font-family: "Geist Sans", Geist, system-ui, -apple-system, sans-serif !important;
+                                        letter-spacing: normal !important;
+                                        text-transform: none !important;
+                                }
 				.lc-tax-sidebar-item        {
 					display:block; border-left:1px solid transparent;
 					padding-top:8px; padding-bottom:8px;
 					padding-right:16px;
+                                        font-family: "Geist Sans", Geist, system-ui, -apple-system, sans-serif !important;
 					font-size:14px; line-height:20px;
 					transition: background-color 120ms ease, color 120ms ease;
 					color:#1F2937;   /* text-gray-800 */
@@ -306,7 +312,7 @@ function linsy_grade_sidebar_item_style( $is_child ) {
 			</style>
 			<div class="space-y-10">
 				<div>
-				<h3 class="lc-mono-kicker mb-4 block border-b border-gray-100 pb-2 text-[#0B3570]">
+                                <h3 class="lc-tax-sidebar-heading mb-4 block border-b border-gray-100 pb-2 text-[#0B3570]">
 					Copper Shapes
 				</h3>
 				<nav class="lc-tax-sidebar-nav border-l border-gray-100">
@@ -327,7 +333,7 @@ function linsy_grade_sidebar_item_style( $is_child ) {
 				</div>
 
 				<div>
-				<h3 class="lc-mono-kicker mb-4 block border-b border-gray-100 pb-2 text-[#0B3570]">
+                                <h3 class="lc-tax-sidebar-heading mb-4 block border-b border-gray-100 pb-2 text-[#0B3570]">
 					Copper Material
 				</h3>
 				<nav class="lc-tax-sidebar-nav border-l border-gray-100">
@@ -349,7 +355,7 @@ function linsy_grade_sidebar_item_style( $is_child ) {
 
 				<div>
 				<div class="mb-4 flex items-center justify-between border-b border-gray-100 pb-2">
-					<h3 class="lc-mono-kicker text-[#0B3570]">
+                                        <h3 class="lc-tax-sidebar-heading text-[#0B3570]">
 						Copper Grade
 					</h3>
 					<svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
