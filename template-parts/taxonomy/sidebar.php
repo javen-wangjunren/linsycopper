@@ -119,9 +119,11 @@ function linsy_grade_sidebar_item_class( $grade, $is_child, $current_term_id, $c
 	$is_active = ( 'product_grade' === $current_taxonomy && (int) $current_term_id === $tid );
 
 	$base = 'block border-l border-transparent pr-4 py-2 text-sm transition relative ';
-	// 层级缩进：父 1.5rem (24px) / 子 3rem (48px)
-	// 子级多出来的 1.5rem 空间刚好放 ├── / └── 图标
-	$indent = $is_child ? 'lc-grade-nav-child pl-[3rem]' : 'lc-grade-nav-parent pl-[1.5rem]';
+	// 层级缩进（工业 UI 标准步长 36px / 1.5 tab）：
+	//   父级 pl-[1.00rem] = 16px
+	//   子级 pl-[3.25rem] = 52px    ← 差值 36px（一眼可辨）
+	// 子级多出的 36px 空间专门留给 ├──/└── SVG 导引线（宽 34px + 1px 安全边距）
+	$indent = $is_child ? 'lc-grade-nav-child pl-[3.25rem]' : 'lc-grade-nav-parent pl-[1rem]';
 
 	if ( $is_active ) {
 		return $base . 'border-l-2 border-[#F97C30] bg-slate-50 font-bold text-[#0B3570] ' . $indent;
@@ -149,7 +151,7 @@ function linsy_grade_sidebar_item_class( $grade, $is_child, $current_term_id, $c
 		},
 		gradeSearchClass(id) {
 			const active = this.isActiveGrade(id);
-			const base   = 'block border-l border-transparent pr-4 py-2 text-sm transition relative pl-[1.5rem] ';
+			const base   = 'block border-l border-transparent pr-4 py-2 text-sm transition relative pl-[1rem] ';
 			if (active) {
 				return base + 'border-l-2 border-[#F97C30] bg-slate-50 font-bold text-[#0B3570] ';
 			}
@@ -297,29 +299,44 @@ function linsy_grade_sidebar_item_class( $grade, $is_child, $current_term_id, $c
 
 				<nav x-show="productResults.length > 0" class="lc-mono-meta mb-3 flex flex-col border-l border-gray-100" style="display: none;">
 					<template x-for="item in productResults" :key="item.url">
-						<a :href="item.url" class="border-l border-transparent pl-[1.5rem] pr-4 py-2 text-sm text-gray-500 transition hover:bg-gray-50 hover:text-[#0B3570]" x-text="item.name"></a>
+						<a :href="item.url" class="border-l border-transparent pl-[1rem] pr-4 py-2 text-sm text-gray-500 transition hover:bg-gray-50 hover:text-[#0B3570]" x-text="item.name"></a>
 					</template>
 				</nav>
 
 				<nav class="lc-mono-meta flex flex-col border-l border-gray-100">
 					<style>
-						/* 层级区分：纯靠缩进 + ├──/└── 树形导引线，不用 font-weight / 语义色。
-						   SVG 线宽 1.5px，颜色 gray-300；对齐基线（文字行高中点）。
-						   ├── 竖线到底、横线连文字；└── 竖线只到横线处（最后一项）。 */
+						/* ============================================================
+						   Grade 层级导引线（工业风 Tree Widget：纯缩进 + ├──/└──）
+						   ============================================================
+						   盒子空间分配：
+						     父级  pl-[1rem]  (16px)  → 文字起点 x=16px
+						     子级  pl-[3.25rem] (52px) → 文字起点 x=52px
+						     导引线占位区：x=16..52 (宽 36px)
+						   SVG 画布：36×16px，定位 left=16px top=50% translateY(-50%)，
+						   永远在每行垂直居中，不受 line-height 影响。
+						   stroke 加深到 gray-400 (#9CA3AF) + 加粗到 2px，
+						   水平线末端加小实心箭头指向文字起始位置。
+						   ├──（普通子项）：竖线贯穿整行上下 → 横线连到箭头
+						   └──（末尾子项）：竖线只画到行中点之上 → 横线连到箭头
+						*/
 						.lc-grade-nav-child::before {
 							content: '';
 							position: absolute;
-							left: 1.25rem;        /* 刚好在父级 1.5rem padding 起始处，缩进视觉差 1.75rem */
-							top: 0;
-							bottom: 0;
-							width: 1px;
-							background-color: transparent;
+							left: 1rem;               /* 对齐父级文字左起点 (x=16) */
+							top: 50%;
+							transform: translateY(-50%);
+							width: 36px;              /* 占满 pl 差值 (16..52) */
+							height: 16px;             /* 固定高度，不再被行高拉伸 */
 							background-repeat: no-repeat;
-							background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="36" viewBox="0 0 20 36" preserveAspectRatio="none"><path d="M1 0 V36" stroke="%23D1D5DB" stroke-width="1.5" fill="none"/><path d="M1 18 H19" stroke="%23D1D5DB" stroke-width="1.5" fill="none"/></svg>');
-							background-size: 100% 100%;
+							background-position: left center;
+							background-size: 36px 16px;
+							/* ├──：竖线 (0,0)→(0,16) + 横线 (0,8)→(32,8) + 箭头 ▶ (32,5)→(36,8)→(32,11) */
+							background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="36" height="16" viewBox="0 0 36 16"><path d="M0.5 0 V16" stroke="%239CA3AF" stroke-width="2" fill="none"/><path d="M0.5 8 H32" stroke="%239CA3AF" stroke-width="2" fill="none"/><path d="M32 5 L36 8 L32 11 Z" fill="%239CA3AF"/></svg>');
+							pointer-events: none;
 						}
 						.lc-grade-nav-child.is-grade-last::before {
-							background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="36" viewBox="0 0 20 36" preserveAspectRatio="none"><path d="M1 0 V18 H19" stroke="%23D1D5DB" stroke-width="1.5" fill="none"/></svg>');
+							/* └──：竖线只画到行中线 (0,0)→(0,8)，之后横线 + 箭头，下方不再继续垂直线 */
+							background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="36" height="16" viewBox="0 0 36 16"><path d="M0.5 0 V8" stroke="%239CA3AF" stroke-width="2" fill="none"/><path d="M0.5 8 H32" stroke="%239CA3AF" stroke-width="2" fill="none"/><path d="M32 5 L36 8 L32 11 Z" fill="%239CA3AF"/></svg>');
 						}
 					</style>
 
