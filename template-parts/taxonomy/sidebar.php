@@ -285,7 +285,7 @@ function linsy_grade_sidebar_item_style( $is_child ) {
 				.lc-tax-sidebar-item:hover  { background-color:#FDF2E8; color:#0B3570; }
 				.lc-tax-sidebar-item.is-active {
 					border-left:2px solid #F97C30;
-					background-color:#F8FAFC;  /* bg-slate-50 */
+                                        background-color:rgb(240, 242, 248);
 					font-weight:700;
 					color:#0B3570;
 				}
