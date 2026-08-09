@@ -8,6 +8,8 @@
  * 1. Fetches all Shapes, Materials, and Grades.
  * 2. Highlights the current term.
  * 3. Provides client-side Grade Search via Alpine.js.
+ * 4. Grades render as a hierarchical tree (parent → children) and follow
+ *    the manual Order set in the admin (inc/grade-order.php).
  * 
  * @package GeneratePress_Child
  */
@@ -30,19 +32,17 @@ $materials = get_terms( array(
 	'hide_empty' => false,
 ) );
 
-// 3. Grades (for Search)
-$grades = get_terms( array(
-	'taxonomy'   => 'product_grade',
-	'hide_empty' => false,
-) );
+// 3. Grades (for Search + Tree)
+// 按后台 Order 排序；每项带 parent，用于前端组装层级树。
+$grades = function_exists( 'linsy_get_ordered_grades' ) ? linsy_get_ordered_grades() : array();
 $grades_data = array();
-if ( ! is_wp_error( $grades ) && ! empty( $grades ) ) {
-	foreach ( $grades as $g ) {
-		$grades_data[] = array(
-			'name' => $g->name,
-			'url'  => get_term_link( $g ),
-		);
-	}
+foreach ( $grades as $g ) {
+	$grades_data[] = array(
+		'id'     => (int) $g->term_id,
+		'parent' => (int) $g->parent,
+		'name'   => $g->name,
+		'url'    => get_term_link( $g ),
+	);
 }
 
 $product_search_api = function_exists( 'rest_url' ) ? rest_url( 'linsy/v1/product-search' ) : '';
@@ -57,6 +57,19 @@ $product_search_api = function_exists( 'rest_url' ) ? rest_url( 'linsy/v1/produc
 		loading: false,
 		_t: null,
 		api: <?php echo htmlspecialchars( json_encode( $product_search_api ), ENT_QUOTES, 'UTF-8' ); ?>,
+		get searching() {
+			return (this.searchQuery || '').trim() !== '';
+		},
+		get gradeTree() {
+			const nodes = new Map(this.grades.map((g) => [g.id, { ...g, children: [] }]));
+			const roots = [];
+			for (const g of nodes.values()) {
+				const parent = nodes.get(g.parent);
+				if (parent) parent.children.push(g);
+				else roots.push(g);
+			}
+			return roots;
+		},
 		get filteredGrades() {
 			const q = (this.searchQuery || '').trim().toLowerCase();
 			if (q === '') return this.grades;
@@ -204,10 +217,34 @@ $product_search_api = function_exists( 'rest_url' ) ? rest_url( 'linsy/v1/produc
 				</nav>
 
 				<nav class="lc-mono-meta flex flex-col border-l border-gray-100">
-					<template x-for="grade in filteredGrades" :key="grade.url">
-						<a :href="grade.url" class="border-l border-transparent px-4 py-2 text-gray-500 transition hover:bg-gray-50 hover:text-[#0B3570]" x-text="grade.name"></a>
+					<!-- 搜索模式: 扁平筛选结果 -->
+					<template x-if="searching">
+						<div>
+							<template x-for="grade in filteredGrades" :key="grade.url">
+								<a :href="grade.url" class="border-l border-transparent px-4 py-2 text-gray-500 transition hover:bg-gray-50 hover:text-[#0B3570]" x-text="grade.name"></a>
+							</template>
+						</div>
 					</template>
-					<div x-show="!loading && searchQuery.trim() !== '' && productResults.length === 0 && filteredGrades.length === 0" class="px-4 py-4 text-center text-gray-400">
+
+					<!-- 浏览模式: 父级 → 子级 层级树 -->
+					<template x-if="!searching">
+						<div>
+							<template x-for="group in gradeTree" :key="group.url">
+								<div>
+									<a :href="group.url" class="block border-l-2 border-transparent px-4 py-2 text-sm font-semibold text-[#0B3570] transition hover:border-[#F97C30] hover:bg-gray-50" x-text="group.name"></a>
+									<template x-if="group.children.length > 0">
+										<div class="ml-3 border-l border-gray-100">
+											<template x-for="child in group.children" :key="child.url">
+												<a :href="child.url" class="block border-l border-transparent px-4 py-2 text-gray-500 transition hover:bg-gray-50 hover:text-[#0B3570]" x-text="child.name"></a>
+											</template>
+										</div>
+									</template>
+								</div>
+							</template>
+						</div>
+					</template>
+
+					<div x-show="!loading && searching && productResults.length === 0 && filteredGrades.length === 0" class="px-4 py-4 text-center text-gray-400">
 						<p class="mb-2">No match found</p>
 						<a href="/contact-us" class="text-[#F97C30] transition hover:text-[#0B3570]">
 							Request Custom Quote &rarr;

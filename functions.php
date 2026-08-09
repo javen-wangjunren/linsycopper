@@ -47,6 +47,7 @@ $inc_files = [
     'helpers.php',           // 全局工具函数
     'breadcrumbs.php',       // 产品页面包屑逻辑
     'admin-filters.php',     // 后台体验优化 (SVG支持等)
+    'grade-order.php',       // Grade 分类法后台排序 + 前端统一顺序
     'disable-comments.php',  // 全站关闭评论功能
 
     // 2. ACF 核心 (必须保留)
