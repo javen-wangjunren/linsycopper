@@ -47,12 +47,21 @@ foreach ( $grades as $g ) {
 
 $product_search_api = function_exists( 'rest_url' ) ? rest_url( 'linsy/v1/product-search' ) : '';
 ?>
+<?php
+// 预计算 grade 当前 active 上下文：如果当前 taxonomy 是 product_grade，则带上当前 term id。
+// 供 Alpine 渲染 grade 树时判断 active 高亮（和 Shapes / Materials 栏行为一致）。
+$grade_active_context = array(
+	'is_grade' => ( 'product_grade' === $current_taxonomy ),
+	'term_id'  => (int) $current_term_id,
+);
+?>
 
 <div
 	x-data="{
 		drawerOpen: false,
 		searchQuery: '',
 		grades: <?php echo htmlspecialchars( json_encode( $grades_data ), ENT_QUOTES, 'UTF-8' ); ?>,
+		gradeActive: <?php echo htmlspecialchars( json_encode( $grade_active_context ), ENT_QUOTES, 'UTF-8' ); ?>,
 		productResults: [],
 		loading: false,
 		_t: null,
@@ -69,6 +78,18 @@ $product_search_api = function_exists( 'rest_url' ) ? rest_url( 'linsy/v1/produc
 				else roots.push(g);
 			}
 			return roots;
+		},
+		isActiveGrade(id) {
+			return this.gradeActive && this.gradeActive.is_grade && (this.gradeActive.term_id === id);
+		},
+		gradeClass(id, isChild) {
+			const active = this.isActiveGrade(id);
+			const indent = isChild ? 'pl-10' : 'pl-4';
+			const base = 'block pr-4 py-2 text-sm transition border-l border-transparent ';
+			if (active) {
+				return base + 'border-l-2 border-[#F97C30] bg-slate-50 font-bold text-[#0B3570] ' + indent;
+			}
+			return base + 'text-gray-500 hover:bg-gray-50 hover:text-[#0B3570] ' + indent;
 		},
 		get filteredGrades() {
 			const q = (this.searchQuery || '').trim().toLowerCase();
@@ -217,25 +238,26 @@ $product_search_api = function_exists( 'rest_url' ) ? rest_url( 'linsy/v1/produc
 				</nav>
 
 				<nav class="lc-mono-meta flex flex-col border-l border-gray-100">
-					<!-- 搜索模式: 扁平筛选结果 -->
+					<!-- 搜索模式: 扁平筛选结果（不分级，避免被父分组漏掉） -->
 					<template x-if="searching">
 						<div>
 							<template x-for="grade in filteredGrades" :key="grade.url">
-								<a :href="grade.url" class="border-l border-transparent px-4 py-2 text-gray-500 transition hover:bg-gray-50 hover:text-[#0B3570]" x-text="grade.name"></a>
+								<a :href="grade.url" :class="gradeClass(grade.id, false)" x-text="grade.name"></a>
 							</template>
 						</div>
 					</template>
 
-					<!-- 浏览模式: 父级 → 子级 层级树 -->
+					<!-- 浏览模式: 纯缩进层级树（父级 pl-4 / 子级 pl-10，步长 24px）。
+					     不用 font-weight、不用语义色区分级；全部同字号同颜色，只靠左边线 + 缩进分级。 -->
 					<template x-if="!searching">
 						<div>
 							<template x-for="group in gradeTree" :key="group.url">
 								<div>
-									<a :href="group.url" class="block border-l-2 border-transparent px-4 py-2 text-sm font-semibold text-[#0B3570] transition hover:border-[#F97C30] hover:bg-gray-50" x-text="group.name"></a>
+									<a :href="group.url" :class="gradeClass(group.id, false)" x-text="group.name"></a>
 									<template x-if="group.children.length > 0">
-										<div class="ml-3 border-l border-gray-100">
+										<div>
 											<template x-for="child in group.children" :key="child.url">
-												<a :href="child.url" class="block border-l border-transparent px-4 py-2 text-gray-500 transition hover:bg-gray-50 hover:text-[#0B3570]" x-text="child.name"></a>
+												<a :href="child.url" :class="gradeClass(child.id, true)" x-text="child.name"></a>
 											</template>
 										</div>
 									</template>
