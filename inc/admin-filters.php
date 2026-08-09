@@ -384,14 +384,20 @@ function linsy_print_product_quick_edit_layout_style() {
 			}
 		}
 
-		/* The GRID PARENT for (title,ul) × 3 pairs. */
+		/* The GRID PARENT for (title,ul) × 3 pairs.
+		 * Give the 3rd column (Grades) an asymmetrically more room because
+		 * grade names like "High Copper Alloy Grades" are 4+ words
+		 * and need a wider column to display on a single line.
+		 * Col 1 (Shapes):    1fr, min ~130px (enough for "Copper Sheet")
+		 * Col 2 (Materials):  1fr, min ~130px (enough for "Pure Copper")
+		 * Col 3 (Grades):   1.6fr, min 260px (target >= High Copper Alloy Grades)
+		 */
 		body.wp-admin .inline-edit-col-center.inline-edit-categories > .inline-edit-col {
 			display: grid;
 			width: 100% !important;
 			min-width: 100% !important;
 			max-width: 100% !important;
-			/* 3 equal columns, each starts with a title row and then a list row. */
-			grid-template-columns: repeat(3, minmax(0, 1fr));
+			grid-template-columns: minmax(130px, 1fr) minmax(130px, 1fr) minmax(260px, 1.6fr);
 			grid-template-rows: auto 140px;
 			gap: 6px 24px;
 			align-items: start;
@@ -474,6 +480,9 @@ function linsy_print_product_quick_edit_layout_style() {
 
 		/* =====================================================================
 		 * 6) Each list column: 140px tall, border, scrollbar only inside it.
+		 *    Grades column is separately reinforced with a larger min-width so
+		 *    4-word grade labels ("High Copper Alloy Grades") render on 1 line
+		 *    regardless of how narrow the overall fieldset is.
 		 * ===================================================================== */
 		body.wp-admin .inline-edit-col-center.inline-edit-categories > .inline-edit-col > ul.cat-checklist {
 			margin: 0 !important;
@@ -488,6 +497,17 @@ function linsy_print_product_quick_edit_layout_style() {
 			background: #fff;
 			list-style: none;
 			writing-mode: horizontal-tb !important;
+		}
+		/* Grades only: prevent any collapse below 260px, the measured width
+		 * needed for "High Copper Alloy Grades" (~4 words) to stay on 1 line.
+		 */
+		body.wp-admin .inline-edit-col-center.inline-edit-categories > .inline-edit-col
+			> ul.cat-checklist.product_grade-checklist {
+			min-width: 260px !important;
+		}
+		body.wp-admin .inline-edit-col-center.inline-edit-categories > .inline-edit-col
+			> ul.cat-checklist.product_grade-checklist li label.selectit {
+			white-space: nowrap;
 		}
 
 		/* Label normalization — prevent any future 1-col vertical wrap. */
