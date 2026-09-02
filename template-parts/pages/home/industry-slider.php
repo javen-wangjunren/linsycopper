@@ -57,9 +57,18 @@ if ( empty( $normalized_slides ) ) {
 	return;
 }
 
+// JSON 仅保留背景图数据（供 Alpine.js 懒加载使用），文本内容已在 HTML 中服务端渲染
+$bg_slides_json_data = [];
+foreach ( $normalized_slides as $slide ) {
+	$bg_slides_json_data[] = [
+		'bg_sm' => $slide['bg_sm'],
+		'bg_lg' => $slide['bg_lg'],
+	];
+}
+
 $slides_json = function_exists( 'wp_json_encode' )
-	? wp_json_encode( $normalized_slides, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP )
-	: json_encode( $normalized_slides, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP );
+	? wp_json_encode( $bg_slides_json_data, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP )
+	: json_encode( $bg_slides_json_data, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP );
 
 if ( ! is_string( $slides_json ) || $slides_json === '' ) {
 	$slides_json = '[]';
@@ -82,15 +91,19 @@ window.<?php echo esc_attr( $instance_var ); ?> = <?php echo $slides_json; ?>;
 
 	<div class="relative z-10 mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-8">
 		<div class="lc-home-industry-copy text-white" x-show="slides && slides.length">
-			<h3 class="text-heading lc-home-industry-title" x-text="slides[currentIndex] ? slides[currentIndex].title : ''"></h3>
+			<?php foreach ( $normalized_slides as $idx => $slide ) : ?>
+				<div class="lc-home-industry-slide" x-show="currentIndex === <?php echo (int) $idx; ?>" x-transition.opacity.duration.700ms<?php echo $idx > 0 ? ' style="display:none;"' : ''; ?>>
+					<h3 class="text-heading lc-home-industry-title"><?php echo esc_html( $slide['title'] ); ?></h3>
 
-			<p class="lc-body-section lc-home-industry-desc" x-text="slides[currentIndex] ? slides[currentIndex].desc : ''"></p>
+					<p class="lc-body-section lc-home-industry-desc"><?php echo esc_html( $slide['desc'] ); ?></p>
 
-			<div class="lc-home-industry-actions flex flex-col sm:flex-row gap-4">
-				<a class="lc-home-industry-btn" :href="(slides[currentIndex] && slides[currentIndex].cta_url) ? slides[currentIndex].cta_url : '#'" :target="(slides[currentIndex] && slides[currentIndex].cta_target) ? slides[currentIndex].cta_target : '_self'">
-					<span x-text="(slides[currentIndex] && slides[currentIndex].cta_label) ? slides[currentIndex].cta_label : 'Get a Specific Quote'"></span>
-				</a>
-			</div>
+					<div class="lc-home-industry-actions flex flex-col sm:flex-row gap-4">
+						<a class="lc-home-industry-btn" href="<?php echo $slide['cta_url'] ? esc_url( $slide['cta_url'] ) : '#'; ?>"<?php echo $slide['cta_target'] && $slide['cta_target'] !== '_self' ? ' target="' . esc_attr( $slide['cta_target'] ) . '"' : ''; ?>>
+							<span><?php echo esc_html( $slide['cta_label'] ); ?></span>
+						</a>
+					</div>
+				</div>
+			<?php endforeach; ?>
 		</div>
 	</div>
 
